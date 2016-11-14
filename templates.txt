@@ -1,0 +1,7 @@
+Templates:
+
+1. https://p.w3layouts.com/demos/aug-2016/24-08-2016/one_movies/web/index.html
+
+2. https://p.w3layouts.com/demos/cinema/web/
+
+No primeiro falta colocar um player de vídeo, o que não creio ser difícil
