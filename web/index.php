@@ -42,7 +42,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<a href="index.html"><img src="images/logo.png" alt="" /></a>
 					<p>Cinema em casa</p>
 				</div>
-				<div class="search">
+				<!-- <div class="search"> -->
 					<!-- Pesquisa
 					<form>
 						<input type="text" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}"/>
@@ -52,17 +52,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<?php
 						if (!(isset($_SESSION['logado']) && $_SESSION['logado'])){
 							echo '
-								<form autocomplete = "off" name = "login" method = "POST" action = "login.php">
-									Usuario: <input type = "text" placeholder = "Usuario" name = "user">
-									Senha:   <input type = "password" placeholder = "Senha" name = "passwd">
-									<section><button> login </button></section>
-								</form>
+							  <form class="navbar-form navbar-right" role="search" autocomplete = "off" name = "login" method = "POST" action = "login.php">
+							 		<div class = "form-group">
+							 			<input class = "form-control" type = "text" placeholder = "Usuario" name = "user">
+							 		</div>
+							 		<div class = "form-group">
+							 			<input class = "form-control" type = "password" placeholder = "Senha" name = "passwd">
+							 		</div>
+							 		<button class="btn btn-default" type="submit"> Login </button>
+							  </form>
 							';
 						} else {
 							echo 'Bem-vindo, ' . $_SESSION['user'] . '!';
 						}
 					?>
-				</div>
+				<!-- FIM PESQUISA </div> -->
 				<div class="clearfix"></div>
 			</div>
 			<div class="header-info">
