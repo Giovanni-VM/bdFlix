@@ -13,7 +13,7 @@
 <body>
 	<form action = "checa_login_perfil.php" method = "POST">
 	  <div class="login-form">
-	     <h1>LOGIN <?php if(isset($_SESSION["cont"])) echo $_SESSION["cont"]; ?></h1>
+	     <h1>LOGIN</h1>
 	     <div class="form-group ">
 	       <input type="text" class="form-control" placeholder="Id Usuario" name="user">
 	       <i class="fa fa-user"></i>
