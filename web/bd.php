@@ -2,7 +2,7 @@
 
 $host = 'localhost';
 $username = 'root';
-$password = 'Thyratos2Aslarot';
+$password = 'SuaSenha';
 $dbname = 'bdflix';
 
 ?>
