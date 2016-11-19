@@ -4,15 +4,17 @@
 
 
 CREATE TABLE Genero (
-idGenero INT PRIMARY KEY,
+idGenero INT PRIMARY KEY AUTO_INCREMENT,
 nome VARCHAR(50)
 );
 
 CREATE TABLE Serie (
-idSerie INT PRIMARY KEY,
+idSerie INT PRIMARY KEY AUTO_INCREMENT,
 pesquisas INT,
 faixa INT,
-nome VARCHAR(50)
+nome VARCHAR(50),
+timestamp TIMESTAMP,
+capa VARCHAR(255)
 );
 
 CREATE TABLE Preferencia (
@@ -31,10 +33,12 @@ FOREIGN KEY(idSerie) REFERENCES Serie (idSerie)
 );
 
 CREATE TABLE Filme (
-idMidia INT PRIMARY KEY,
+idMidia INT PRIMARY KEY AUTO_INCREMENT,
 faixa INT,
 trailer VARCHAR(255),
-pesquisas INT
+pesquisas INT,
+timestamp TIMESTAMP,
+capa VARCHAR(255)
 );
 
 CREATE TABLE GeneroFilme (
@@ -52,7 +56,7 @@ PRIMARY KEY(id,idList)
 );
 
 CREATE TABLE Midia (
-idMidia INT PRIMARY KEY,
+idMidia INT PRIMARY KEY AUTO_INCREMENT,
 duracao INT,
 titulo VARCHAR(50),
 tipo BOOL
@@ -67,7 +71,7 @@ FOREIGN KEY(idMidia) REFERENCES Midia (idMidia)
 );
 
 CREATE TABLE Perfil (
-idPerfil INT PRIMARY KEY,
+idPerfil INT PRIMARY KEY AUTO_INCREMENT,
 idCliente INT,
 nome VARCHAR(50),
 senha VARCHAR(50),
@@ -76,7 +80,7 @@ idade INT
 );
 
 CREATE TABLE Plano (
-idPlano INT PRIMARY KEY,
+idPlano INT PRIMARY KEY AUTO_INCREMENT,
 nomePlano VARCHAR(50),
 qtdPerfis INT,
 valor FLOAT
@@ -90,7 +94,7 @@ FOREIGN KEY(idPerfil) REFERENCES Perfil (idPerfil)
 );
 
 CREATE TABLE Cliente (
-idCliente INT PRIMARY KEY,
+idCliente INT PRIMARY KEY AUTO_INCREMENT,
 user VARCHAR(50),
 nome VARCHAR(50),
 cpf BIGINT,
@@ -110,7 +114,7 @@ FOREIGN KEY(idPlano) REFERENCES Plano (idPlano)
 );
 
 CREATE TABLE Fatura (
-nFat INT PRIMARY KEY,
+nFat INT PRIMARY KEY AUTO_INCREMENT,
 dataIni DATE,
 dataFim DATE,
 paga BOOL,
@@ -120,11 +124,12 @@ FOREIGN KEY(idCliente) REFERENCES Cliente (idCliente)
 );
 
 CREATE TABLE Movielist (
-idList INT PRIMARY KEY,
+idList INT PRIMARY KEY AUTO_INCREMENT,
 idCriador INT,
 nome VARCHAR(50),
 descricao VARCHAR(100),
 publica BOOL,
+seguidores INT,
 FOREIGN KEY(idCriador) REFERENCES Perfil (idPerfil)
 );
 
@@ -153,3 +158,11 @@ ALTER TABLE MidiasList ADD FOREIGN KEY(idList) REFERENCES Movielist (idList);
 ALTER TABLE Historico ADD FOREIGN KEY(idPerfil) REFERENCES Perfil (idPerfil);
 ALTER TABLE Perfil ADD FOREIGN KEY(idCliente) REFERENCES Cliente (idCliente);
 ALTER TABLE SegueList ADD FOREIGN KEY(idList) REFERENCES Movielist (idList);
+ALTER TABLE Genero AUTO_INCREMENT = 0;
+ALTER TABLE Serie AUTO_INCREMENT = 0;
+ALTER TABLE Midia AUTO_INCREMENT = 0;
+ALTER TABLE Perfil AUTO_INCREMENT = 0;
+ALTER TABLE Plano AUTO_INCREMENT = 0;
+ALTER TABLE Cliente AUTO_INCREMENT = 0;
+ALTER TABLE Fatura AUTO_INCREMENT = 0;
+ALTER TABLE Movielist AUTO_INCREMENT = 0;
