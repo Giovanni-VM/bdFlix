@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if(isset($_SESSION['perf_logado']) && $_SESSION['perf_logado']){
+  header('Location: home.php');
+  exit();
+}
+
 include 'valida_campos.php';
 include 'bd.php';
 
