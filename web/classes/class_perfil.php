@@ -10,27 +10,27 @@ class Perfil{
     public static function __generate(MySQLi_Result $query){
         $objetos = [];
         while($res = $query->fetch_row()){
-            $objetos[] = new Cliente($res);
+            $objetos[] = new Perfil($res);
         }
         return $objetos;
     }
 
-    public static function __querySQL(string $sql, mysqli $con){
-        if($query = $mysqli->query($sql)){
+    public static function __querySQL($sql, $con){
+        if($query = $con->query($sql)){
             return Perfil::__generate($query);
         } else {
             return NULL;
         }
     }
 
-    public function __construct(array $tuple){
+    public function __construct($tuple){
         if(!empty($tuple)){
-            $this->idPerfil = $tuple["idPerfil"];
-            $this->idCliente = $tuple["idCliente"];
-            $this->nome = $tuple["nome"];
-            $this->senha = $tuple["senha"];
-            $this->ftPerfil = $tuple["ftPerfil"];
-            $this->idade = $tuple["idade"];
+            $this->idPerfil = $tuple[0];
+            $this->idCliente = $tuple[1];
+            $this->nome = $tuple[2];
+            $this->senha = $tuple[3];
+            $this->ftPerfil = $tuple[4];
+            $this->idade = $tuple[5];
         } else {
             $this->idPerfil = NULL;
         }

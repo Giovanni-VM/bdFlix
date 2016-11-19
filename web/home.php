@@ -1,3 +1,14 @@
+<?php session_start(); 
+include "classes/class_perfil.php";
+include "bd.php";
+
+
+$sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
+$conn = new mysqli($host, $username, $password, $dbname);
+
+$p = Perfil::__querySQL($sql,$conn);
+$perfil = $p[0];
+?>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -27,19 +38,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="full">
 			<div class="menu">
 				<ul>
-					<li><a class="active" href="index.html"><i class="home"></i></a></li>
-					<li><a href="videos.html"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
-					<li><a href="reviews.html"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
-					<li><a href="404.html"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
-					<li><a href="contact.html"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
+					<li><a class="active" href="home.php"><i class="home"></i></a></li>
+					<li><a href="videos.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
+					<li><a href="genero.php"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
+					<li><a href="contact.php"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
 				</ul>
 			</div>
 		<div class="main">
 		<div class="header">
 			<div class="top-header">
 				<div class="logo">
-					<a href="index.html"><img src="images/logo.png" alt="" /></a>
-					<p>Cinema em casa</p>
+					<p><?php echo "Usuario: ".$_SESSION["user"]; ?> </p>
 				</div>
 				<div class="search">
 					<form>
@@ -48,16 +57,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</form>
 		 		</div>
 				<div class="clearfix"></div>
+			</div>					
+			<div class="right-content-heading-left">
+				<h3 class="head">&Uacute;ltimos filmes assistidos</h3>
 			</div>
-			<div class="header-info">
-				<h1>BIG HERO 6</h1>
-				<p class="age"><a href="#">All Age</a> Don Hall, Chris Williams</p>
-				<p class="review">Rating	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;  8,5/10</p>
-				<p class="review reviewgo">Genre	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp; Animation, Action, Comedy</p>
-				<p class="review">Release &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp; 7 November 2014</p>
-				<p class="special">The special bond that develops between plus-sized inflatable robot Baymax, and prodigy Hiro Hamada, who team up with a group of friends to form a band of high-tech heroes.</p>
-				<a class="video" href="#"><i class="video1"></i>WATCH TRAILER</a>
-				<a class="book" href="#"><i class="book1"></i>BOOK TICKET</a>
+			<div class="right-content-heading-left">
+				<h3 class="head">&Uacute;ltimas S&eacute;ries assistidas</h3>
+			</div>
+			<div class="right-content-heading-left">
+				<h3 class="head">&Uacute;ltimos lancamentos</h3>
+			</div>
+			<div class="right-content-heading-left">
+				<h3 class="head">Filmes mais assistidos</h3>
+			</div>
+			<div class="right-content-heading-left">
+				<h3 class="head">Filmes mais procurados nos seus g&ecirc;neros favoritos</h3>
 			</div>
 		</div>
 		<div class="review-slider">
