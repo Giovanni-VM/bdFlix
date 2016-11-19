@@ -16,6 +16,11 @@ $con = new mysqli($host, $username, $password, $dbname);
 <head>
 <title>BdFlix</title>
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+
+
+
+
+
 <!-- Custom Theme files -->
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
@@ -35,7 +40,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="menu">
 			</div>
 		<div class="main">
+		
 		<div class="header">
+		<!--
 			<div class="top-header">
 				<div class="logo">
 					<a href="index.html"><img src="images/logo.png" alt="" /></a>
@@ -51,6 +58,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="header-info">
 			</div>
+			-->
 		</div>
 		<div class="review-slider">
 		</ul>
