@@ -1,4 +1,4 @@
--- Geração de Modelo físico
+-- Geraï¿½ï¿½o de Modelo fï¿½sico
 -- Sql ANSI 2003 - brModelo.
 
 
@@ -91,11 +91,12 @@ FOREIGN KEY(idPerfil) REFERENCES Perfil (idPerfil)
 
 CREATE TABLE Cliente (
 idCliente INT PRIMARY KEY,
+user VARCHAR(50),
 nome VARCHAR(50),
-cpf INT,
+cpf BIGINT,
 email VARCHAR(50),
-senha VARCHAR(50),
-nCartao INT,
+senha CHAR(32),
+nCartao VARCHAR(20),
 codCartao INT,
 valCartao DATE,
 estado VARCHAR(3),
