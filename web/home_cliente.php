@@ -4,6 +4,13 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+
+<?php
+include "bd.php";
+include "classes/class_cliente.php";
+$con = new mysqli($host, $username, $password, $dbname);
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,9 +55,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="review-slider">
 		</ul>
 		<script type="text/javascript" src="js/jquery.flexisel.js"></script>
-		</div>
-		<div class="video">
-			<iframe  src="https://www.youtube.com/embed/2LqzF5WauAw" frameborder="0" allowfullscreen></iframe>
 		</div>
 		<div class="news">
 

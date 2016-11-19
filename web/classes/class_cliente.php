@@ -24,34 +24,51 @@
         return $objetos;
     }
 
-    public static function __querySQL(string $sql, mysqli $con){
+    public static function __querySQL($sql, $con){
         if($query = $mysqli->query($sql)){
-            return Cliente::__generate($query);
+            $p = Cliente::__generate($query);
+            $query->close();
+            return $p;
         } else {
             return NULL;
         }
     }
 
-    public function __construct(array $tuple){
+    public function __construct($tuple){
         if(!empty($tuple)){
-            $this->idCliente = $tuple["idCliente"];
-            $this->user = $tuple["user"];
-            $this->nome = $tuple["nome"];
-            $this->cpf = $tuple["cpf"];
-            $this->email = $tuple["email"];
-            $this->senha = $tuple["senha"];
-            $this->nCartao = $tuple["nCartao"];
-            $this->codCartao = $tuple["codCartao"];
-            $this->valCartao = $tuple["valCartao"];
-            $this->estado = $tuple["estado"];
-            $this->cidade = $tuple["cidade"];
-            $this->bairro = $tuple["bairro"];
-            $this->rua = $tuple["rua"];
-            $this->numero = $tuple["numero"];
-            $this->complemento = $tuple["complemento"];
-            $this->idPlano = $tuple["idPlano"];
+            $this->idCliente = $tuple[0];
+            $this->user = $tuple[1];
+            $this->nome = $tuple[2];
+            $this->cpf = $tuple[3];
+            $this->email = $tuple[4];
+            $this->senha = $tuple[5];
+            $this->nCartao = $tuple[6];
+            $this->codCartao = $tuple[7];
+            $this->valCartao = $tuple[8];
+            $this->estado = $tuple[9];
+            $this->cidade = $tuple[10];
+            $this->bairro = $tuple[11];
+            $this->rua = $tuple[12];
+            $this->numero = $tuple[13];
+            $this->complemento = $tuple[14];
+            $this->idPlano = $tuple[15];
         } else {
             $this->idCliente = NULL;
+        }
+    }
+
+    public function save($con){
+        if($this->idCliente == NULL){
+            $sql = "INSERT INTO cliente VALUES (NULL, '$this->user', '$this->nome', $this->cpf, '$this->email', '$this->senha', '$this->nCartao',";
+            $sql .= "$this->codCartao, '$this->valCartao', '$this->estado', '$this->cidade', '$this->bairro', '$this->rua', $this->numero,";
+            $sql .= "'$this->complemento', $this->idPlano)";
+            $con->query($sql);
+        } else {
+            $sql = "UPDATE cliente SET nome = '$this->nome', cpf = $this->cpf, email = '$this->email', senha = '$this->senha', nCartao = '$this->nCartao',";
+            $sql .= " codCartao = $this->codCartao, valCartao = '$this->valCartao', estado = '$this->estado', cidade = '$this->cidade', bairro = '$this->bairro', rua = '$this->rua', numero = $this->numero,";
+            $sql .= "complemento = '$this->complemento', idPlano = $this->idPlano WHERE idCliente = $this->idCliente";
+            $con->query($sql);
+            echo $sql;
         }
     }
 
@@ -100,7 +117,7 @@
 	}
 
 	public function setSenha($senha){
-		$this->senha = $senha;
+		$this->senha = md5($senha);
 	}
 
 	public function getNCartao(){

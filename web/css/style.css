@@ -49,7 +49,6 @@ label{
 	background: rgba(255, 255, 255, 0.47);
 }
 .header {
-	background: url('../images/header-bg.jpg') no-repeat 0px 0px;
 	background-size:cover;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
