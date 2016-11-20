@@ -53,7 +53,7 @@ class PCMidiaFilme{
 	}
 	
 	public function getTrailer(){
-		return $this->Trailer;
+		return $this->trailer;
 	}
 
 	public function setTrailer($trailer){
@@ -77,7 +77,7 @@ class PCMidiaFilme{
 	}
 	
 	public function getTitulo(){
-		return $this->Titulo;
+		return $this->titulo;
 	}
 
 	public function setTitulo($titulo){

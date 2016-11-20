@@ -37,7 +37,8 @@
             $sql = "INSERT INTO midia VALUES (NULL,$this->duracao,'$this->titulo',$this->tipo)";
             $con->query($sql);
         } else {
-            $sql = "UPDATE midia SET duracao=$this->duracao,titulo='$this->titulo',tipo=$this->tipo WHERE idMidia=$this->idMidia";
+            $sql = "UPDATE midia SET duracao=$this->duracao,titulo='$this->titulo' WHERE idMidia=$this->idMidia";
+			echo $sql;
             $con->query($sql);
         }
     }
@@ -78,7 +79,7 @@
 		return $this->tipo;
 	}
 
-	public function setTipo($duracao){
+	public function setTipo($tipo){
 		$this->tipo = $tipo;
 	}
 };

@@ -38,14 +38,14 @@
 	
 	
 	public function save($con){
-        if($this->idMidia == NULL){
-            $sql = "INSERT INTO filme(idMidia, faixa, trailer, pesquisas, capa) ";
-			$sql .= "VALUES (NULL,$this->faixa,'$this->trailer',$this->pesquisas,'$this->capa')";
-			$con->query($sql);
-        } else {
-            $sql = "UPDATE filme SET faixa=$this->faixa,trailer='$this->trailer', capa='$this->capa' WHERE  idMidia=$this->idMidia";
-            $con->query($sql);
-        }
+        $sql = "INSERT INTO filme(idMidia, faixa, trailer, pesquisas, capa) ";
+		$sql .= "VALUES ($this->idMidia,$this->faixa,'$this->trailer',$this->pesquisas,'$this->capa')";
+		$con->query($sql);
+    }
+	
+	public function edit($con){
+        $sql = "UPDATE filme SET faixa=$this->faixa,trailer='$this->trailer', capa='$this->capa' WHERE  idMidia=$this->idMidia";
+        $con->query($sql);
     }
 
 	public function remove($con){
@@ -53,6 +53,7 @@
 			return ;
 		}
 		$sql = "DELETE FROM filme WHERE idMidia = $this->idMidia";
+		echo $sql;
 		$con->query($sql);
 	}
 
