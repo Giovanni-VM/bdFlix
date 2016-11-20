@@ -126,7 +126,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 echo '</tbody>
                                     </table>'; 
                                 } else {
-                                    echo "<h2> Pesquisa sem Resulados </h2>";
+                                    echo "<h2> Pesquisa sem Resultados </h2>";
                                 }                            
 
                         }
