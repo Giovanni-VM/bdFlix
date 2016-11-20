@@ -118,7 +118,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             ";
                                 foreach ($midias as $objeto) {
                                     echo '<tr>';
-                                    echo '<td> <a href= "list_insert_midia.php?idMidia='.$objeto->getIdMidia().'" title="Editar"><img src="images/novo.png" /></a>';
+                                    echo '<td> <a href= "list_insert_midia.php?idMidia='.$objeto->getIdMidia().'" title="Editar"><img src="images/novo.png" /></a></td>';
                                     
                                     echo '<td>' . $objeto->getIdMidia() . '</td>';
                                     echo '<td>' . $objeto->getTitulo() . '</td>';
