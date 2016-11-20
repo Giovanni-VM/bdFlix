@@ -1,5 +1,11 @@
-<?php session_start(); 
-include "classes/class_perfil.php";
+<?php 
+
+session_start(); 
+
+if(!isset($_SESSION["adm_logado"]) or !$_SESSION["adm_logado"]){
+	header("Location: admin_login.php");
+	exit();
+}
 include "bd.php";
 include "classes/class_filme.php";
 include "classes/class_genero.php";
@@ -7,7 +13,8 @@ include "classes/class_genero_filme.php";
 include "classes/class_midia.php";
 include "classes/class_pc_midiafilme.php";
 
-
+$sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f";
+=======
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
 $conn = new mysqli($host, $username, $password, $dbname);
 
@@ -21,6 +28,7 @@ $sqlGF = "SELECT * FROM generofilme";
 $gfs = GeneroFilme::__querySQL($sqlGF, $conn);
 
 $sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f WHERE m.idMidia = f.idMidia";
+>>>>>>> a71df55063881e3a5270e6f4290518f3f369cbc0
 $midias = PCMidiaFilme::__querySQL($sql2, $conn);
 $midia = new Midia(NULL);
 $filme = new Filme(NULL);

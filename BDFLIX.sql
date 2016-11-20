@@ -152,6 +152,12 @@ FOREIGN KEY(idSerie) REFERENCES Serie (idSerie),
 FOREIGN KEY(idMidia) REFERENCES Midia (idMidia)
 );
 
+CREATE TABLE admin(
+idAdmin INT PRIMARY KEY AUTO_INCREMENT,
+user VARCHAR(50),
+senha CHAR(32)
+);
+
 ALTER TABLE Preferencia ADD FOREIGN KEY(idPerfil) REFERENCES Perfil (idPerfil);
 ALTER TABLE Filme ADD FOREIGN KEY(idMidia) REFERENCES Midia (idMidia);
 ALTER TABLE MidiasList ADD FOREIGN KEY(id) REFERENCES Midia (idMidia);
