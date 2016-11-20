@@ -14,7 +14,8 @@ pesquisas INT,
 faixa INT,
 nome VARCHAR(50),
 timestamp TIMESTAMP,
-capa VARCHAR(255)
+capa VARCHAR(255),
+trailer VARCHAR(255)
 );
 
 CREATE TABLE Preferencia (

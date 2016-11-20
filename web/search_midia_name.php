@@ -1,5 +1,6 @@
 <?php
 session_start();
+unset($_SESION["search_result"]);
 
 include "classes/class_midia.php";
 include "classes/class_movieList.php";
@@ -17,6 +18,7 @@ if(isset($_SESSION["lista_atual"])){
 
 if($pesquisa == ""){
     $dest = "Location: list_lista_perfil.php?idList=".$lista."";
+    $conn->close();
     header($dest);
     exit();
 }
@@ -29,5 +31,6 @@ $midias = Midia::__querySQL($sql, $conn);
 
 $_SESSION["search_result"] = $midias;
 $dest = "Location: list_lista_perfil.php?idList=".$lista."";
+$conn->close();
 header($dest);
 ?>
