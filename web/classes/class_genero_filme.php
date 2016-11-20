@@ -1,5 +1,5 @@
     <?php class GeneroFilme{
-        private $idFilme;
+        private $idMidia;
         private $idGenero;
 		
         
@@ -11,30 +11,45 @@
         return $objetos;
     }
 
-    public static function __querySQL(string $sql, mysqli $con){
-        if($query = $mysqli->query($sql)){
+    public static function __querySQL($sql,$con){
+        if($query = $con->query($sql)){
             return GeneroFilme::__generate($query);
         } else {
             return NULL;
         }
     }
 
-    public function __construct(array $tuple){
+    public function __construct($tuple){
         if(!empty($tuple)){
             $this->idGenero = $tuple[0];
-            $this->idFilme = $tuple[1];
+            $this->idMidia = $tuple[1];
         } else {
             $this->idGenero = NULL;
-			$this->idFilme = NULL;
+			$this->idMidia = NULL;
         }
     }
+	
+	public function save($con){
+        $sql = "INSERT INTO generofilme VALUES($this->idGenero, $this->idMidia)";
+		echo $sql;
+		$con->query($sql);
+    }
 
-    public function getIdFilme(){
-		return $this->idFilme;
+	public function remove($con){
+		if($this->idMidia == NULL){
+			return ;
+		}
+		$sql = "DELETE FROM generofilme WHERE idFilme = $this->idMidia AND idGenero = $this->idGenero";
+		$con->query($sql);
+		echo $sql;
+	}
+	
+    public function getIdMidia(){
+		return $this->idMidia;
 	}
 
-	public function setIdFilme($idFilme){
-		$this->idFilme = $idFilme;
+	public function setIdMidia($idMidia){
+		$this->idMidia = $idMidia;
 	}
 	
 	public function getIdGenero(){
