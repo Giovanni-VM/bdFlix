@@ -29,15 +29,22 @@
 	
 	public function save($con){
         if($this->idGenero == NULL){
-            $sql = "INSERT INTO genero VALUES (NULL, `$this->nome`);";
+            $sql = "INSERT INTO genero VALUES (NULL, '$this->nome');";
             $con->query($sql);
         } else {
             $sql = "UPDATE genero SET nome = '$this->nome' WHERE idGenero = $this->idGenero";
             $con->query($sql);
-            echo $sql;
         }
     }
 
+	public function remove($con){
+		if($this->idGenero == NULL){
+			return ;
+		}
+		$sql = "DELETE FROM genero WHERE idGenero = $this->idGenero";
+		$con->query($sql);
+	}
+	
     public function getIdGenero(){
 		return $this->idGenero;
 	}

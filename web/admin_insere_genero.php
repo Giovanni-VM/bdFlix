@@ -12,6 +12,16 @@ $perfil = $p[0];
 
 $sql2 = "SELECT * FROM genero";
 $generos = Genero::__querySQL($sql2, $conn);
+$genero = new Genero(NULL);
+if (isset($_GET["acao"])){
+	if ($_GET["acao"] == "inserir" && $_GET["idGenero"] != NULL) {
+		$aux = $_GET["idGenero"];
+		$sql3 = "SELECT * FROM genero WHERE idGenero = '$aux'";
+		$res = $conn->query($sql3);
+		$g = Genero::__generate($res);
+		$genero = $g[0];
+	}
+}
 $conn->close();
 ?>
 <!--
@@ -59,39 +69,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 				<div class="clearfix"></div>
 			</div>
-			<div>
-				<center>
-					<table cellpadding = "0"  cellspacing = "100" class = "display" id="tabelaCliente">
-                        <thead>
-                            <tr>
-                                <th>IdGenero</th>
-                                <th>Nome</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            foreach ($generos as $objeto) {
-                                echo '<tr>';
-                                /* echo '<td> <a href="MenuPrincipal.php?acao=editarUsuario&idUsuario=' . $objeto->getIdCliente() . '" title="Editar"><img src="../imagem/editar.png" /></a>';
-                                echo '&nbsp;&nbsp;<a href="MenuPrincipal.php?acao=excluirUsuario&idUsuario=' . $objeto->getIdCliente() . '" title="Excluir"><img src="../imagem/excluir.png" /></a></td>';
-                                 */
-								echo '<td>' . $objeto->getIdGenero() . '</td>';
-                                echo '<td>' . $objeto->getNome() . '</td>';
-                                echo '</tr>';
-                            }
-                            ?>   
-                        </tbody>
-                    </table>
-				</center>
-			
-			</div>
 			<div class="main-contact">
-				<p>Inserir genero.</p>
+				<?php 
+					if (isset($_GET["acao"])){
+						if ($_GET["acao"] == "inserir" && $_GET["idGenero"] != NULL) {
+							echo "<p>Editar genero</p>";
+						}
+					} else {
+						echo "<p>Inserir genero</p>";
+					}	
+				?>
 				<div class="contact-form">
-					<form id="formCliente" action="genero_view.php?acao=salvar" method="post">
+					<form id="formCliente" action="genero_view.php?acao=inserir" method="post">
 						<div class="col-md-6 contact-left">
-							<input name = "nome" type="text" placeholder="Genero" required/>
+							<input name = "idGenero" type = "hidden" value='<?=$genero->getIdGenero()?>' />
+							<input name = "nome" type = "text" placeholder="Genero" value='<?php $genero->getNome(); ?>'/>
 							<input type="submit" value="SEND"/>
 						</div>
 						
@@ -99,6 +91,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</form>
 				</div>
 		 
+			</div>
+			
+			<div>
+				<center>
+					<table cellpadding = "0"  cellspacing = "100" class = "display" id="tabelaCliente">
+                        <thead>
+                            <tr>
+								<th></th>
+                                <th>IdGenero</th>
+                                <th>Nome</th>                             
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+								if (!isset($_GET["acao"])){
+									foreach ($generos as $objeto) {
+										echo '<tr>';
+										echo '<td> <a href="admin_insere_genero.php?acao=inserir&idGenero=' . $objeto->getIdGenero() . '" title="Editar"><img src="images/editar.png" /></a>';
+										echo '&nbsp;&nbsp;<a href="genero_view.php?acao=excluir&idGenero=' . $objeto->getIdGenero() . '" title="Excluir"><img src="images/excluir.png" /></a></td>';
+										 
+										echo '<td>' . $objeto->getIdGenero() . '</td>';
+										echo '<td>' . $objeto->getNome() . '</td>';
+										echo '</tr>';
+									}
+								}                             
+                            ?>   
+                        </tbody>
+                    </table>
+				</center>
 			</div>
 		</div>
 		

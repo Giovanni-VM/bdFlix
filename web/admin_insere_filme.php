@@ -1,6 +1,7 @@
 <?php session_start(); 
 include "classes/class_perfil.php";
 include "bd.php";
+include "classes/class_genero.php";
 
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
@@ -8,6 +9,20 @@ $conn = new mysqli($host, $username, $password, $dbname);
 
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
+
+$sql2 = "SELECT * FROM genero";
+$generos = Genero::__querySQL($sql2, $conn);
+$genero = new Genero(NULL);
+if (isset($_GET["acao"])){
+	if ($_GET["acao"] == "inserir" && $_GET["idGenero"] != NULL) {
+		$aux = $_GET["idGenero"];
+		$sql3 = "SELECT * FROM genero WHERE idGenero = '$aux'";
+		$res = $conn->query($sql3);
+		$g = Genero::__generate($res);
+		$genero = $g[0];
+	}
+}
+$conn->close();
 ?>
 <!--
 Author: W3layouts
@@ -22,6 +37,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/table.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <script src="js/jquery.min.js"></script>
 <!-- Custom Theme files -->
@@ -32,6 +48,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--webfont-->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+
 </head>
 <body>
 	<!-- header-section-starts -->
@@ -50,25 +68,58 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<p><?php echo "Usuario: ".$_SESSION["user"]; ?> </p>
 				</div>
 				<div class="clearfix"></div>
-			</div>					
+			</div>
 			<div class="main-contact">
-				<h3 class="head">CONTACT</h3>
-				<p>WE'RE ALWAYS HERE TO HELP YOU</p>
+				<?php 
+					if (isset($_GET["acao"])){
+						if ($_GET["acao"] == "inserir" && $_GET["idGenero"] != NULL) {
+							echo "<p>Editar genero</p>";
+						}
+					} else {
+						echo "<p>Inserir genero</p>";
+					}	
+				?>
 				<div class="contact-form">
-					<form>
+					<form id="formCliente" action="genero_view.php?acao=inserir" method="post">
 						<div class="col-md-6 contact-left">
-							<input type="text" placeholder="Name" required/>
-							<input type="text" placeholder="E-mail" required/>
-							<input type="text" placeholder="Phone" required/>
-						</div>
-						<div class="col-md-6 contact-right">
-							<textarea placeholder="Message"></textarea>
+							<input name = "idGenero" type = "hidden" value='<?=$genero->getIdGenero()?>' />
+							<input name = "nome" type = "text" placeholder="Genero" value='<?php $genero->getNome(); ?>'/>
 							<input type="submit" value="SEND"/>
 						</div>
+						
 						<div class="clearfix"></div>
 					</form>
 				</div>
 		 
+			</div>
+			
+			<div>
+				<center>
+					<table cellpadding = "0"  cellspacing = "100" class = "display" id="tabelaCliente">
+                        <thead>
+                            <tr>
+								<th></th>
+                                <th>IdGenero</th>
+                                <th>Nome</th>                             
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+								if (!isset($_GET["acao"])){
+									foreach ($generos as $objeto) {
+										echo '<tr>';
+										echo '<td> <a href="admin_insere_genero.php?acao=inserir&idGenero=' . $objeto->getIdGenero() . '" title="Editar"><img src="images/editar.png" /></a>';
+										echo '&nbsp;&nbsp;<a href="genero_view.php?acao=excluir&idGenero=' . $objeto->getIdGenero() . '" title="Excluir"><img src="images/excluir.png" /></a></td>';
+										 
+										echo '<td>' . $objeto->getIdGenero() . '</td>';
+										echo '<td>' . $objeto->getNome() . '</td>';
+										echo '</tr>';
+									}
+								}                             
+                            ?>   
+                        </tbody>
+                    </table>
+				</center>
 			</div>
 		</div>
 		
