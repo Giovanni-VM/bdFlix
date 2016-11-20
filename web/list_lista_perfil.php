@@ -4,8 +4,14 @@ include "bd.php";
 include "classes/class_filme.php";
 include "classes/class_midia.php";
 include "classes/class_pc_midiafilme.php";
+include "classes/class_movieList.php";
 
 session_start(); 
+
+if(!isset($_SESSION["perf_logado"]) or !$_SESSION["perf_logado"]){
+	header("Location: index.php");
+	exit();
+}
 
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
@@ -19,6 +25,15 @@ $listaAtual = $_GET["idList"];
 $sql = "SELECT * FROM midia WHERE idMidia IN (SELECT m.idMidia FROM midia m, midiaslist ml WHERE ml.idList = $listaAtual AND m.idMidia = ml.id)";
 
 $naLista = Midia::__querySQL($sql, $conn);
+
+$sql = "SELECT * FROM movielist WHERE idList = $listaAtual";
+$movies = MovieList::__querySQL($sql, $conn);
+$list = $movies[0];
+
+if($list->getIdCriador() != $perfil->getIdPerfil()){
+    header("Location: list_main.php");
+    exit();
+}
 
 $conn->close();
 ?>
