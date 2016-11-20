@@ -7,7 +7,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <?php
 session_start();
-setlocale(LC_MONETARY, 'pt_BR');
 
 if(!isset($_SESSION["cli_logado"]) or !$_SESSION["cli_logado"]){
 	header("Location: index.php");
@@ -19,6 +18,7 @@ $cli = $_SESSION['cliente'];
 include "bd.php";
 include "classes/class_cliente.php";
 include "classes/class_plano.php";
+include "classes/class_perfil.php";
 $conn = new mysqli($host, $username, $password, $dbname);
 
 $sql = "SELECT * FROM cliente WHERE user = '$cli'";
@@ -31,9 +31,17 @@ $cliente = $p[0];
 
 $res->close();
 
-$sql = "SELECT * FROM plano";
+$sql = "SELECT * FROM plano WHERE idPlano = ".$cliente->getIdPlano()."";
 
 $planos = Plano::__querySQL($sql, $conn);
+
+$plano = $planos[0];
+
+$sql = "SELECT * FROM perfil WHERE idCliente = ". $cliente->getIdCliente(). "";
+
+$perfis = Perfil::__querySQL($sql, $conn);
+
+$cadastrados = count($perfis);
 
 $conn->close();
 
@@ -65,12 +73,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 	<!-- header-section-starts -->
 	<div class="full-cli">
+			<div class="menu-cli">
+				<ul>
+					<div class = "nav-button-cli">
+						<li><a class = "button-cli" href = "home_cliente.php">Meus Dados</a></li>
+					</div>
+					<div class = "nav-button-cli">
+						<li><a class = "button-cli" href = "cliente_perfil_lista.php">Meus Perfis</a></li>
+					</div>
+					<div class = "nav-button-cli">
+						<li><a class = "button-cli">Relatórios</a></li>
+					</div>
+					<div class = "nav-button-cli">
+						<li><a class = "button-cli" href = "cliente_logout.php">Sair</a></li>
+					</div>
+				</ul>
+			</div>
 		<div class="main-cli">
 		<div>
 			<div class="top-header">
 				<div class="logo">
 					<a href="index.php"><img src="images/logo.png" alt="" /></a>
-					<p>Cadastre-SE</p>
+					<p>Cinema em casa - BEM VINDO <?php echo $cliente->getNome(); ?></p>
 				</div>
 				<div class="clearfix">
 				</div>
@@ -85,45 +109,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			}
 		?>
 		<br>
-		<div class = "form-cli">
-			<form action = "cliente_registra_cliente.php" method = "POST">
-				<p>Nome:</p> <input type = "text" name = "nome" placeholder = "Nome Cartao Credito" required>
-        <p>Username:</p> <input type = "text" name = "user" placeholder = "Username" required>
-				<p>CPF: </p><br><input type = "text" name = "cpf" placeholder = "CPF" required>
-				<p>Email:</p> <input type = "text" name = "email" placeholder = "E-mail" required>
-				<p>Senha:</p> <input type = "password" name = "senha" placeholder = 'Senha' required>
-				<p>Confirme a Senha: </p><input type = "password" name = "senha2" placeholder = 'senha' required>
-				<p>Num Cartao:</p> <input type = "text" name = "numCartao" placeholder = "XXXXXXXXXXXXXXXX" required>
-				<p>Cod Cartao: </p><input type = "text" name = "codCartao" placeholder = "XXX" required>
-				<p>Val. Cartao:</p> <input type = "date" name = "valCartao"  required>
-				<p>Estado: </p><input type = "text" name = "estado" placeholder = "Estado" required>
-				<p>Cidade:</p> <input type = "text" name = "cidade" placeholder = "Cidade" required>
-				<p>Bairro: </p><input type = "text" name = "bairro" placeholder = "Bairro" required>
-				<p>Rua:</p> <input type = "text" name = "rua" placeholder = "Rua" required>
-				<p>Numero:<p> <input type = "text" name = "numero" placeholder = "Numero" required>
-				<p>Complemento:</p> <input type = "text" name = 'complemento' placeholder = "Complemento" required>
-				<p>Plano: </p>
-				<div class = "containerMax">
+			<div class = "perf-body">
 				<ul>
 				<?php
-					foreach($planos as $key=>$value){
-						echo "<li><input type = 'radio' name = 'idPlano' id = 'plano".$value->getIdPlano()."' value = '" . $value->getIdPlano() . "'";
-						if($value->getIdPlano() == 1){
-							echo "checked";
-						}
+                    foreach($perfis as $perfil){
+                        echo "<li><a class = 'button-cli' name = 'perfil' id = 'perfil".$perfil->getIdPerfil()."' href = 'cliente_edita_perfil.php?idPerfil=".$perfil->getIdPerfil()."'";
 						echo ">";
-						echo " <label for = 'plano".$value->getIdPlano()."'> Plano " . $value->getNomePlano() . "<br>";
-						echo "Quantidade Perfil: " . $value->getQtdPerfis() . "<br>";
-						echo "Valor: R$" . number_format($value->getValor(), 2, ',', '.')  . "<br>";
-						echo "</label><div class = 'check'><div class = 'inside'></div></div></li>";
-					}
-
-				?>
-				</ul>
-				</div>
-				<input type = 'submit' value = 'Enviar'>
-			</form>
-		</div>
+						echo "Username: " . $perfil->getNome() . "<br>";
+						echo "Idade: " . $perfil->getIdade() . "<br>";
+						echo "</a></li>";
+                    }
+                    if($cadastrados < $plano->getQtdPerfis()){
+                        echo "<li>
+                            <a class = 'button-cli' name = 'novo' id = 'novo' href = 'cliente_novo_perfil.php'>Cadastrar Novo Perfil</a>
+                        </li>";
+                    }
+                ?>
+                </ul>
+			</div>
 		</div>
 
 		<script type="text/javascript" src="js/jquery.flexisel.js"></script>

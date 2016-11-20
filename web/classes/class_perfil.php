@@ -36,8 +36,35 @@ class Perfil{
         }
     }
 
-    public function getPerfil(){
+    public function save($con){
+        if($this->idPerfil == NULL){
+            $sql = "INSERT INTO perfil VALUES (NULL, '$this->idCliente', '$this->nome', '$this->senha', '$this->ftPerfil', $this->idade)";
+            echo $sql;
+            if($result = $con->query($sql)){
+				$q = $con->query("SELECT * FROM perfil WHERE nome = '$this->nome'");
+				$temp = $q->fetch_row();
+				$this->setIdCliente($temp[0]);
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+        } else {
+            $sql = "UPDATE perfil SET senha = '$this->senha', ftPerfil = '$this->ftPerfil', idade = $this->idade";
+            if($result = $con->query($sql)){
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+        }
+    }
+
+
+    public function getIdPerfil(){
         return $this->idPerfil;
+    }
+
+    public function setIdPerfil($value){
+        $this->idPerfil = $value;
     }
 
     public function getCliente(){
@@ -52,7 +79,7 @@ class Perfil{
         return $this->senha;
     }
 
-    public function getFoto(){
+    public function getFtPerfil(){
         return $this->ftPerfil;
     }
 
@@ -60,7 +87,7 @@ class Perfil{
         return $this->idade;
     }
 
-    public function setCliente($value){
+    public function setIdCliente($value){
         $this->idCliente = $value;
     }
 
@@ -72,7 +99,7 @@ class Perfil{
         $this->senha = md5($value);
     }
 
-    public function setFoto($value){
+    public function setFtPerfil($value){
         $this->ftPerfil = $value;
     }
 

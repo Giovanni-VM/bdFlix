@@ -62,16 +62,23 @@
             $sql = "INSERT INTO cliente VALUES (NULL, '$this->user', '$this->nome', $this->cpf, '$this->email', '$this->senha', '$this->nCartao',";
             $sql .= "$this->codCartao, '$this->valCartao', '$this->estado', '$this->cidade', '$this->bairro', '$this->rua', $this->numero,";
             $sql .= "'$this->complemento', $this->idPlano)";
-            $con->query($sql);
-			$q = $con->query("SELECT FROM cliente WHERE user = '$this->user'");
-			$temp = $q->fetch_row();
-			$this->setIdCliente($temp[0]);
+            if($result = $con->query($sql)){
+				$q = $con->query("SELECT * FROM cliente WHERE user = '$this->user'");
+				$temp = $q->fetch_row();
+				$this->setIdCliente($temp[0]);
+				return TRUE;
+			} else {
+				return FALSE;
+			}
         } else {
             $sql = "UPDATE cliente SET nome = '$this->nome', cpf = $this->cpf, email = '$this->email', senha = '$this->senha', nCartao = '$this->nCartao',";
             $sql .= " codCartao = $this->codCartao, valCartao = '$this->valCartao', estado = '$this->estado', cidade = '$this->cidade', bairro = '$this->bairro', rua = '$this->rua', numero = $this->numero,";
             $sql .= "complemento = '$this->complemento', idPlano = $this->idPlano WHERE idCliente = $this->idCliente";
-            $con->query($sql);
-            echo $sql;
+            if($result = $con->query($sql)){
+				return TRUE;
+			} else {
+				return FALSE;
+			}
         }
     }
 

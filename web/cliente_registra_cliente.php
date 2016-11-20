@@ -3,37 +3,21 @@ session_start();
 $_SESSION["error_form_cli"] = false;
 $_SESSION["err_cli"] = "";
 
-if(!isset($_SESSION["cli_logado"]) or !$_SESSION["cli_logado"]){
-	header("Location: index.php");
-	exit();
-}
-
-$cli = $_SESSION['cliente'];
-
 include "bd.php";
 include "classes/class_cliente.php";
-include "classes/class_plano.php";
 $conn = new mysqli($host, $username, $password, $dbname);
-
-$sql = "SELECT * FROM cliente WHERE user = '$cli'";
-
-$res = $conn->query($sql);
-
-$p = Cliente::__generate($res);
-
-$cliente = $p[0];
-
-$res->close();
 
 if($_POST["senha"] != $_POST["senha2"]){
     $_SESSION["error_form_cli"] = true;
     $_SESSION["err_cli"] = "Senhas não conferem";
     $conn->close();
-    header("Location: home_cliente.php");
+    header("Location: registra.php");
     exit();
 }
 
+$cliente = new Cliente(NULL);
 $cliente->setNome($_POST["nome"]);
+$cliente->setUser($_POST["user"]);
 $cliente->setCpf($_POST["cpf"]);
 $cliente->setEmail($_POST["email"]);
 $cliente->setSenha($_POST["senha"]);
@@ -52,12 +36,12 @@ if(!$cliente->save($conn)){
     $_SESSION["error_form_cli"] = true;
     $_SESSION["err_cli"] = "Impossivel Modificar Banco de Dados - Entre em contato com a central"; 
     $conn->close();
-    header("Location: home_cliente.php");
+    header("Location: registra.php");
     exit();
 }
 
 $conn->close();
-header("Location: home_cliente.php");
+header("Location: index.php");
 exit();
 
 
