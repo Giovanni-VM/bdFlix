@@ -53,7 +53,6 @@
 			return ;
 		}
 		$sql = "DELETE FROM filme WHERE idMidia = $this->idMidia";
-		echo $sql;
 		$con->query($sql);
 	}
 

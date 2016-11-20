@@ -3,6 +3,7 @@ include "classes/class_perfil.php";
 include "bd.php";
 include "classes/class_filme.php";
 include "classes/class_genero.php";
+include "classes/class_genero_filme.php";
 include "classes/class_midia.php";
 include "classes/class_pc_midiafilme.php";
 
@@ -13,6 +14,12 @@ $conn = new mysqli($host, $username, $password, $dbname);
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
 
+$sqlG = "SELECT * FROM genero ORDER BY nome";
+$generos = Genero::__querySQL($sqlG, $conn);
+
+$sqlGF = "SELECT * FROM generofilme";
+$gfs = GeneroFilme::__querySQL($sqlGF, $conn);
+
 $sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f WHERE m.idMidia = f.idMidia";
 $midias = PCMidiaFilme::__querySQL($sql2, $conn);
 $midia = new Midia(NULL);
@@ -22,12 +29,15 @@ if (isset($_GET["acao"])){
 		$aux = $_GET["idMidia"];
 		$sql4 = "SELECT * FROM Midia WHERE idMidia = $aux";
 		$sql5 = "SELECT * FROM Filme WHERE idMidia = $aux";
+		$sql6 = "SELECT * FROM generofilme WHERE idMidia = $aux";
 		$res = $conn->query($sql4);
 		$m = Midia::__generate($res);
 		$midia = $m[0];
 		$res = $conn->query($sql5);
 		$f = Filme::__generate($res);
 		$filme = $f[0];
+		$res = $conn->query($sql6);
+		$generofilme = GeneroFilme::__querySQL($sql6, $conn);
 	}
 }
 $conn->close();
@@ -99,14 +109,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<input type="submit" value="SEND"/>
 						</div>
 						<div class="col-md-6 contact-right">
-							
-						</div>
+							<div style="overflow: auto; max-height:350px; max-width:500px" >
+								<table table cellpadding = "0"  cellspacing = "100" class = "display" id="tabelaCliente">
+									<thead>
+										<tr>
+											<th></th>
+											<th>Id</th>
+											<th>G&ecirc;nero</th>                                  
+										</tr>
+									</thead>
+
+									
+									<tbody>
+										<?php										
+											foreach ($generos as $objeto) {
+												echo '<tr>';
+													echo '<td><input name = "'. $objeto->getIdGenero() .'" type = "checkbox" ';
+													if(isset($_GET["acao"])) {
+														foreach($gfs as $fqweg) {
+															if($objeto->getIdGenero() == $fqweg->getIdGenero() && $fqweg->getIdMidia() == $midia->getIdMidia()) {
+																echo 'checked';
+																break;
+															}
+														}
+													}
+													echo '/> </td>';
+													echo '<td>' . $objeto->getIdGenero() . '</td>';
+													echo '<td>' . $objeto->getNome() . '</td>';
+												echo '</tr>';
+											}                             
+										?>   
+									</tbody>
+								</table>
+							</div>
 						<div class="clearfix"></div>
 					</form>
 				</div>
 		 
 			</div>
-			
 			<div>
 				<center>
 					<table cellpadding = "0"  cellspacing = "100" class = "display" id="tabelaCliente">
@@ -118,7 +158,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <th>Dura&ccedil;&atilde;o</th>                              
                                 <th>Faixa et&aacute;ria</th>                             
                                 <th>Link do Trailer</th>                             
-                                <th>Capa do filme</th>                                    
+                                <th>Capa do filme</th>      
+								<th>G&ecirc;neros relacionados</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -135,6 +176,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										echo '<td>' . $objeto->getFaixa() . '</td>';
 										echo '<td>' . $objeto->getTrailer() . '</td>';
 										echo '<td>' . $objeto->getCapa() . '</td>';
+										echo '<td>';
+										
+										foreach ($gfs as $gf) {
+											if ($gf->getIdMidia() == $objeto->getIdMidia()) {
+												foreach ($generos as $genero) {
+													if ($gf->getIdGenero() == $genero->getIdGenero()) {
+														echo $genero->getNome();
+														echo '<br>';
+														break;
+													}
+												} 												
+											}
+										}
+										echo '</td>';
 										echo '</tr>';
 									}
 								}                             

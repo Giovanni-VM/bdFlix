@@ -6,6 +6,10 @@ table {
     width: 75%;
 }
 
+tbody { 
+    overflow:scroll;
+}
+
 th {
     height: 50px;
 }
