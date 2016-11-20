@@ -1,6 +1,7 @@
 <?php session_start(); 
 include "classes/class_perfil.php";
 include "classes/class_filme.php";
+include "classes/class_serie.php";
 include "bd.php";
 
 
@@ -10,8 +11,12 @@ $conn = new mysqli($host, $username, $password, $dbname);
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
 
-$sql = "SELECT * FROM filme ORDER BY timestamp";
+//$sql = "SELECT * FROM filme ORDER BY timestamp";
+$sql = "SELECT F.idMidia, F.faixa, F.trailer, F.pesquisas, F.timestamp, F.capa FROM filme AS F, historico AS H WHERE H.idMidia = F.idMidia ORDER BY H.timestamps";
 $filmes = Filme::__querySQL($sql, $conn);
+
+$sql = "SELECT * FROM serie ORDER BY timestamp";
+$series = Serie::__querySQL($sql, $conn);
 
 ?>
 <!--
@@ -76,7 +81,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								$cont = $cont + 1;
 							}
 						}
-						
 					?>
 				</ul>
 				<script type="text/javascript">
@@ -108,9 +112,53 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</script>
 				<script type="text/javascript" src="js/jquery.flexisel.js"></script>
 			</div>
+			
+			
 			<div class="right-content-heading-left">
 				<h3 class="head">&Uacute;ltimas S&eacute;ries assistidas</h3>
 			</div>
+			<div class="more-reviews">
+				<ul id="flexiselDemo3">
+					<?php
+						$cont = 0;
+						foreach($filmes as $filme){
+							if($cont < 10){
+								echo "<li><img src = '" . $filme->getCapa() . "' alt = ''/></li>";
+								$cont = $cont + 1;
+							}
+						}
+					?>
+				</ul>
+				<script type="text/javascript">
+					$(window).load(function() {
+
+						$("#flexiselDemo3").flexisel({
+							visibleItems: 4,
+							animationSpeed: 1000,
+							autoPlay: true,
+							autoPlaySpeed: 3000,
+							pauseOnHover: false,
+							enableResponsiveBreakpoints: true,
+							responsiveBreakpoints: {
+								portrait: {
+									changePoint:480,
+									visibleItems: 2
+								},
+								landscape: {
+									changePoint:640,
+									visibleItems: 3
+								},
+								tablet: {
+									changePoint:768,
+									visibleItems: 3
+								}
+							}
+						});
+					});
+				</script>
+				<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+			</div>
+			
 			<div class="right-content-heading-left">
 				<h3 class="head">&Uacute;ltimos lancamentos</h3>
 			</div>

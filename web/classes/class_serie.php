@@ -2,7 +2,7 @@
         private $idSerie;
 		private $pesquisas;
         private $faixa;
-		private $nome
+		private $nome;
 		private $timestamp;
 		private $capa;
 		
@@ -15,8 +15,8 @@
         return $objetos;
     }
 
-    public static function __querySQL(string $sql, mysqli $con){
-        if($query = $mysqli->query($sql)){
+    public static function __querySQL($sql, $con){
+        if($query = $con->query($sql)){
             return Serie::__generate($query);
         } else {
             return NULL;

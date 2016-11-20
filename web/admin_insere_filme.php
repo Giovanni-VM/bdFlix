@@ -14,12 +14,9 @@ include "classes/class_midia.php";
 include "classes/class_pc_midiafilme.php";
 
 $sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f";
-=======
-$sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
+
 $conn = new mysqli($host, $username, $password, $dbname);
 
-$p = Perfil::__querySQL($sql,$conn);
-$perfil = $p[0];
 
 $sqlG = "SELECT * FROM genero ORDER BY nome";
 $generos = Genero::__querySQL($sqlG, $conn);
@@ -28,7 +25,6 @@ $sqlGF = "SELECT * FROM generofilme";
 $gfs = GeneroFilme::__querySQL($sqlGF, $conn);
 
 $sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f WHERE m.idMidia = f.idMidia";
->>>>>>> a71df55063881e3a5270e6f4290518f3f369cbc0
 $midias = PCMidiaFilme::__querySQL($sql2, $conn);
 $midia = new Midia(NULL);
 $filme = new Filme(NULL);
