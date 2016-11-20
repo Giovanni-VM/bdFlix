@@ -13,7 +13,7 @@
         return $objetos;
     }
 
-    public static function __querySQL($sql, mysqli $con){
+    public static function __querySQL($sql, $con){
         if($query = $con->query($sql)){
             return Midia::__generate($query);
         } else {
