@@ -2,6 +2,7 @@
 include "classes/class_perfil.php";
 include "bd.php";
 include "classes/class_filme.php";
+include "classes/class_genero.php";
 include "classes/class_midia.php";
 include "classes/class_pc_midiafilme.php";
 
@@ -12,15 +13,15 @@ $conn = new mysqli($host, $username, $password, $dbname);
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
 
-$sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f";
+$sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f WHERE m.idMidia = f.idMidia";
 $midias = PCMidiaFilme::__querySQL($sql2, $conn);
 $midia = new Midia(NULL);
 $filme = new Filme(NULL);
 if (isset($_GET["acao"])){
 	if ($_GET["acao"] == "inserir" && $_GET["idMidia"] != NULL) {
-		$aux = $_GET["Midia"];
-		$sql4 = "SELECT * FROM Midia WHERE idMidia = '$aux'";
-		$sql5 = "SELECT * FROM Filme WHERE idMidia = '$aux'";
+		$aux = $_GET["idMidia"];
+		$sql4 = "SELECT * FROM Midia WHERE idMidia = $aux";
+		$sql5 = "SELECT * FROM Filme WHERE idMidia = $aux";
 		$res = $conn->query($sql4);
 		$m = Midia::__generate($res);
 		$midia = $m[0];
@@ -90,14 +91,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<form id="formCliente" action="filme_view.php?acao=inserir" method="post">
 						<div class="col-md-6 contact-left">
 							<input name = "idMidia" type = "hidden" value='<?=$midia->getIdMidia()?>' />
-							<input name = "titulo" type = "text" placeholder="T&iacute;tulo do Filme" value='<?php $midia->getTitulo(); ?>'/>
-							<input name = "duracao" type = "text" placeholder="Dura&ccedil;&atilde;o" value='<?php $midia->getDuracao(); ?>'/>
-							<input name = "faixa" type = "text" placeholder="Faixa et&aacute;ria" value='<?php $filme->getFaixa(); ?>'/>
-							<input name = "trailer" type = "text" placeholder="Link do Trailer" value='<?php $filme->getTrailer(); ?>'/>
-							<input name = "capa" type = "text" placeholder="Capa do filme" value='<?php $filme->getCapa(); ?>'/>
+							<input name = "titulo" type = "text" placeholder="T&iacute;tulo do Filme" value='<?= $midia->getTitulo(); ?>'/>
+							<input name = "duracao" type = "text" placeholder="Dura&ccedil;&atilde;o" value='<?= $midia->getDuracao(); ?>'/>
+							<input name = "faixa" type = "text" placeholder="Faixa et&aacute;ria" value='<?= $filme->getFaixa(); ?>'/>
+							<input name = "trailer" type = "text" placeholder="Link do Trailer" value='<?= $filme->getTrailer(); ?>'/>
+							<input name = "capa" type = "text" placeholder="Capa do filme" value='<?= $filme->getCapa(); ?>'/>
 							<input type="submit" value="SEND"/>
 						</div>
-						
+						<div class="col-md-6 contact-right">
+							
+						</div>
 						<div class="clearfix"></div>
 					</form>
 				</div>
