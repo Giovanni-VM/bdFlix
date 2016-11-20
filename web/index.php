@@ -52,25 +52,25 @@
               <div class="panel-body">
                 <div class="text-center">
                   <p>Uma nova senha provisória será enviada para seu e-mail</p>
-                    <div class="panel-body">
+                  <div class="panel-body">
                       <fieldset>
                         <div class="form-group">
                           <input class="form-control input-lg" placeholder="E-mail" name="email" type="email">
                         </div>
                         <input class="btn btn-lg btn-primary btn-block" value="Resetar senha" type="submit">
                       </fieldset>
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
-      </div>
+          </div>
+        </div>
       <div class="modal-footer">
-          <div class="col-md-12">
+        <div class="col-md-12">
           <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
-		  </div>
+		    </div>
       </div>
-  </div>
+    </div>
   </div>
 </div>
 
