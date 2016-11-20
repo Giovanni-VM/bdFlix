@@ -10,4 +10,11 @@ function valida_senha($str){
   return preg_match($pt, $str);
 }
 
+function valida_email($str){
+  if (filter_var($str, FILTER_VALIDATE_EMAIL))
+    return true;
+  else
+    return false;
+}
+
 ?>
