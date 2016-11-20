@@ -13,8 +13,6 @@ include "classes/class_genero_filme.php";
 include "classes/class_midia.php";
 include "classes/class_pc_midiafilme.php";
 
-
-<<<<<<< HEAD
 $sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f";
 =======
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
