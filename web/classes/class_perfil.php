@@ -41,9 +41,7 @@ class Perfil{
             $sql = "INSERT INTO perfil VALUES (NULL, '$this->idCliente', '$this->nome', '$this->senha', '$this->ftPerfil', $this->idade)";
             echo $sql;
             if($result = $con->query($sql)){
-				$q = $con->query("SELECT * FROM perfil WHERE nome = '$this->nome'");
-				$temp = $q->fetch_row();
-				$this->setIdCliente($temp[0]);
+				$this->setIdCliente($con->insert_id);
 				return TRUE;
 			} else {
 				return FALSE;
@@ -57,6 +55,14 @@ class Perfil{
 			}
         }
     }
+
+    public function delete($con){
+		if($this->idPerfil == NULL){
+			return FALSE;
+		}
+		$con->query("DELETE FROM perfil WHERE idPerfil = $this->idPerfil");
+		return TRUE;
+	}
 
 
     public function getIdPerfil(){

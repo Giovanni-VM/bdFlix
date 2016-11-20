@@ -82,10 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a class = "button-cli" href = "cliente_perfil_lista.php">Meus Perfis</a></li>
 					</div>
 					<div class = "nav-button-cli">
-						<li><a class = "button-cli">Relatórios</a></li>
-					</div>
-					<div class = "nav-button-cli">
-						<li><a class = "button-cli">Sair</a></li>
+						<li><a class = "button-cli" href = "cliente_logout.php">Sair</a></li>
 					</div>
 				</ul>
 			</div>
@@ -117,6 +114,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<p>Confirmar Senha:</p> <input type = "password" name = "senha2" value = '' required>
 				<p>Foto:</p> <input type = "text" name = "ftPerfil" value = '<?=$perfil->getFtPerfil()?>' required>
 				<p>Idade: </p><input type = "text" name = "idade" value = '<?=$perfil->getIdade()?>' required>
+				<input type = 'submit' value = 'Enviar'>
+			</form>
+		</div>
+<br><br>
+		<h3>Entre com sua senha para deletar o Perfil. Atenção, isso irá deletar todas as preferencias e movielists pertencentes ao perfil.<h3>
+		<h3>Essa ação não pode ser desfeita</h3>
+		<div class = "form-cli">
+			<form action = "cliente_deleta_perfil.php" method = "POST">
+				<input type = "hidden" name = "idPerfil" value = '<?=$perfil->getIdPerfil()?>'>
+				<p>Senha: </p><br><input type = "password" name = "senha" value = '' required>
+				<p>Confirmar Senha:</p> <input type = "password" name = "senha2" value = '' required>
 				<input type = 'submit' value = 'Enviar'>
 			</form>
 		</div>

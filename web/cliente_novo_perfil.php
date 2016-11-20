@@ -37,12 +37,6 @@ $planos = Plano::__querySQL($sql, $conn);
 
 $plano = $planos[0];
 
-$sql = "SELECT * FROM perfil WHERE idCliente = ". $cliente->getIdCliente() . "";
-
-$perfis = Perfil::__querySQL($sql, $conn);
-
-$perfil = $perfis[0];
-
 $sql = "SELECT * FROM perfil WHERE idCliente = ". $cliente->getIdCliente(). "";
 
 $perfis = Perfil::__querySQL($sql, $conn);
@@ -90,9 +84,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>
 					<div class = "nav-button-cli">
 						<li><a class = "button-cli" href = "cliente_perfil_lista.php">Meus Perfis</a></li>
-					</div>
-					<div class = "nav-button-cli">
-						<li><a class = "button-cli">Relatórios</a></li>
 					</div>
 					<div class = "nav-button-cli">
 						<li><a class = "button-cli">Sair</a></li>

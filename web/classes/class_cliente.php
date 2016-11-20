@@ -63,9 +63,7 @@
             $sql .= "$this->codCartao, '$this->valCartao', '$this->estado', '$this->cidade', '$this->bairro', '$this->rua', $this->numero,";
             $sql .= "'$this->complemento', $this->idPlano)";
             if($result = $con->query($sql)){
-				$q = $con->query("SELECT * FROM cliente WHERE user = '$this->user'");
-				$temp = $q->fetch_row();
-				$this->setIdCliente($temp[0]);
+				$this->setIdCliente($con->insert_id);
 				return TRUE;
 			} else {
 				return FALSE;
@@ -82,7 +80,7 @@
         }
     }
 
-	public function remove($con){
+	public function delete($con){
 		if($this->idCliente == NULL){
 			return FALSE;
 		}
