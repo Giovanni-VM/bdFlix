@@ -7,7 +7,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <?php
 session_start();
-setlocale(LC_MONETARY, 'pt_BR');
 
 if(!isset($_SESSION["cli_logado"]) or !$_SESSION["cli_logado"]){
 	header("Location: index.php");
@@ -19,6 +18,7 @@ $cli = $_SESSION['cliente'];
 include "bd.php";
 include "classes/class_cliente.php";
 include "classes/class_plano.php";
+include "classes/class_perfil.php";
 $conn = new mysqli($host, $username, $password, $dbname);
 
 $sql = "SELECT * FROM cliente WHERE user = '$cli'";
@@ -31,12 +31,30 @@ $cliente = $p[0];
 
 $res->close();
 
-$sql = "SELECT * FROM plano";
+$sql = "SELECT * FROM plano WHERE idPlano = ".$cliente->getIdPlano()."";
 
 $planos = Plano::__querySQL($sql, $conn);
 
+$plano = $planos[0];
+
+$sql = "SELECT * FROM perfil WHERE idCliente = ". $cliente->getIdCliente() . "";
+
+$perfis = Perfil::__querySQL($sql, $conn);
+
+$perfil = $perfis[0];
+
+$sql = "SELECT * FROM perfil WHERE idCliente = ". $cliente->getIdCliente(). "";
+
+$perfis = Perfil::__querySQL($sql, $conn);
+
+$cadastrados = count($perfis);
+
 $conn->close();
 
+if($cadastrados >= $plano->getQtdPerfis()){
+	header("Location: cliente_perfil_lista.php");
+	exit();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,40 +120,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		?>
 		<br>
 		<div class = "form-cli">
-			<form action = "cliente_view.php" method = "POST">
-				<p>Nome:</p> <input type = "text" name = "nome" value = '<?=$cliente->getNome()?>' required>
-				<p>CPF: </p><br><input type = "text" name = "cpf" value = '<?=$cliente->getCpf()?>' required>
-				<p>Email:</p> <input type = "text" name = "email" value = '<?=$cliente->getEmail()?>' required>
-				<p>Senha:</p> <input type = "password" name = "senha" value = '' required>
-				<p>Confirme a Senha: </p><input type = "password" name = "senha2" value = '' required>
-				<p>Num Cartao:</p> <input type = "text" name = "numCartao" value = '<?=$cliente->getNCartao()?>' required>
-				<p>Cod Cartao: </p><input type = "text" name = "codCartao" value = '<?=$cliente->getCodCartao()?>' required>
-				<p>Val. Cartao:</p> <input type = "date" name = "valCartao" value = '<?=$cliente->getValCartao()?>' required>
-				<p>Estado: </p><input type = "text" name = "estado" value = '<?=$cliente->getEstado()?>' required>
-				<p>Cidade:</p> <input type = "text" name = "cidade" value = '<?=$cliente->getCidade()?>' required>
-				<p>Bairro: </p><input type = "text" name = "bairro" value = '<?=$cliente->getBairro()?>' required>
-				<p>Rua:</p> <input type = "text" name = "rua" value = '<?=$cliente->getRua()?>' required>
-				<p>Numero:<p> <input type = "text" name = "numero" value = '<?=$cliente->getNumero()?>' required>
-				<p>Complemento:</p> <input type = "text" name = 'complemento' value = '<?=$cliente->getComplemento()?>' required>
-				<p>Plano: </p>
-				<div class = "containerMax">
-				<ul>
-				<?php
-					foreach($planos as $key=>$value){
-						echo "<li><input type = 'radio' name = 'idPlano' id = 'plano".$value->getIdPlano()."' value = '" . $value->getIdPlano() . "'";
-						if($value->getIdPlano() == $cliente->getIdPlano()){
-							echo "checked";
-						}
-						echo ">";
-						echo " <label for = 'plano".$value->getIdPlano()."'> Plano " . $value->getNomePlano() . "<br>";
-						echo "Quantidade Perfil: " . $value->getQtdPerfis() . "<br>";
-						echo "Valor: R$" . number_format($value->getValor(), 2, ',', '.')  . "<br>";
-						echo "</label><div class = 'check'><div class = 'inside'></div></div></li>";
-					}
-
-				?>
-				</ul>
-				</div>
+				<form action = "cliente_registra_perfil.php" method = "POST">
+				<p>Nome: </p><br><input type = "text" name = "nome" placeholder = "Nome" required>
+				<p>Senha: </p><br><input type = "password" name = "senha" placeholder = 'Senha' required>
+				<p>Confirmar Senha:</p> <input type = "password" name = "senha2" placeholder = 'Senha' required>
+				<p>Foto:</p> <input type = "text" name = "ftPerfil" placeholder = 'URL foto' required>
+				<p>Idade: </p><input type = "text" name = "idade" placeholder = 'Idade' required>
 				<input type = 'submit' value = 'Enviar'>
 			</form>
 		</div>
