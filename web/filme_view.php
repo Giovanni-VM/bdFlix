@@ -68,8 +68,18 @@ if ($acao == "inserir") {
 } else if($acao == "excluir") {
 	$midia = new Midia(NULL);
 	$filme = new Filme(NULL);
+	$gf = new GeneroFilme(NULL);
 	$midia->setIdMidia($_GET["idMidia"]);			
 	$filme->setIdMidia($midia->getIdMidia());
+	$sqlG = "SELECT * FROM genero ORDER BY nome";
+	$generos = Genero::__querySQL($sqlG, $conn);
+	foreach($generos as $objeto) {
+		$gf->setIdGenero($objeto->getIdGenero());
+		$gf->setIdMidia($filme->getIdMidia());
+		if ($_POST["". $objeto->getIdGenero() .""] != 'on') {
+			$gf->remove($conn);
+		}
+	}
 	$filme->remove($conn);
 	$midia->remove($conn);
 	$conn->close();
