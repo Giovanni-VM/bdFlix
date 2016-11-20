@@ -18,12 +18,23 @@
         }
     }
 
-    public function __construct(array $tuple){
+    public function __construct($tuple){
         if(!empty($tuple)){
             $this->idGenero = $tuple[0];
             $this->nome = $tuple[1];
         } else {
             $this->idGenero = NULL;
+        }
+    }
+	
+	public function save($con){
+        if($this->idGenero == NULL){
+            $sql = "INSERT INTO genero VALUES (NULL, `$this->nome`);";
+            $con->query($sql);
+        } else {
+            $sql = "UPDATE genero SET nome = '$this->nome' WHERE idGenero = $this->idGenero";
+            $con->query($sql);
+            echo $sql;
         }
     }
 

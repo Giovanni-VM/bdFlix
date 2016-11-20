@@ -73,9 +73,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <?php
                             foreach ($generos as $objeto) {
                                 echo '<tr>';
-                                echo '<td> <a href="MenuPrincipal.php?acao=editarUsuario&idUsuario=' . $objeto->getIdCliente() . '" title="Editar"><img src="../imagem/editar.png" /></a>';
+                                /* echo '<td> <a href="MenuPrincipal.php?acao=editarUsuario&idUsuario=' . $objeto->getIdCliente() . '" title="Editar"><img src="../imagem/editar.png" /></a>';
                                 echo '&nbsp;&nbsp;<a href="MenuPrincipal.php?acao=excluirUsuario&idUsuario=' . $objeto->getIdCliente() . '" title="Excluir"><img src="../imagem/excluir.png" /></a></td>';
-                                
+                                 */
 								echo '<td>' . $objeto->getIdGenero() . '</td>';
                                 echo '<td>' . $objeto->getNome() . '</td>';
                                 echo '</tr>';
@@ -89,9 +89,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="main-contact">
 				<p>Inserir genero.</p>
 				<div class="contact-form">
-					<form>
+					<form id="formCliente" action="genero_view.php?acao=salvar" method="post">
 						<div class="col-md-6 contact-left">
-							<input type="text" placeholder="Genero" required/>
+							<input name = "nome" type="text" placeholder="Genero" required/>
+							<input type="submit" value="SEND"/>
 						</div>
 						
 						<div class="clearfix"></div>
