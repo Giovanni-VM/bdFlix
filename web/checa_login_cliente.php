@@ -7,6 +7,7 @@ include 'valida_campos.php';
 
 $_SESSION['cli_logado'] = false; //Verifica se esta logado como cliente
 $_SESSION['login_fail'] = true;
+$_SESSION['cliente'] = "";
 
 $user = $_POST["user"];
 $pass = $_POST["passwd"];
@@ -21,7 +22,7 @@ if(valida_login($user) and valida_senha($pass)){
         if($query->num_rows == 1){
             $res = $query->fetch_assoc();
             $_SESSION['cli_logado'] = true;
-            $_SESSION['cliente'] = $res["nome"];
+            $_SESSION['cliente'] = $res["user"];
             $_SESSION['login_fail'] = false;
         }
 

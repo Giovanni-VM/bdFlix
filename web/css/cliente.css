@@ -1,0 +1,61 @@
+.menu-cli {
+	position: fixed;
+	top: 125px;
+	left: 0px;
+	 z-index: 2;
+}
+.menu-cli ul li {
+	list-style-type:none;
+	border-bottom:1px solid #4c4c4c;
+}
+.button-cli {
+	font-size: 1.35em;
+	font-weight:400;
+	color: #000000;
+	outline: none;
+	border: 3px solid #000;
+	padding: 0px 0px;
+	background:#000;
+	margin-top: 0em;
+	transition:0.5s all;
+	-webkit-transition:0.5s all;
+	-moz-transition:0.5s all;
+	-o-transition:0.5s all;
+	-ms-transition:0.5s all;
+}
+.button-cli:hover{
+	background:#fff;
+	color:#000;
+}
+.full-cli{
+	border-left: 0px solid #000000;
+}
+.main-cli{
+	 border-left: 280px solid #000000;
+}
+.nav-button-cli{
+	padding: 15px 0px;
+}
+.menu-cli ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 280px;
+    background-color: #000000;
+    height: 100%; /* Full height */
+    position: fixed; /* Make it stick, even on scroll */
+    overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
+.menu-cli ul li a{
+    display: block;
+    color: #ffffff;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+.menu-cli ul li a:hover{
+	background-color: #555;
+    color: white;
+}
+.body-cli{
+    padding: 25px 25px;
+}

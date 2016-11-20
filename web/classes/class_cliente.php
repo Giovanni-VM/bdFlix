@@ -63,6 +63,9 @@
             $sql .= "$this->codCartao, '$this->valCartao', '$this->estado', '$this->cidade', '$this->bairro', '$this->rua', $this->numero,";
             $sql .= "'$this->complemento', $this->idPlano)";
             $con->query($sql);
+			$q = $con->query("SELECT FROM cliente WHERE user = '$this->user'");
+			$temp = $q->fetch_row();
+			$this->setIdCliente($temp[0]);
         } else {
             $sql = "UPDATE cliente SET nome = '$this->nome', cpf = $this->cpf, email = '$this->email', senha = '$this->senha', nCartao = '$this->nCartao',";
             $sql .= " codCartao = $this->codCartao, valCartao = '$this->valCartao', estado = '$this->estado', cidade = '$this->cidade', bairro = '$this->bairro', rua = '$this->rua', numero = $this->numero,";
@@ -71,6 +74,14 @@
             echo $sql;
         }
     }
+
+	public function remove($con){
+		if($this->idCliente == NULL){
+			return FALSE;
+		}
+		$con->query("DELETE FROM cliente WHERE idCliente = $this->idCliente");
+		return TRUE;
+	}
 
     public function getIdCliente(){
 		return $this->idCliente;
