@@ -5,6 +5,7 @@
 		private $pesquisas;
 		private $timestamp;
 		private $capa;
+		public static $nAtr = 6;
 		
         
     public static function __generate(MySQLi_Result $query){
@@ -17,11 +18,26 @@
 
     public static function __querySQL($sql, $con){
         if($query = $con->query($sql)){
-            return Filme::__generate($query);
+            $p = Filme::__generate($query);
+			$query->close();
+			return $p;
         } else {
             return NULL;
         }
     }
+	
+	public function convertArray(){
+		$array = [
+			"Id Midia" => $this->idMidia,
+			"Faixa" => $this->faixa,
+			"Trailer" => $this->trailer,
+			"Pesquisas" => $this->pesquisas,
+			"Ultima alt" => $this->timestamp,
+			"Capa" => $this->capa
+		];
+		
+		return $array;
+	}
 
     public function __construct($tuple){
         if(!empty($tuple)){

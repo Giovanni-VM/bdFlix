@@ -1,14 +1,13 @@
-<?php session_start(); 
-include "classes/class_perfil.php";
+<?php 
 include "bd.php";
 include "classes/class_genero.php";
 
 
-$sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
-$conn = new mysqli($host, $username, $password, $dbname);
-
-$p = Perfil::__querySQL($sql,$conn);
-$perfil = $p[0];
+session_start(); 
+if(!isset($_SESSION["adm_logado"]) or !$_SESSION["adm_logado"]){
+	header("Location: admin_login.php");
+	exit();
+}
 
 $sql2 = "SELECT * FROM genero";
 $generos = Genero::__querySQL($sql2, $conn);

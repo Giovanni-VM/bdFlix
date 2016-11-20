@@ -1,5 +1,6 @@
 <?php session_start(); 
 include "classes/class_perfil.php";
+include "classes/class_filme.php";
 include "bd.php";
 
 
@@ -8,6 +9,10 @@ $conn = new mysqli($host, $username, $password, $dbname);
 
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
+
+$sql = "SELECT * FROM filme ORDER BY timestamp";
+$filmes = Filme::__querySQL($sql, $conn);
+
 ?>
 <!--
 Author: W3layouts
@@ -63,10 +68,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="more-reviews">
 				<ul id="flexiselDemo2">
-					<li><img src="images/m1.jpg" alt=""/></li>
-					<li><img src="images/m2.jpg" alt=""/></li>
-					<li><img src="images/m3.jpg" alt=""/></li>
-					<li><img src="images/m4.jpg" alt=""/></li>
+					<?php
+						$cont = 0;
+						foreach($filmes as $filme){
+							if($cont < 10){
+								echo "<li><img src = '" . $filme->getCapa() . "' alt = ''/></li>";
+								$cont = $cont + 1;
+							}
+						}
+						
+					?>
 				</ul>
 				<script type="text/javascript">
 					$(window).load(function() {

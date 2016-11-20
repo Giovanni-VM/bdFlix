@@ -14,7 +14,8 @@ pesquisas INT,
 faixa INT,
 nome VARCHAR(50),
 timestamp TIMESTAMP,
-capa VARCHAR(255)
+capa VARCHAR(255),
+trailer VARCHAR(255)
 );
 
 CREATE TABLE Preferencia (
@@ -149,6 +150,12 @@ episodio INT,
 PRIMARY KEY(idSerie,idMidia),
 FOREIGN KEY(idSerie) REFERENCES Serie (idSerie),
 FOREIGN KEY(idMidia) REFERENCES Midia (idMidia)
+);
+
+CREATE TABLE admin(
+idAdmin INT PRIMARY KEY AUTO_INCREMENT,
+user VARCHAR(50),
+senha CHAR(32)
 );
 
 ALTER TABLE Preferencia ADD FOREIGN KEY(idPerfil) REFERENCES Perfil (idPerfil);
