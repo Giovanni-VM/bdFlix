@@ -13,15 +13,15 @@
         return $objetos;
     }
 
-    public static function __querySQL(string $sql, mysqli $con){
-        if($query = $mysqli->query($sql)){
+    public static function __querySQL($sql, mysqli $con){
+        if($query = $con->query($sql)){
             return Midia::__generate($query);
         } else {
             return NULL;
         }
     }
 
-    public function __construct(array $tuple){
+    public function __construct($tuple){
         if(!empty($tuple)){
             $this->idMidia = $tuple[0];
             $this->duracao = $tuple[1];
@@ -32,6 +32,24 @@
         }
     }
 
+	public function save($con){
+        if($this->idMidia == NULL){
+            $sql = "INSERT INTO midia VALUES (NULL,$this->duracao,'$this->titulo',$this->tipo)";
+            $con->query($sql);
+        } else {
+            $sql = "UPDATE midia SET duracao=$this->duracao,titulo='$this->titulo',tipo=$this->tipo WHERE idMidia=$this->idMidia";
+            $con->query($sql);
+        }
+    }
+
+	public function remove($con){
+		if($this->idMidia == NULL){
+			return ;
+		}
+		$sql = "DELETE FROM midia WHERE idMidia = $this->idMidia";
+		$con->query($sql);
+	}
+	
     public function getIdMidia(){
 		return $this->idMidia;
 	}
@@ -49,7 +67,7 @@
 	}
 	
 	public function getTitulo(){
-		return $this->Titulo;
+		return $this->titulo;
 	}
 
 	public function setTitulo($titulo){

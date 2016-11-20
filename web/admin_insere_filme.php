@@ -1,7 +1,9 @@
 <?php session_start(); 
 include "classes/class_perfil.php";
 include "bd.php";
-include "classes/class_genero.php";
+include "classes/class_filme.php";
+include "classes/class_midia.php";
+include "classes/class_pc_midiafilme.php";
 
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
@@ -10,16 +12,21 @@ $conn = new mysqli($host, $username, $password, $dbname);
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
 
-$sql2 = "SELECT * FROM genero";
-$generos = Genero::__querySQL($sql2, $conn);
-$genero = new Genero(NULL);
+$sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f";
+$midias = PCMidiaFilme::__querySQL($sql2, $conn);
+$midia = new Midia(NULL);
+$filme = new Filme(NULL);
 if (isset($_GET["acao"])){
-	if ($_GET["acao"] == "inserir" && $_GET["idGenero"] != NULL) {
-		$aux = $_GET["idGenero"];
-		$sql3 = "SELECT * FROM genero WHERE idGenero = '$aux'";
-		$res = $conn->query($sql3);
-		$g = Genero::__generate($res);
-		$genero = $g[0];
+	if ($_GET["acao"] == "inserir" && $_GET["idMidia"] != NULL) {
+		$aux = $_GET["Midia"];
+		$sql4 = "SELECT * FROM Midia WHERE idMidia = '$aux'";
+		$sql5 = "SELECT * FROM Filme WHERE idMidia = '$aux'";
+		$res = $conn->query($sql4);
+		$m = Midia::__generate($res);
+		$midia = $m[0];
+		$res = $conn->query($sql5);
+		$f = Filme::__generate($res);
+		$filme = $f[0];
 	}
 }
 $conn->close();
@@ -72,18 +79,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="main-contact">
 				<?php 
 					if (isset($_GET["acao"])){
-						if ($_GET["acao"] == "inserir" && $_GET["idGenero"] != NULL) {
-							echo "<p>Editar genero</p>";
+						if ($_GET["acao"] == "inserir" && $_GET["idMidia"] != NULL) {
+							echo "<p>Editar filme</p>";
 						}
 					} else {
-						echo "<p>Inserir genero</p>";
+						echo "<p>Inserir filme</p>";
 					}	
 				?>
 				<div class="contact-form">
-					<form id="formCliente" action="genero_view.php?acao=inserir" method="post">
+					<form id="formCliente" action="filme_view.php?acao=inserir" method="post">
 						<div class="col-md-6 contact-left">
-							<input name = "idGenero" type = "hidden" value='<?=$genero->getIdGenero()?>' />
-							<input name = "nome" type = "text" placeholder="Genero" value='<?php $genero->getNome(); ?>'/>
+							<input name = "idMidia" type = "hidden" value='<?=$midia->getIdMidia()?>' />
+							<input name = "titulo" type = "text" placeholder="T&iacute;tulo do Filme" value='<?php $midia->getTitulo(); ?>'/>
+							<input name = "duracao" type = "text" placeholder="Dura&ccedil;&atilde;o" value='<?php $midia->getDuracao(); ?>'/>
+							<input name = "faixa" type = "text" placeholder="Faixa et&aacute;ria" value='<?php $filme->getFaixa(); ?>'/>
+							<input name = "trailer" type = "text" placeholder="Link do Trailer" value='<?php $filme->getTrailer(); ?>'/>
+							<input name = "capa" type = "text" placeholder="Capa do filme" value='<?php $filme->getCapa(); ?>'/>
 							<input type="submit" value="SEND"/>
 						</div>
 						
@@ -99,20 +110,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <thead>
                             <tr>
 								<th></th>
-                                <th>IdGenero</th>
-                                <th>Nome</th>                             
+                                <th>Id</th>
+                                <th>T&iacute;tulo do Filme</th>                             
+                                <th>Dura&ccedil;&atilde;o</th>                              
+                                <th>Faixa et&aacute;ria</th>                             
+                                <th>Link do Trailer</th>                             
+                                <th>Capa do filme</th>                                    
                             </tr>
                         </thead>
                         <tbody>
                             <?php
 								if (!isset($_GET["acao"])){
-									foreach ($generos as $objeto) {
+									foreach ($midias as $objeto) {
 										echo '<tr>';
-										echo '<td> <a href="admin_insere_genero.php?acao=inserir&idGenero=' . $objeto->getIdGenero() . '" title="Editar"><img src="images/editar.png" /></a>';
-										echo '&nbsp;&nbsp;<a href="genero_view.php?acao=excluir&idGenero=' . $objeto->getIdGenero() . '" title="Excluir"><img src="images/excluir.png" /></a></td>';
+										echo '<td> <a href="admin_insere_filme.php?acao=inserir&idMidia=' . $objeto->getIdMidia() . '" title="Editar"><img src="images/editar.png" /></a>';
+										echo '&nbsp;&nbsp;<a href="filme_view.php?acao=excluir&idMidia=' . $objeto->getIdMidia() . '" title="Excluir"><img src="images/excluir.png" /></a></td>';
 										 
-										echo '<td>' . $objeto->getIdGenero() . '</td>';
-										echo '<td>' . $objeto->getNome() . '</td>';
+										echo '<td>' . $objeto->getIdMidia() . '</td>';
+										echo '<td>' . $objeto->getTitulo() . '</td>';
+										echo '<td>' . $objeto->getDuracao() . '</td>';
+										echo '<td>' . $objeto->getFaixa() . '</td>';
+										echo '<td>' . $objeto->getTrailer() . '</td>';
+										echo '<td>' . $objeto->getCapa() . '</td>';
 										echo '</tr>';
 									}
 								}                             

@@ -33,7 +33,7 @@ FOREIGN KEY(idSerie) REFERENCES Serie (idSerie)
 );
 
 CREATE TABLE Filme (
-idMidia INT PRIMARY KEY AUTO_INCREMENT,
+idMidia INT PRIMARY KEY,
 faixa INT,
 trailer VARCHAR(255),
 pesquisas INT,

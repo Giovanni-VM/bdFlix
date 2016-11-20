@@ -83,7 +83,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<form id="formCliente" action="genero_view.php?acao=inserir" method="post">
 						<div class="col-md-6 contact-left">
 							<input name = "idGenero" type = "hidden" value='<?=$genero->getIdGenero()?>' />
-							<input name = "nome" type = "text" placeholder="Genero" value='<?php $genero->getNome(); ?>'/>
+							<input name = "nome" type = "text" placeholder='<?php if (isset($_GET["acao"])){ echo $genero->getNome();} else { echo "G&ecirc;nero"; } ?>' value='<?php $genero->getNome(); ?>'/>
 							<input type="submit" value="SEND"/>
 						</div>
 						
