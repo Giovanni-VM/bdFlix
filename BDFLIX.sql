@@ -147,6 +147,7 @@ idSerie INT,
 idMidia INT,
 temporada INT,
 episodio INT,
+trailer VARCHAR(255),
 PRIMARY KEY(idSerie,idMidia),
 FOREIGN KEY(idSerie) REFERENCES Serie (idSerie),
 FOREIGN KEY(idMidia) REFERENCES Midia (idMidia)
