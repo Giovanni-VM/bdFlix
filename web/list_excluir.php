@@ -1,0 +1,4 @@
+<?php
+echo "EU VOU FAZER ESSA BOSTA AINDA";
+
+?>

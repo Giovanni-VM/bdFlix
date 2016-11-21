@@ -2,7 +2,7 @@
 include "bd.php";
 include "classes/class_genero.php";
 
-
+$conn = new mysqli($host, $username, $password, $dbname);
 session_start(); 
 if(!isset($_SESSION["adm_logado"]) or !$_SESSION["adm_logado"]){
 	header("Location: admin_login.php");

@@ -19,9 +19,16 @@ $conn = new mysqli($host, $username, $password, $dbname);
 
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
+$perfId = $perfil->getIdPerfil();
 
-$sql = "SELECT * FROM movielist WHERE idCriador = $perfil->getIdPerfil()";
-$listas = Lista::__querySQL($sql, $conn);
+$sql = "SELECT * FROM movielist WHERE idCriador =". $perfil->getIdPerfil() ."";
+$listas = MovieList::__querySQL($sql, $conn);
+
+$sql = "SELECT * FROM movielist WHERE idList IN (SELECT ml.idList FROM movielist ml, seguelist sl WHERE ml.idList = sl.idList AND sl.idPerfil = $perfId)";
+$seguidas = MovieList::__querySQL($sql, $conn);
+if(isset($_SESSION["search_list_result"])){
+    $result = $_SESSION["search_list_result"];
+}
 $conn->close();
 ?>
 <!--
@@ -71,10 +78,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="main-contact">
 				<p>Editar Playlist </p>
 				<div class="contact-form">
-					<form id="formCliente" action="search_att.php" method="post">
+					<form id="formCliente" action="search_list_att.php" method="post">
 						<div class="col-md-6 contact-left">
-                            <input name = "idList" type = "hidden" value = "<?=$_GET['idList']?>">
-							<input name = "titulo" type = "text" placeholder="T&iacute;tulo do Filme" value = ""/>
+							<input name = "nome" type = "text" placeholder="T&iacute;tulo do Filme" value = ""/>
 							<input type="submit" value="Search"/>
 						</div>
 						
@@ -83,12 +89,57 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 		 
 			</div>
-            <?php
+
+			<br><br>
+			<div>
+				<center>
+                <?php
+                if(isset($_SESSION["search_list_result"])){
+                    if(count($result) != 0){
+                    echo '<h2>Resultados Encontrados</h2>
+					<table cellpadding = "0"  cellspacing = "100" class = "display" id="tabelaCliente">
+                                     <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Id</th>
+                                        <th>Nome</th>                             
+                                        <th>Descri&ccedil;&atilde;o</th>                                                          
+                                        <th>Tipo</th> 
+                                        <th>Seguidores</th>                                                              
+                                    </tr>
+                                </thead>
+                                <tbody>';
+	                                foreach ($result as $objeto) {
+                                        echo '<tr>';
+                                        echo '<td> <a href= "list_follow.php?idList='.$objeto->getIdList().'" title="Seguir"><img src="images/novo.png" /></a></td>';
+                                        echo '<td>' . $objeto->getIdList() . '</td>';
+                                        echo '<td>' . $objeto->getNome() . '</td>';
+                                        echo '<td>' . $objeto->getDescricao() . '</td>';
+                                        if($objeto->getPublic() == 0){
+                                            echo '<td> Privada </td>';
+                                        } else {
+                                            echo '<td> Publica </td>';
+                                        }
+                                        echo '<td>' . $objeto->getSeguidores() . '</td>';
+                                        echo '</tr>';
+                                    }      
+                                echo '</tbody>
+                                    </table>'; 
+                                } else {
+                                    echo "<h2> Pesquisa sem Resultados </h2>";
+                                }                            
+
+                        }
+                ?>
+                </center>
+                </div>
+                <br><br>
+                 <?php
                     if(count($listas) != 0){
                         echo
                         "<div>
                         <center>
-                            <h2>Suas Listas</h2>
+                            <h2>Listas Gerenciadas por Você</h2>
                             <table cellpadding = '0'  cellspacing = '100' class = 'display' id='tabelaCliente'>
                                 <thead>
                                     <tr>
@@ -104,12 +155,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             ";
                                 foreach ($listas as $objeto) {
                                     echo '<tr>';
-                                    echo '<td> <a href= "list_lista_perfil.php?idList='.$objeto->getIdLista().'" title="Editar"><img src="images/novo.png" /></a>';
-                                    
+                                    echo '<td> <a href= "list_lista_perfil.php?idList='.$objeto->getIdList().'" title="Editar"><img src="images/editar.png" /></a>';
+                                    echo ' <a href= "list_excluir.php?idList='.$objeto->getIdList().'" title="Excluir"><img src="images/excluir.png" /></a></td>';
+
                                     echo '<td>' . $objeto->getIdList() . '</td>';
                                     echo '<td>' . $objeto->getNome() . '</td>';
                                     echo '<td>' . $objeto->getDescricao() . '</td>';
-                                    if($objeto->getPublica() == 0){
+                                    if($objeto->getPublic() == 0){
                                         echo '<td> Privada </td>';
                                     } else {
                                         echo '<td> Publica </td>';
@@ -123,49 +175,54 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </center>
                     </div>";
                 }else {
-                    echo "<div><center><h2>Nenhum item encontrado</h2></center></div>";
+                    echo "<div><center><h2>Sem MovieLists para Administrar</h2></center></div>";
                 }
-
             ?>
-			<br><br>
-			<div>
-				<center>
+            <br><br>
+
                 <?php
-                    if(count($naLista) != 0){
-                    echo '<h2>Atualmente na MovieList </h2>
-					<table cellpadding = "0"  cellspacing = "100" class = "display" id="tabelaCliente">
-                        <thead>
-                            <tr>
-								<th></th>
-                                <th>Id</th>
-                                <th>T&iacute;tulo</th>                             
-                                <th>Dura&ccedil;&atilde;o</th>                                                          
-                                <th>Tipo</th>                                                               
-                            </tr>
-                        </thead>
-                        <tbody>';
-									foreach ($naLista as $objeto) {
-										echo '<tr>';
-										echo '<td>&nbsp;&nbsp;<a href="list_remove_midia.php?idMidia=' . $objeto->getIdMidia() . '" title="Excluir"><img src="images/excluir.png" /></a></td>';
-										 
-										echo '<td>' . $objeto->getIdMidia() . '</td>';
-										echo '<td>' . $objeto->getTitulo() . '</td>';
-										echo '<td>' . $objeto->getDuracao() . '</td>';
-                                        if($objeto->getTipo() == 0){
-                                            echo "<td> Filme </td>";
-                                        } else {
-                                            echo "<td> Serie </td>";
-                                        }
-										echo '</tr>';
-									}
-                                } else {
-                                    echo "<h2> MovieList Vazia </h2>";
-                                }                         
-                            ?>   
-                        </tbody>
-                    </table>
-				</center>
-			</div>
+                    if(count($seguidas) != 0){
+                        echo
+                        "<div>
+                        <center>
+                            <h2>Listas Seguidas por Você</h2>
+                            <table cellpadding = '0'  cellspacing = '100' class = 'display' id='tabelaCliente'>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Id</th>
+                                        <th>Nome</th>                             
+                                        <th>Descri&ccedil;&atilde;o</th>                                                          
+                                        <th>Tipo</th> 
+                                        <th>Seguidores</th>                                                              
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            ";
+                                foreach ($seguidas as $objeto) {
+                                    echo '<tr>';
+                                    echo ' <td><a href= "list_unfollow.php?idList='.$objeto->getIdList().'" title="Deixar de Seguir"><img src="images/excluir.png" /></a>';
+                                    echo '<a href= "list_play.php?idList='.$objeto->getIdList().'" title="Assistir"><img src="images/views.png" /></a></td>';
+                                    echo '<td>' . $objeto->getIdList() . '</td>';
+                                    echo '<td>' . $objeto->getNome() . '</td>';
+                                    echo '<td>' . $objeto->getDescricao() . '</td>';
+                                    if($objeto->getPublic() == 0){
+                                        echo '<td> Privada </td>';
+                                    } else {
+                                        echo '<td> Publica </td>';
+                                    }
+                                    echo '<td>' . $objeto->getSeguidores() . '</td>';
+                                    echo '</tr>';
+                                }                            
+                            
+                            echo "</tbody>
+                            </table>
+                        </center>
+                    </div>";
+                }else {
+                    echo "<div><center><h2>Você Não Segue Nenhuma MovieList</h2></center></div>";
+                }
+            ?>
 		</div>
 		
 		
