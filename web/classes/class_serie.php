@@ -16,11 +16,7 @@
         return $objetos;
     }
 
-<<<<<<< HEAD
-    public static function __querySQL($sql, $con){
-=======
     public static function __querySQL($sql,$con){
->>>>>>> 62b5a69e5a7211bfce2fc74ca6f2e9a0d797867f
         if($query = $con->query($sql)){
             return Serie::__generate($query);
         } else {
