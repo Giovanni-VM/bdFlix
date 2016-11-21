@@ -1,23 +1,24 @@
 <?php
-class PCMidiaFilme{
+class PCMidiaEpisodio{
 	private $idMidia;
-    private $faixa;
-	private $trailer;
+	private $temporada;
+	private $episodio;
 	private $capa;
 	private $duracao;
 	private $titulo;
+	private $idSerie;
 	
 	public static function __generate(MySQLi_Result $query){
         $objetos = [];
         while($res = $query->fetch_row()){
-            $objetos[] = new PCMidiaFilme($res);
+            $objetos[] = new PCMidiaEpisodio($res);
         }
         return $objetos;
     }
 
     public static function __querySQL($sql,  $con){
         if($query = $con->query($sql)){
-            return PCMidiaFilme::__generate($query);
+            return PCMidiaEpisodio::__generate($query);
         } else {
             return NULL;
         }
@@ -26,11 +27,11 @@ class PCMidiaFilme{
     public function __construct($tuple){
         if(!empty($tuple)){
             $this->idMidia = $tuple[0];
-            $this->faixa = $tuple[1];
-			$this->trailer = $tuple[2];
-			$this->capa = $tuple[3];
-			$this->duracao = $tuple[4];
-			$this->titulo = $tuple[5];
+            $this->temporada = $tuple[1];
+			$this->episodio = $tuple[2];
+			$this->duracao = $tuple[3];
+			$this->titulo = $tuple[4];
+            $this->idSerie = $tuple[5];
         } else {
             $this->idMidia = NULL;
         }
@@ -44,20 +45,20 @@ class PCMidiaFilme{
 		$this->idMidia = $idMidia;
 	}
 
-	public function getFaixa(){
-		return $this->faixa;
+	public function getTemporada(){
+		return $this->temporada;
 	}
 
-	public function setFaixa($faixa){
-		$this->faixa = $faixa;
+	public function setTemporada($temporada){
+		$this->temporada = $temporada;
 	}
 	
-	public function getTrailer(){
-		return $this->trailer;
+	public function getEpisodio(){
+		return $this->episodio;
 	}
 
-	public function setTrailer($trailer){
-		$this->trailer = $trailer;
+	public function setEpisodio($episodio){
+		$this->episodio = $episodio;
 	}
 	
 	public function getCapa(){
@@ -83,5 +84,14 @@ class PCMidiaFilme{
 	public function setTitulo($titulo){
 		$this->titulo = $titulo;
 	}
+	
+	public function getIdSerie(){
+		return $this->idSerie;
+	}
+
+	public function setIdSerie($idSerie){
+		$this->idSerie = $idSerie;
+	}
+	
 };
 ?>

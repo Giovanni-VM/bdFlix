@@ -1,4 +1,4 @@
-    <?php class Episodios{
+    <?php class Episodio{
 		private $idSerie;
         private $idMidia;
         private $temporada;
@@ -21,7 +21,7 @@
         }
     }
 
-    public function __construct(array $tuple){
+    public function __construct($tuple){
         if(!empty($tuple)){
 			$this->idSerie = $tuple[0];
             $this->idMidia = $tuple[1];
