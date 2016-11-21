@@ -47,7 +47,7 @@ class Perfil{
 				return FALSE;
 			}
         } else {
-            $sql = "UPDATE perfil SET senha = '$this->senha', ftPerfil = '$this->ftPerfil', idade = $this->idade";
+            $sql = "UPDATE perfil SET senha = '$this->senha', ftPerfil = '$this->ftPerfil', idade = $this->idade WHERE idPerfil = $this->idPerfil";
             if($result = $con->query($sql)){
 				return TRUE;
 			} else {

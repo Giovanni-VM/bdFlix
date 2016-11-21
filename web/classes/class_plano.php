@@ -42,7 +42,7 @@
 			$temp = $q->fetch_row();
 			$this->setIdPlano($temp[0]);
         } else {
-            $sql = "UPDATE Plano SET nomePlano = '$this->nomePlano', qtdPerfis = $this->qydPerfis, valor = $this->valor";
+            $sql = "UPDATE Plano SET nomePlano = '$this->nomePlano', qtdPerfis = $this->qydPerfis, valor = $this->valor WHERE idPlano = $this->idPlano";
             $con->query($sql);
         }
     }

@@ -134,10 +134,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </center>
                 </div>
                 <br><br>
-                 <?php
-                    if(count($listas) != 0){
-                        echo
-                        "<div>
+                        <div>
                         <center>
                             <h2>Listas Gerenciadas por Você</h2>
                             <table cellpadding = '0'  cellspacing = '100' class = 'display' id='tabelaCliente'>
@@ -152,7 +149,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     </tr>
                                 </thead>
                                 <tbody>
-                            ";
+                            <?php
                                 foreach ($listas as $objeto) {
                                     echo '<tr>';
                                     echo '<td> <a href= "list_lista_perfil.php?idList='.$objeto->getIdList().'" title="Editar"><img src="images/editar.png" /></a>';
@@ -170,14 +167,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     echo '</tr>';
                                 }                            
                             
-                            echo "</tbody>
+                            ?>
+                                <tr><td> <a href= "list_criar.php" title="Criar Nova MovieList"><img src="images/novo.png" /></a></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                </tr>
+                                </tbody>
                             </table>
                         </center>
-                    </div>";
-                }else {
-                    echo "<div><center><h2>Sem MovieLists para Administrar</h2></center></div>";
-                }
-            ?>
+                    </div>
+
             <br><br>
 
                 <?php

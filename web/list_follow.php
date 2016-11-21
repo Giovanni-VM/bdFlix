@@ -18,6 +18,7 @@ $l = MovieList::__querySQL($sql, $conn);
 $lista = $l[0];
 $lista->followPlus();
 $lista->save($conn);
+echo $lista->getSeguidores();
 
 $conn->query("INSERT INTO seguelist VALUES ($idPerf, $idFollow)");
 $conn->close();

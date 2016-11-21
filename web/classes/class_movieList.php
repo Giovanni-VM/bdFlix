@@ -39,7 +39,7 @@ class MovieList{
 
     public function save($con){
         if($this->idList == NULL){
-            $sql = "INSERT INTO movielist VALUES (NULL, $this->idCriador, '$this->nome', '$this->descricao', $this->publica, $this->seguidores)";
+            $sql = "INSERT INTO movielist VALUES (NULL, $this->idCriador, '$this->nome', '$this->descricao', $this->public, $this->seguidores)";
             if($result = $con->query($sql)){
 				$this->setIdList($con->insert_id);
 				return TRUE;
@@ -47,7 +47,7 @@ class MovieList{
 				return FALSE;
 			}
         } else {
-            $sql = "UPDATE movielist SET nome = '$this->nome', descricao = '$this->descricao', public = $this->public, seguidores = $this->seguidores";
+            $sql = "UPDATE movielist SET nome = '$this->nome', descricao = '$this->descricao', publica = $this->public, seguidores = $this->seguidores WHERE idList = $this->idList";
             if($result = $con->query($sql)){
 				return TRUE;
 			} else {
