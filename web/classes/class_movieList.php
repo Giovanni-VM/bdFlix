@@ -47,7 +47,7 @@ class MovieList{
 				return FALSE;
 			}
         } else {
-            $sql = "UPDATE movielist SET nome = '$this->nome', descricao = '$this->descricao', public = $this->public";
+            $sql = "UPDATE movielist SET nome = '$this->nome', descricao = '$this->descricao', public = $this->public, seguidores = $this->seguidores";
             if($result = $con->query($sql)){
 				return TRUE;
 			} else {
@@ -110,6 +110,14 @@ class MovieList{
 
 	public function setSeguidores($seguidores){
 		$this->seguidores = $seguidores;
+	}
+
+	public function followPlus(){
+		$this->seguidores++;
+	}
+
+	public function followMinus(){
+		$this->seguidores--;
 	}
 };
 

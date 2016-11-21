@@ -9,7 +9,7 @@ nome VARCHAR(50)
 );
 
 CREATE TABLE Serie (
-idSerie INT PRIMARY KEY AUTO_INCREMENT,
+idSerie INT PRIMARY KEY,
 pesquisas INT,
 faixa INT,
 nome VARCHAR(50),
@@ -68,13 +68,13 @@ idPerfil INT,
 idMidia INT,
 contador INT,
 PRIMARY KEY(idPerfil,idMidia),
-FOREIGN KEY(idMidia) REFERENCES Midia (idMidia)
+FOREIGN KEY(idMidia) REFERENCES Midia (idMidia) 
 );
 
 CREATE TABLE Perfil (
 idPerfil INT PRIMARY KEY AUTO_INCREMENT,
 idCliente INT,
-nome VARCHAR(50),
+nome VARCHAR(50) UNIQUE,
 senha VARCHAR(50),
 ftPerfil VARCHAR(255),
 idade INT
@@ -91,12 +91,12 @@ CREATE TABLE SegueList (
 idPerfil INT,
 idList INT,
 PRIMARY KEY(idPerfil,idList),
-FOREIGN KEY(idPerfil) REFERENCES Perfil (idPerfil)
+FOREIGN KEY(idPerfil) REFERENCES Perfil (idPerfil) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Cliente (
 idCliente INT PRIMARY KEY AUTO_INCREMENT,
-user VARCHAR(50),
+user VARCHAR(50) UNIQUE,
 nome VARCHAR(50),
 cpf BIGINT,
 email VARCHAR(50),
@@ -111,7 +111,7 @@ rua VARCHAR(50),
 numero INT,
 complemento VARCHAR(100),
 idPlano INT,
-FOREIGN KEY(idPlano) REFERENCES Plano (idPlano)
+FOREIGN KEY(idPlano) REFERENCES Plano (idPlano) ON UPDATE CASCADE
 );
 
 CREATE TABLE Fatura (
@@ -131,7 +131,7 @@ nome VARCHAR(50),
 descricao VARCHAR(100),
 publica BOOL,
 seguidores INT,
-FOREIGN KEY(idCriador) REFERENCES Perfil (idPerfil)
+FOREIGN KEY(idCriador) REFERENCES Perfil (idPerfil) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Descricao (
@@ -159,15 +159,14 @@ user VARCHAR(50),
 senha CHAR(32)
 );
 
-ALTER TABLE Preferencia ADD FOREIGN KEY(idPerfil) REFERENCES Perfil (idPerfil);
+ALTER TABLE Preferencia ADD FOREIGN KEY(idPerfil) REFERENCES Perfil (idPerfil) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE Filme ADD FOREIGN KEY(idMidia) REFERENCES Midia (idMidia);
 ALTER TABLE MidiasList ADD FOREIGN KEY(id) REFERENCES Midia (idMidia);
-ALTER TABLE MidiasList ADD FOREIGN KEY(idList) REFERENCES Movielist (idList);
-ALTER TABLE Historico ADD FOREIGN KEY(idPerfil) REFERENCES Perfil (idPerfil);
+ALTER TABLE MidiasList ADD FOREIGN KEY(idList) REFERENCES Movielist (idList) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE Historico ADD FOREIGN KEY(idPerfil) REFERENCES Perfil (idPerfil) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE Perfil ADD FOREIGN KEY(idCliente) REFERENCES Cliente (idCliente);
 ALTER TABLE SegueList ADD FOREIGN KEY(idList) REFERENCES Movielist (idList);
 ALTER TABLE Genero AUTO_INCREMENT = 0;
-ALTER TABLE Serie AUTO_INCREMENT = 0;
 ALTER TABLE Midia AUTO_INCREMENT = 0;
 ALTER TABLE Perfil AUTO_INCREMENT = 0;
 ALTER TABLE Plano AUTO_INCREMENT = 0;
