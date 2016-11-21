@@ -5,14 +5,17 @@ include "classes/class_serie.php";
 include "classes/class_genero.php";
 include "classes/class_genero_serie.php";
 include "classes/class_midia.php";
+include "classes/class_episodio.php";
 include "classes/class_pc_midiaepisodio.php";
 
 
-$sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
 $conn = new mysqli($host, $username, $password, $dbname);
 
-$p = Perfil::__querySQL($sql,$conn);
-$perfil = $p[0];
+
+if(!isset($_SESSION["adm_logado"]) or !$_SESSION["adm_logado"]){
+	header("Location: admin_login.php");
+	exit();
+}
 
 $sqlG = "SELECT * FROM genero ORDER BY nome";
 $generos = Genero::__querySQL($sqlG, $conn);
@@ -20,14 +23,27 @@ $generos = Genero::__querySQL($sqlG, $conn);
 $sqlGF = "SELECT * FROM generoserie";
 $gfs = GeneroSerie::__querySQL($sqlGF, $conn);
 
+$sql2 = "SELECT m.idMidia, e.temporada, e.episodio, m.duracao, m.titulo, e.idSerie FROM midia as m, episodio as e WHERE m.idMidia = e.idMidia";
+$midias = PCMidiaEpisodio::__querySQL($sql2, $conn);
+$midia = new Midia(NULL);
+$episodio = new Episodio(NULL);
+
 $sql2 = "SELECT * FROM serie";
 $series = Serie::__querySQL($sql2,$conn);
 $serie = new Serie(NULL);
 if (isset($_GET["acao"])){
 	if ($_GET["acao"] == "inserir" && $_GET["idSerie"] != NULL) {
 		$aux = $_GET["idSerie"];
+		$sql3 = "SELECT * FROM Midia WHERE idMidia = $aux";
+		$sql5 = "SELECT * FROM Episodio WHERE idMidia = $aux";
 		$sql4 = "SELECT * FROM Serie WHERE idSerie = $aux";
 		$sql6 = "SELECT * FROM generoserie WHERE idSerie = $aux";
+		$res = $conn->query($sql3);
+		$m = Midia::__generate($res);
+		$midia = $m[0];
+		$res = $conn->query($sql5);
+		$e = Episodio::__generate($res);
+		$episodio = $e[0];
 		$res = $conn->query($sql4);
 		$s = Serie::__generate($res);
 		$serie = $s[0];
@@ -85,7 +101,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="main-contact">
 				<?php 
 					if (isset($_GET["acao"])){
-						if ($_GET["acao"] == "inserir" && $_GET["idMidia"] != NULL) {
+						if ($_GET["acao"] == "inserir" && $_GET["idSerie"] != NULL) {
 							echo "<p>Editar s&eacute;rie</p>";
 						}
 					} else {
@@ -121,7 +137,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													echo '<td><input name = "'. $objeto->getIdGenero() .'" type = "checkbox" ';
 													if(isset($_GET["acao"])) {
 														foreach($gfs as $fqweg) {
-															if($objeto->getIdGenero() == $fqweg->getIdGenero() && $fqweg->getIdMidia() == $serie->getIdSerie()) {
+															if($objeto->getIdGenero() == $fqweg->getIdGenero() && $fqweg->getIDSerie() == $serie->getIdSerie()) {
 																echo 'checked';
 																break;
 															}
@@ -139,20 +155,50 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="clearfix"></div>
 					</form>
 				</div>
-		 
+				<?php 
+					if (isset($_GET["acao"])){
+						if ($_GET["acao"] == "inserir" && $_GET["idSerie"] != NULL) {
+							echo '	<div class="main-contact">
+										<p>Editar s&eacute;rie</p>
+										<div class="contact-form">
+											<form id="formCliente" action="serie_view.php?acao=inserir" method="post">
+												<div class="col-md-6 contact-left">
+													<input name = "idMidia" type = "hidden" value='. $episodio->getIdMidia() .' />
+													<input name = "temporada" type = "text" placeholder="Nome da S&eacute;rie" value='. $episodio->getNome() .'/>
+													<input name = "numero" type = "text" placeholder="Capa da S&eacute;rie" value='. $episodio->getCapa() .'/>
+													<input type="submit" value="SEND"/>
+												</div>											
+											</form>
+										</div>	
+									</div>
+									';
+						}
+					} 
+				?>
 			</div>
 			<div>
 				<center>
 					<table cellpadding = "0"  cellspacing = "100" class = "display" id="tabelaCliente">
                         <thead>
                             <tr>
-								<th></th>
-                                <th>Id</th>
-                                <th>Nome da S&eacute;rie</th>                             
-                                <th>Capa da S&eacute;rie</th>                         
-                                <th>Faixa et&aacute;ria</th>                         
-                                <th>Link do Trailer</th>      
-								<th>G&ecirc;neros relacionados</th>
+								<?php
+									if (!isset($_GET["acao"])){
+										echo '  <th></th>
+												<th>Id</th>
+												<th>Nome da S&eacute;rie</th>                             
+												<th>Capa da S&eacute;rie</th>                         
+												<th>Faixa et&aacute;ria</th>                         
+												<th>Link do Trailer</th>      
+												<th>G&ecirc;neros relacionados</th> ';
+									}   else {
+										echo '  <th></th>
+												<th>N&uacute;mero do Epis&oacute;dio</th>                           
+												<th>Temporada</th>      
+												<th>Nome do Epis&oacute;dio</th>                     
+												<th>Dura&ccedil;&atilde;o</th>      ';
+									}                          
+								?>  
+								
                             </tr>
                         </thead>
                         <tbody>
@@ -184,7 +230,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										echo '</td>';
 										echo '</tr>';
 									}
-								}                             
+								} else {
+									foreach ($midias as $objeto) {
+										if ($objeto->getIdSerie() == $_GET["idSerie"]) {
+											echo '<tr>';
+											echo '<td> <a href="admin_insere_serie.php?acao=inserir&idMidia=' . $objeto->getIdMidia() . '" title="Editar"><img src="images/editar.png" /></a>';
+											echo '&nbsp;&nbsp;<a href="serie_view.php?acao=excluir&idMidia=' . $objeto->getIdMidia() . '" title="Excluir"><img src="images/excluir.png" /></a></td>';
+											 
+											echo '<td>' . $objeto->getEpisodio() . '</td>';
+											echo '<td>' . $objeto->getTemporada() . '</td>';
+											echo '<td>' . $objeto->getTitulo() . '</td>';
+											echo '<td>' . $objeto->getDuracao() . '</td>';
+											
+											echo '</tr>';
+										}
+										
+									}
+								}                       
                             ?>   
                         </tbody>
                     </table>
