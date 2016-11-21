@@ -44,7 +44,7 @@ if ($acao == "inserir") {
 		$generos = Genero::__querySQL($sqlG, $conn);
 		foreach($generos as $objeto) {
 			$gf->setIdGenero($objeto->getIdGenero());
-			$gf->setIdSerie($filme->getIdSerie());
+			$gf->setIdSerie($serie->getIdSerie());
 			if ($_POST["". $objeto->getIdGenero() .""] == 'on') {
 				$gf->save($conn);
 			} else {

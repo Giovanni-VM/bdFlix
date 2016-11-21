@@ -34,16 +34,16 @@ $serie = new Serie(NULL);
 if (isset($_GET["acao"])){
 	if ($_GET["acao"] == "inserir" && $_GET["idSerie"] != NULL) {
 		$aux = $_GET["idSerie"];
-		$sql3 = "SELECT * FROM Midia WHERE idMidia = $aux";
-		$sql5 = "SELECT * FROM Episodio WHERE idMidia = $aux";
+		$sql3 = "SELECT m.* FROM Midia as m, Episodio as e WHERE e.idSerie = $aux and m.idMidia = e.idMidia";
+		$sql5 = "SELECT * FROM Episodio WHERE idSerie = $aux";
 		$sql4 = "SELECT * FROM Serie WHERE idSerie = $aux";
 		$sql6 = "SELECT * FROM generoserie WHERE idSerie = $aux";
 		$res = $conn->query($sql3);
 		$m = Midia::__generate($res);
-		$midia = $m[0];
+		// $midia = $m[0];
 		$res = $conn->query($sql5);
 		$e = Episodio::__generate($res);
-		$episodio = $e[0];
+		// $episodio = $e[0];
 		$res = $conn->query($sql4);
 		$s = Serie::__generate($res);
 		$serie = $s[0];
@@ -155,29 +155,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="clearfix"></div>
 					</form>
 				</div>
-				<?php 
-					if (isset($_GET["acao"])){
-						if ($_GET["acao"] == "inserir" && $_GET["idSerie"] != NULL) {
-							echo '	<div class="main-contact">
-										<p>Editar s&eacute;rie</p>
-										<div class="contact-form">
-											<form id="formCliente" action="serie_view.php?acao=inserir" method="post">
-												<div class="col-md-6 contact-left">
-													<input name = "idMidia" type = "hidden" value='. $episodio->getIdMidia() .' />
-													<input name = "temporada" type = "text" placeholder="Nome da S&eacute;rie" value='. $episodio->getNome() .'/>
-													<input name = "numero" type = "text" placeholder="Capa da S&eacute;rie" value='. $episodio->getCapa() .'/>
-													<input type="submit" value="SEND"/>
-												</div>											
-											</form>
-										</div>	
-									</div>
-									';
-						}
-					} 
-				?>
 			</div>
 			<div>
-				<center>
+				<center>					 
+					
 					<table cellpadding = "0"  cellspacing = "100" class = "display" id="tabelaCliente">
                         <thead>
                             <tr>
@@ -191,7 +172,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												<th>Link do Trailer</th>      
 												<th>G&ecirc;neros relacionados</th> ';
 									}   else {
-										echo '  <th></th>
+										echo '  <th>';												
+													if (isset($_GET["acao"])){
+														echo '  <a href="admin_insere_episodio.php?idSerie=' . $serie->getIdSerie() . '" title="Inserir Epis&oacute;dio"><img src="images/novo.png" /></a>';
+													}                          
+												echo	'</th>
 												<th>N&uacute;mero do Epis&oacute;dio</th>                           
 												<th>Temporada</th>      
 												<th>Nome do Epis&oacute;dio</th>                     
@@ -234,8 +219,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									foreach ($midias as $objeto) {
 										if ($objeto->getIdSerie() == $_GET["idSerie"]) {
 											echo '<tr>';
-											echo '<td> <a href="admin_insere_serie.php?acao=inserir&idMidia=' . $objeto->getIdMidia() . '" title="Editar"><img src="images/editar.png" /></a>';
-											echo '&nbsp;&nbsp;<a href="serie_view.php?acao=excluir&idMidia=' . $objeto->getIdMidia() . '" title="Excluir"><img src="images/excluir.png" /></a></td>';
+											echo '<td> <a href="admin_insere_episodio.php?acao=inserir&idMidia=' . $objeto->getIdMidia() . '&idSerie=' . $objeto->getIdSerie() . '" title="Editar"><img src="images/editar.png" /></a>';
+											echo '&nbsp;&nbsp;<a href="episodio_view.php?acao=excluir&idMidia=' . $objeto->getIdMidia() . '" title="Excluir"><img src="images/excluir.png" /></a></td>';
 											 
 											echo '<td>' . $objeto->getEpisodio() . '</td>';
 											echo '<td>' . $objeto->getTemporada() . '</td>';
