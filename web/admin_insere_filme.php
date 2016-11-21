@@ -15,6 +15,10 @@ include "classes/class_pc_midiafilme.php";
 
 $sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f";
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
+<<<<<<< HEAD
+=======
+
+>>>>>>> a3681503b294a145abae857faf3e167eb3452cd4
 $conn = new mysqli($host, $username, $password, $dbname);
 
 

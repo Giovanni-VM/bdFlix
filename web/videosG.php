@@ -3,7 +3,9 @@ include "classes/class_perfil.php";
 include "bd.php";
 
 if(!isset($_GET['tpVid']))  $tpVid  = "filme";
+else $tpVid  = $_GET['tpVid'];
 if(!isset($_GET['genero'])) $genero = "qualquer";
+else $genero = $_GET['genero'];
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
 $conn = new mysqli($host, $username, $password, $dbname);
@@ -87,23 +89,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 				<div class="content-grids">
 
-					<form method = "GET" action = "">
+					<form method = "GET" action = "" style = "margin-bottom: 50px;">
 						<div class="form-group">
 	  					<label for="tpVid">Tipo de vídeo</label>
 	  					<select class="form-control" id="tpVid" name = "tpVid">
-	    					<option value = "filme" selected>Filme</option>
-	    					<option>Série</option>
+	    					<option value = "filme"<?php if($tpVid == "filme") echo " selected"; ?>>Filme</option>
+	    					<option value = "serie"<?php if($tpVid == "serie") echo " selected"; ?>>Série</option>
 	  					</select>
 						</div>
 						<div class="form-group">
 	  					<label for="genero">Gênero</label>
 	  					<select class="form-control" id="genero" name = "genero">
-								<option value = "qualquer" selected>Qualquer..</option>
+								<option value = "qualquer"<?php if($genero == "qualquer") echo " selected"; ?>>Qualquer..</option>
 								<?php
 									$sql = "SELECT * FROM Genero";
 									$r = mysqli_query($conn, $sql);
-									while($g = mysqli_fetch_assoc()){
-										echo "<option value = \"".$g["idGenero"]."\">".$g["nome"]."</option>";
+									while($g = mysqli_fetch_assoc($r)){
+										echo "<option value = \"".$g["idGenero"]."\" ";
+										if($genero == $g["idGenero"]) echo "selected";
+										echo ">".$g["nome"]."</option>";
 									}
 								?>
 	  					</select>
@@ -123,17 +127,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							$r1 = mysqli_query($conn, "SELECT COUNT(*) FROM GeneroFilme");
 							$r2 = mysqli_query($conn, "SELECT COUNT(*) FROM GeneroSerie");
 						}
-						$nL1 = mysqli_fetch_row($r1);
-						$nL2 = mysqli_fetch_row($r2);
+						$nL1 = mysqli_fetch_row($r1)[0];
+						$nL2 = mysqli_fetch_row($r2)[0];
 
-						if($tpVid == "filme")
+						if($tpVid == "filme"){
 							$numFilmes = $nL1;
-						else
+						} else {
 							$numFilmes = $nL2;
+						}
 
 						$pagAtual = isset($_GET['pagAtual']) ? $_GET['pagAtual'] : 1;
 						if($tpVid == "filme"){
-							$sql = "SELECT * FROM Filme f, GeneroFilme gf, Midia m WHERE f.idFilme = gf.idFilme AND idGenero = $genero AND m.idMidia = f.idMidia ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";
+							$sql = "SELECT * FROM Filme f, GeneroFilme gf, Midia m WHERE f.idMidia = gf.idFilme";
+							if($genero != "qualquer")
+							 	$sql = $sql." AND idGenero = '$genero'";
+							$sql = $sql." AND m.idMidia = f.idMidia ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";
 							$offsetSQL = ($pagAtual-1)*12;
 							$sql = $sql.$offsetSQL;
 
@@ -142,7 +150,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 							while ($filme = mysqli_fetch_assoc($r)) {
 								$cont++;
-								if(cont%4 != 0){
+								if($cont%4 != 0){
 									echo "
 									<div class=\"content-grid\">
 										<a class=\"play-icon popup-with-zoom-anim\" href=\"#small-dialog\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\" /></a>
@@ -155,8 +163,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									";
 								} else { // to cansado
 									echo "
-									<div class=\"content-grid last-grid">
-										<a class=\"play-icon popup-with-zoom-anim\" href=\"#small-dialog\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\" /></a>
+									<div class=\"content-grid last-grid\">
+										<a class=\"play-icon popup-with-zoom-anim\" href=\"#small-dialog\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\"/></a>
 										<h3>".$filme["titulo"]."</h3>
 										<a class=\"button play-icon popup-with-zoom-anim\" href=\"#small-dialog\">Assistir</a>
 									</div>
@@ -167,7 +175,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								}
 							}
 						} else { // So pra ver se funciona. Se der tempo faco direito
-							$sql = "SELECT * FROM Episodio e, Midia m, Serie s, GeneroSerie gs WHERE e.idMidia = m.idMidia AND e.idSerie = s.idSerie AND gs.idGenero = $genero ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";
+							$sql = "SELECT * FROM Episodio e, Midia m, Serie s, GeneroSerie gs WHERE e.idMidia = m.idMidia AND e.idSerie = s.idSerie";
+							if($genero != "qualquer")
+							 	$sql = $sql." AND gs.idGenero = '$genero'";
+							$sql = $sql." ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";
 							$offsetSQL = ($pagAtual-1)*12;
 							$sql = $sql.$offsetSQL;
 
@@ -176,7 +187,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 							while ($ep = mysqli_fetch_assoc($r)) {
 								$cont++;
-								if(cont%4 != 0){
+								if($cont%4 != 0){
 									echo "
 									<div class=\"content-grid\">
 										<a class=\"play-icon popup-with-zoom-anim\" href=\"#small-dialog\"><img src=\"".$ep["capa"]."\" title=\"allbum-name\" /></a>
@@ -211,8 +222,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<ul>
 							<?php
 								$numPags = 5;
-								$numPags = $numFilmes/12 > intval($numFilmes/12) ? intval($numFilmes/12)+1 : intval($numFilmes/12);
-								$pagAtual = $_GET['pagAtual'];
+								//$numPags = ($numFilmes/12 > intval($numFilmes/12)) ? intval($numFilmes/12)+1 : intval($numFilmes/12);
 								for($i = 1; $i <= $numPags; $i++){
 									if($i == $pagAtual)
 										echo "<li><a href=\"?pagAtual=$i\" style = \"color:#FF8C00;\">$i</a></li>";
