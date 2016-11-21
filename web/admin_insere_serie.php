@@ -220,7 +220,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										if ($objeto->getIdSerie() == $_GET["idSerie"]) {
 											echo '<tr>';
 											echo '<td> <a href="admin_insere_episodio.php?acao=inserir&idMidia=' . $objeto->getIdMidia() . '&idSerie=' . $objeto->getIdSerie() . '" title="Editar"><img src="images/editar.png" /></a>';
-											echo '&nbsp;&nbsp;<a href="episodio_view.php?acao=excluir&idMidia=' . $objeto->getIdMidia() . '" title="Excluir"><img src="images/excluir.png" /></a></td>';
+											echo '&nbsp;&nbsp;<a href="episodio_view.php?acao=excluir&idMidia=' . $objeto->getIdMidia() . '&idSerie=' . $objeto->getIdSerie() . '" title="Excluir"><img src="images/excluir.png" /></a></td>';
 											 
 											echo '<td>' . $objeto->getEpisodio() . '</td>';
 											echo '<td>' . $objeto->getTemporada() . '</td>';

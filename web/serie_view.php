@@ -29,8 +29,8 @@ if ($acao == "inserir") {
 			}
 		}
 		$conn->close();
-		// header("Location: admin_insere_serie.php");
-		// exit();
+		header("Location: admin_insere_serie.php");
+		exit();
 	} else if ($_POST["idSerie"] != NULL){
 		$serie = new Serie(NULL);
 		$gf = new GeneroSerie(NULL);
@@ -70,7 +70,7 @@ if ($acao == "inserir") {
 	}
 	$serie->remove($conn);
 	$conn->close();
-	// header("Location: admin_insere_serie.php");
-	// exit();
+	header("Location: admin_insere_serie.php");
+	exit();
 } 
 ?>
