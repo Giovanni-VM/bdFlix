@@ -8,7 +8,7 @@
     public static function __generate(MySQLi_Result $query){
         $objetos = [];
         while($res = $query->fetch_row()){
-            $objetos[] = new Episodios($res);
+            $objetos[] = new Episodio($res);
         }
         return $objetos;
     }
@@ -33,6 +33,24 @@
         }
     }
 
+	public function save($con){
+        $sql = "INSERT INTO episodio(idSerie, idMidia, temporada, episodio) VALUES ($this->idSerie,$this->idMidia,$this->temporada,$this->episodio)";
+		$con->query($sql);
+    }
+	
+	public function edit($con){
+        $sql = "UPDATE episodio SET temporada=$this->temporada,`episodio` = $this->episodio WHERE idMidia = $this->idMidia";
+        $con->query($sql);
+    }
+
+	public function remove($con){
+		if($this->idMidia == NULL){
+			return ;
+		}
+		$sql = "DELETE FROM episodio WHERE idMidia = $this->idMidia";
+		$con->query($sql);
+	}
+	
     public function getIdMidia(){
 		return $this->idMidia;
 	}

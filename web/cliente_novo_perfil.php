@@ -86,7 +86,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li><a class = "button-cli" href = "cliente_perfil_lista.php">Meus Perfis</a></li>
 					</div>
 					<div class = "nav-button-cli">
-						<li><a class = "button-cli">Sair</a></li>
+						<li><a class = "button-cli" href = "cliente_logout.php">Sair</a></li>
 					</div>
 				</ul>
 			</div>

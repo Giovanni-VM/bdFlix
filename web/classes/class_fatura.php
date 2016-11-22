@@ -65,7 +65,7 @@ class Fatura{
 				return FALSE;
 			}
         } else {
-            $sql = "UPDATE fatura SET dataIni = '$this->dataIni', dataFim = '$this->dataFim', paga = '$this->paga', valor = $this->valor, idCliente = $this->idCliente";
+            $sql = "UPDATE fatura SET dataIni = '$this->dataIni', dataFim = '$this->dataFim', paga = '$this->paga', valor = $this->valor, idCliente = $this->idCliente WHERE nFat = $this->nFat";
             if($result = $con->query($sql)){
 				return TRUE;
 			} else {

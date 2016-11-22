@@ -36,7 +36,7 @@ if(!$cliente->save($conn)){
     $_SESSION["error_form_cli"] = true;
     $_SESSION["err_cli"] = "Impossivel Modificar Banco de Dados - Entre em contato com a central"; 
     $conn->close();
-    header("Location: registra.php");
+    header("Location: registrar.php");
     exit();
 }
 

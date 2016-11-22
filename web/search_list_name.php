@@ -25,7 +25,7 @@ if($pesquisa == ""){
     exit();
 }
 
-$sql = "SELECT * FROM movielist WHERE idList NOT IN(SELECT ml.idList FROM movielist ml, seguelist sl WHERE ml.idList = sl.idList AND idPerfil = $idPerf) AND (nome LIKE '%$pesquisa%' OR descricao LIKE '%$pesquisa%' OR idCriador IN (SELECT idPerfil FROM perfil WHERE nome LIKE '%$pesquisa%'))";
+$sql = "SELECT * FROM movielist WHERE (publica = 1 OR (publica = 0 AND idCriador = $idPerf))AND idList NOT IN(SELECT ml.idList FROM movielist ml, seguelist sl WHERE ml.idList = sl.idList AND idPerfil = $idPerf) AND (nome LIKE '%$pesquisa%' OR descricao LIKE '%$pesquisa%' OR idCriador IN (SELECT idPerfil FROM perfil WHERE nome LIKE '%$pesquisa%'))";
 
 $listas = MovieList::__querySQL($sql, $conn);
 

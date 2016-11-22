@@ -3,6 +3,7 @@ class PCMidiaFilme{
 	private $idMidia;
     private $faixa;
 	private $trailer;
+	private $capa;
 	private $duracao;
 	private $titulo;
 	
@@ -27,8 +28,9 @@ class PCMidiaFilme{
             $this->idMidia = $tuple[0];
             $this->faixa = $tuple[1];
 			$this->trailer = $tuple[2];
-			$this->duracao = $tuple[3];
-			$this->titulo = $tuple[4];
+			$this->capa = $tuple[3];
+			$this->duracao = $tuple[4];
+			$this->titulo = $tuple[5];
         } else {
             $this->idMidia = NULL;
         }
@@ -56,6 +58,14 @@ class PCMidiaFilme{
 
 	public function setTrailer($trailer){
 		$this->trailer = $trailer;
+	}
+	
+	public function getCapa(){
+		return $this->capa;
+	}
+
+	public function setCapa($capa){
+		$this->capa = $capa;
 	}
 	
 	public function getDuracao(){

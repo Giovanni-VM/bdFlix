@@ -3,6 +3,8 @@
         private $duracao;
 		private $titulo;
 		private $tipo;
+
+		private $url; //SÓ ESTA AQUI PARA SER USADA NA PARTE DE MOVIELIST, IGNOREM
 		
         
     public static function __generate(MySQLi_Result $query){
@@ -81,6 +83,14 @@
 
 	public function setTipo($tipo){
 		$this->tipo = $tipo;
+	}
+
+	public function getUrl(){
+		return $this->url;
+	}
+
+	public function setUrl($url){
+		$this->url = $url;
 	}
 };
 
