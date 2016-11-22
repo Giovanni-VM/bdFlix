@@ -121,8 +121,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						$numFilmes = 0;
 
 						if($genero != "qualquer"){
-							$r1 = mysqli_query($conn, "SELECT COUNT(*) FROM GeneroFilme WHERE idGenero = $genero");
-							$r2 = mysqli_query($conn, "SELECT COUNT(*) FROM GeneroSerie WHERE idGenero = $genero");
+							$r1 = mysqli_query($conn, "SELECT COUNT(*) FROM GeneroFilme WHERE idGenero = '$genero'");
+							$r2 = mysqli_query($conn, "SELECT COUNT(*) FROM GeneroSerie WHERE idGenero = '$genero'");
 						} else {
 							$r1 = mysqli_query($conn, "SELECT COUNT(*) FROM GeneroFilme");
 							$r2 = mysqli_query($conn, "SELECT COUNT(*) FROM GeneroSerie");
@@ -158,7 +158,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<a class=\"button play-icon popup-with-zoom-anim\" href=\"#small-dialog\">Assistir</a>
 									</div>
 									<div id=\"small-dialog\" class=\"mfp-hide\">
-										<iframe  src=\" ".$filme["trailer"]."\" frameborder=\"0\" allowfullscreen></iframe>
+										<iframe  src=\" ".$filme["video"]."\" frameborder=\"0\" allowfullscreen></iframe>
 									</div>
 									";
 								} else { // to cansado
@@ -169,12 +169,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<a class=\"button play-icon popup-with-zoom-anim\" href=\"#small-dialog\">Assistir</a>
 									</div>
 									<div id=\"small-dialog\" class=\"mfp-hide\">
-										<iframe  src=\" ".$filme["trailer"]."\" frameborder=\"0\" allowfullscreen></iframe>
+										<iframe  src=\" ".$filme["video"]."\" frameborder=\"0\" allowfullscreen></iframe>
 									</div>
 									";
 								}
 							}
-						} else { // So pra ver se funciona. Se der tempo faco direito
+						} else {
 							$sql = "SELECT * FROM Episodio e, Midia m, Serie s, GeneroSerie gs WHERE e.idMidia = m.idMidia AND e.idSerie = s.idSerie";
 							if($genero != "qualquer")
 							 	$sql = $sql." AND gs.idGenero = '$genero'";
@@ -195,7 +195,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<a class=\"button play-icon popup-with-zoom-anim\" href=\"#small-dialog\">Assistir</a>
 									</div>
 									<div id=\"small-dialog\" class=\"mfp-hide\">
-										<iframe  src=\" ".$ep["trailer"]."\" frameborder=\"0\" allowfullscreen></iframe>
+										<iframe  src=\" ".$ep["video"]."\" frameborder=\"0\" allowfullscreen></iframe>
 									</div>
 									";
 								} else { // to cansado
@@ -206,7 +206,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<a class=\"button play-icon popup-with-zoom-anim\" href=\"#small-dialog\">Assistir</a>
 									</div>
 									<div id=\"small-dialog\" class=\"mfp-hide\">
-										<iframe  src=\" ".$ep["trailer"]."\" frameborder=\"0\" allowfullscreen></iframe>
+										<iframe  src=\" ".$ep["video"]."\" frameborder=\"0\" allowfullscreen></iframe>
 									</div>
 									";
 								}

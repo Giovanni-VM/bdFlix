@@ -15,7 +15,8 @@ faixa INT,
 nome VARCHAR(50),
 timestamp TIMESTAMP,
 capa VARCHAR(255),
-trailer VARCHAR(255)
+trailer VARCHAR(255),
+descricao VARCHAR(200)
 );
 
 CREATE TABLE Preferencia (
@@ -36,7 +37,6 @@ FOREIGN KEY(idSerie) REFERENCES Serie (idSerie)
 CREATE TABLE Filme (
 idMidia INT PRIMARY KEY,
 faixa INT,
-trailer VARCHAR(255),
 pesquisas INT,
 timestamp TIMESTAMP,
 capa VARCHAR(255)
@@ -60,6 +60,7 @@ CREATE TABLE Midia (
 idMidia INT PRIMARY KEY AUTO_INCREMENT,
 duracao INT,
 titulo VARCHAR(50),
+video VARCHAR(255),
 tipo BOOL
 );
 
@@ -147,7 +148,6 @@ idSerie INT,
 idMidia INT,
 temporada INT,
 episodio INT,
-trailer VARCHAR(255),
 PRIMARY KEY(idSerie,idMidia),
 FOREIGN KEY(idSerie) REFERENCES Serie (idSerie),
 FOREIGN KEY(idMidia) REFERENCES Midia (idMidia)
