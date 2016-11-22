@@ -153,31 +153,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								if($cont%4 != 0){
 									echo "
 									<div class=\"content-grid\">
-										<a class=\"play-icon popup-with-zoom-anim\" href=\"#small-dialog\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\" /></a>
+										<a href=\"filmes.php?".$filme["idMidia"]."\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\" /></a>
 										<h3>".$filme["titulo"]."</h3>
-										<a class=\"button play-icon popup-with-zoom-anim\" href=\"#small-dialog\">Assistir</a>
-									</div>
-									<div id=\"small-dialog\" class=\"mfp-hide\">
-										<iframe  src=\" ".$filme["video"]."\" frameborder=\"0\" allowfullscreen></iframe>
+										<a class=\"button\" href=\"filmes.php?".$filme["idMidia"]."\">Assistir</a>
 									</div>
 									";
 								} else { // to cansado
 									echo "
 									<div class=\"content-grid last-grid\">
-										<a class=\"play-icon popup-with-zoom-anim\" href=\"#small-dialog\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\"/></a>
+										<a href=\"filmes.php?".$filme["idMidia"]."\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\"/></a>
 										<h3>".$filme["titulo"]."</h3>
-										<a class=\"button play-icon popup-with-zoom-anim\" href=\"#small-dialog\">Assistir</a>
-									</div>
-									<div id=\"small-dialog\" class=\"mfp-hide\">
-										<iframe  src=\" ".$filme["video"]."\" frameborder=\"0\" allowfullscreen></iframe>
+										<a class=\"button\" href=\"filmes.php?".$filme["idMidia"]."\">Assistir</a>
 									</div>
 									";
 								}
 							}
 						} else {
-							$sql = "SELECT * FROM Episodio e, Midia m, Serie s, GeneroSerie gs WHERE e.idMidia = m.idMidia AND e.idSerie = s.idSerie";
+							$sql = "SELECT * FROM Serie s, GeneroSerie gs";
 							if($genero != "qualquer")
-							 	$sql = $sql." AND gs.idGenero = '$genero'";
+							 	$sql = $sql." WHERE s.idGenero = '$genero' AND s.idGenero = gs.idGenero";
 							$sql = $sql." ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";
 							$offsetSQL = ($pagAtual-1)*12;
 							$sql = $sql.$offsetSQL;
@@ -185,28 +179,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							$r = mysqli_query($conn, $sql);
 							$cont = 0;
 
-							while ($ep = mysqli_fetch_assoc($r)) {
+							while ($serie = mysqli_fetch_assoc($r)) {
 								$cont++;
 								if($cont%4 != 0){
 									echo "
 									<div class=\"content-grid\">
-										<a class=\"play-icon popup-with-zoom-anim\" href=\"#small-dialog\"><img src=\"".$ep["capa"]."\" title=\"allbum-name\" /></a>
-										<h3>".$ep["nome"]." - ".$ep["titulo"]."</h3>
-										<a class=\"button play-icon popup-with-zoom-anim\" href=\"#small-dialog\">Assistir</a>
-									</div>
-									<div id=\"small-dialog\" class=\"mfp-hide\">
-										<iframe  src=\" ".$ep["video"]."\" frameborder=\"0\" allowfullscreen></iframe>
+										<a href=\"series.php?nomeSerie=".$serie["nome"]."\"><img src=\"".$serie["capa"]."\" title=\"allbum-name\" /></a>
+										<h3>".$serie["nome"]."</h3>
+										<a class=\"button\" href=\"series.php?nomeSerie=".$serie["nome"]."\">Assistir</a>
 									</div>
 									";
 								} else { // to cansado
 									echo "
 									<div class=\"content-grid last-grid\">
-										<a class=\"play-icon popup-with-zoom-anim\" href=\"#small-dialog\"><img src=\"".$ep["capa"]."\" title=\"allbum-name\" /></a>
-										<h3>".$ep["nome"]." - ".$ep["titulo"]."</h3>
-										<a class=\"button play-icon popup-with-zoom-anim\" href=\"#small-dialog\">Assistir</a>
-									</div>
-									<div id=\"small-dialog\" class=\"mfp-hide\">
-										<iframe  src=\" ".$ep["video"]."\" frameborder=\"0\" allowfullscreen></iframe>
+										<a href=\"series.php?nomeSerie=".$serie["nome"]."\"><img src=\"".$serie["capa"]."\" title=\"allbum-name\" /></a>
+										<h3>".$serie["nome"]."</h3>
+										<a class=\"button\" ref=\"series.php?nomeSerie=".$serie["nome"]."\">Assistir</a>
 									</div>
 									";
 								}
