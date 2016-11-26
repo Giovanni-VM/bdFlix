@@ -1,4 +1,8 @@
 <?php session_start();
+if(!isset($_SESSION["perf_logado"]) || !$_SESSION["perf_logado"]){
+	header('Location: index.php');
+	exit();
+}
 include "classes/class_perfil.php";
 include "bd.php";
 
@@ -139,7 +143,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 						$pagAtual = isset($_GET['pagAtual']) ? $_GET['pagAtual'] : 1;
 						if($tpVid == "filme"){
-							$sql = "SELECT * FROM Filme f, GeneroFilme gf, Midia m WHERE f.idMidia = gf.idFilme";
+							$sql = "SELECT DISTINCT f.capa, f.idMidia, f.timestamp, m.titulo FROM Filme f, GeneroFilme gf, Midia m WHERE f.idMidia = gf.idFilme";
 							if($genero != "qualquer")
 							 	$sql = $sql." AND idGenero = '$genero'";
 							$sql = $sql." AND m.idMidia = f.idMidia ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";
@@ -170,9 +174,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								}
 							}
 						} else {
-							$sql = "SELECT * FROM Serie s, GeneroSerie gs";
+							$sql = "SELECT DISTINCT s.nome, s.capa, s.timestamp FROM Serie s, GeneroSerie gs WHERE s.idSerie = gs.idSerie";
 							if($genero != "qualquer")
-							 	$sql = $sql." WHERE s.idGenero = '$genero' AND s.idGenero = gs.idGenero";
+							 	$sql = $sql." AND s.idGenero = '$genero'";
 							$sql = $sql." ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";
 							$offsetSQL = ($pagAtual-1)*12;
 							$sql = $sql.$offsetSQL;

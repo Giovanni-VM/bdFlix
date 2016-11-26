@@ -19,8 +19,8 @@ $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
 $idPerfil = $perfil->getIdPerfil();
 
-$sqlFilme = "SELECT * FROM Filme f, Midia m, Descricao d, GeneroFilme gf, Genero g WHERE ";
-$sqlFilme .= "m.idMidia = '$idMidia' AND f.idMidia = m.idMidia AND m.idMidia = d.id AND gf.idFilme = m.idMidia";
+$sqlFilme = "SELECT * FROM Filme f, Midia m, GeneroFilme gf, Genero g WHERE ";
+$sqlFilme .= "m.idMidia = '$idMidia' AND f.idMidia = m.idMidia AND gf.idFilme = m.idMidia";
 $sqlFilme .= " AND g.idGenero = gf.idGenero";
 $r = mysqli_query($conn, $sqlFilme);
 
