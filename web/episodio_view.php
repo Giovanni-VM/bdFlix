@@ -12,6 +12,7 @@ if ($acao == "inserir") {
 		$episodio = new Episodio(NULL);
 		$midia->setTitulo($_POST["titulo"]);
 		$midia->setDuracao($_POST["duracao"]);
+		$midia->setTrailer($_POST["trailer"]);
 		$midia->setTipo(1);
 		$midia->save($conn);
 		$midia->setIdMidia($conn->insert_id);
@@ -32,6 +33,7 @@ if ($acao == "inserir") {
 		$midia->setDuracao($_POST["duracao"]);
 		$episodio->setIdSerie($_POST["idSerie"]);
 		$episodio->setTemporada($_POST["temporada"]);
+		$midia->setTrailer($_POST["trailer"]);
 		$episodio->setEpisodio($_POST["episodio"]);
 		$midia->save($conn);
 		$episodio->edit($conn);

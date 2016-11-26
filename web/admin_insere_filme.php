@@ -13,8 +13,6 @@ include "classes/class_genero_filme.php";
 include "classes/class_midia.php";
 include "classes/class_pc_midiafilme.php";
 
-$sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f";
-$sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
 $conn = new mysqli($host, $username, $password, $dbname);
 
 
@@ -24,7 +22,7 @@ $generos = Genero::__querySQL($sqlG, $conn);
 $sqlGF = "SELECT * FROM generofilme";
 $gfs = GeneroFilme::__querySQL($sqlGF, $conn);
 
-$sql2 = "SELECT m.idMidia, f.faixa, f.trailer, f.capa, m.duracao, m.titulo FROM midia as m, filme as f WHERE m.idMidia = f.idMidia";
+$sql2 = "SELECT m.idMidia, f.faixa, m.video, f.capa, m.duracao, m.titulo FROM midia as m, filme as f WHERE m.idMidia = f.idMidia";
 $midias = PCMidiaFilme::__querySQL($sql2, $conn);
 $midia = new Midia(NULL);
 $filme = new Filme(NULL);
@@ -108,7 +106,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<input name = "titulo" type = "text" placeholder="T&iacute;tulo do Filme" value='<?= $midia->getTitulo(); ?>'/>
 							<input name = "duracao" type = "text" placeholder="Dura&ccedil;&atilde;o" value='<?= $midia->getDuracao(); ?>'/>
 							<input name = "faixa" type = "text" placeholder="Faixa et&aacute;ria" value='<?= $filme->getFaixa(); ?>'/>
-							<input name = "trailer" type = "text" placeholder="Link do Trailer" value='<?= $filme->getTrailer(); ?>'/>
+							<input name = "trailer" type = "text" placeholder="Link do Trailer" value='<?= $midia->getTrailer(); ?>'/>
 							<input name = "capa" type = "text" placeholder="Capa do filme" value='<?= $filme->getCapa(); ?>'/>
 							<input type="submit" value="SEND"/>
 						</div>

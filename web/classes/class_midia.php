@@ -3,7 +3,7 @@
         private $duracao;
 		private $titulo;
 		private $tipo;
-
+		private $trailer;
 		private $url; //SÓ ESTA AQUI PARA SER USADA NA PARTE DE MOVIELIST, IGNOREM
 		
         
@@ -29,7 +29,8 @@
             $this->idMidia = $tuple[0];
             $this->duracao = $tuple[1];
 			$this->titulo = $tuple[2];
-			$this->tipo = $tuple[3];
+			$this->trailer = $tuple[3];
+			$this->tipo = $tuple[4];
         } else {
             $this->idMidia = NULL;
         }
@@ -37,11 +38,11 @@
 
 	public function save($con){
         if($this->idMidia == NULL){
-            $sql = "INSERT INTO midia VALUES (NULL,$this->duracao,'$this->titulo',$this->tipo)";
+            $sql = "INSERT INTO midia VALUES (NULL,$this->duracao,'$this->titulo','$this->trailer',$this->tipo)";
 			
             $con->query($sql);
         } else {
-            $sql = "UPDATE midia SET duracao=$this->duracao,titulo='$this->titulo' WHERE idMidia=$this->idMidia";
+            $sql = "UPDATE midia SET duracao=$this->duracao, video = '$this->trailer' ,titulo='$this->titulo' WHERE idMidia=$this->idMidia";
 			
             $con->query($sql);
         }
@@ -77,6 +78,14 @@
 
 	public function setTitulo($titulo){
 		$this->titulo = $titulo;
+	}
+		
+	public function getTrailer(){
+		return $this->trailer;
+	}
+
+	public function setTrailer($trailer){
+		$this->trailer = $trailer;
 	}
 		
 	public function getTipo(){

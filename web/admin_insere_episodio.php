@@ -16,7 +16,7 @@ $conn = new mysqli($host, $username, $password, $dbname);
 
 
 $idSerie = $_GET["idSerie"];
-$sql2 = "SELECT m.idMidia, e.temporada, e.episodio, m.duracao, m.titulo, e.idSerie FROM midia as m, episodio as e WHERE m.idMidia = e.idMidia AND e.idSerie =  $idSerie";
+$sql2 = "SELECT m.idMidia, e.temporada, e.episodio, m.duracao, m.titulo, e.idSerie, m.video FROM midia as m, episodio as e WHERE m.idMidia = e.idMidia AND e.idSerie =  $idSerie";
 $midias = PCMidiaEpisodio::__querySQL($sql2, $conn);
 $midia = new Midia(NULL);
 $episodio = new Episodio(NULL);
@@ -100,6 +100,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<input name = "episodio" type = "text" placeholder="Epis&oacute;dio" value='<?= $episodio->getEpisodio(); ?>'/>
 							<input name = "duracao" type = "text" placeholder="Dura&ccedil;&atilde;o" value='<?= $midia->getDuracao(); ?>'/>
 							<input name = "titulo" type = "text" placeholder="T&iacute;tulo" value='<?= $midia->getTitulo(); ?>'/>
+							<input name = "trailer" type = "text" placeholder="Link do Trailer" value='<?= $midia->getTrailer(); ?>'/>
+
 							<input type="submit" value="SEND"/>
 						</div>
 						<div class="clearfix"></div>
@@ -118,6 +120,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <th>Dura&ccedil;&atilde;o</th>                              
                                 <th>N&uacute;mero do Epis&oacute;dio</th>                             
                                 <th>Temporada</th>                 
+                                <th>Link do Trailer</th>                 
                             </tr>
                         </thead>
                         <tbody>
@@ -133,6 +136,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									echo '<td>' . $objeto->getDuracao() . '</td>';
 									echo '<td>' . $objeto->getEpisodio() . '</td>';
 									echo '<td>' . $objeto->getTemporada() . '</td>';
+									echo '<td>' . $objeto->getTrailer() . '</td>';
 									echo '<td>';
 									
 									echo '</tr>';

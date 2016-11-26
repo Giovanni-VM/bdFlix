@@ -19,7 +19,7 @@ if ($acao == "inserir") {
 		$midia->setIdMidia($conn->insert_id);
 		$filme->setIdMidia($midia->getIdMidia());
 		$filme->setFaixa($_POST["faixa"]);
-		$filme->setTrailer($_POST["trailer"]);
+		$midia->setTrailer($_POST["trailer"]);
 		$filme->setCapa($_POST["capa"]);
 		$filme->setPesquisas(0);
 		$filme->save($conn);
@@ -46,7 +46,7 @@ if ($acao == "inserir") {
 		$midia->setTitulo($_POST["titulo"]);
 		$midia->setDuracao($_POST["duracao"]);
 		$filme->setFaixa($_POST["faixa"]);
-		$filme->setTrailer($_POST["trailer"]);
+		$midia->setTrailer($_POST["trailer"]);
 		$filme->setCapa($_POST["capa"]);
 		$midia->save($conn);
 		$filme->edit($conn);

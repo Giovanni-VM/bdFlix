@@ -44,10 +44,9 @@
         if(!empty($tuple)){
             $this->idMidia = $tuple[0];
             $this->faixa = $tuple[1];
-			$this->trailer = $tuple[2];
-			$this->pesquisas = $tuple[3];
-			$this->timestamp = $tuple[4];
-			$this->capa = $tuple[5];
+			$this->pesquisas = $tuple[2];
+			$this->timestamp = $tuple[3];
+			$this->capa = $tuple[4];
         } else {
             $this->idMidia = NULL;
         }
@@ -55,14 +54,14 @@
 	
 	
 	public function save($con){
-        $sql = "INSERT INTO filme(idMidia, faixa, trailer, pesquisas, capa) ";
-		$sql .= "VALUES ($this->idMidia,$this->faixa,'$this->trailer',$this->pesquisas,'$this->capa')";
+        $sql = "INSERT INTO filme(idMidia, faixa, pesquisas, capa) ";
+		$sql .= "VALUES ($this->idMidia,$this->faixa,$this->pesquisas,'$this->capa')";
 		
 		$con->query($sql);
     }
 	
 	public function edit($con){
-        $sql = "UPDATE filme SET faixa=$this->faixa,trailer='$this->trailer', capa='$this->capa' WHERE  idMidia=$this->idMidia";
+        $sql = "UPDATE filme SET faixa=$this->faixa,capa='$this->capa' WHERE  idMidia=$this->idMidia";
         
 		$con->query($sql);
     }
@@ -90,14 +89,7 @@
 	public function setFaixa($faixa){
 		$this->faixa = $faixa;
 	}
-	
-	public function getTrailer(){
-		return $this->trailer;
-	}
 
-	public function setTrailer($trailer){
-		$this->trailer = $trailer;
-	}
 		
 	public function getPesquisas(){
 		return $this->pesquisas;

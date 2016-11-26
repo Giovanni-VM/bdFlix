@@ -23,7 +23,7 @@ $generos = Genero::__querySQL($sqlG, $conn);
 $sqlGF = "SELECT * FROM generoserie";
 $gfs = GeneroSerie::__querySQL($sqlGF, $conn);
 
-$sql2 = "SELECT m.idMidia, e.temporada, e.episodio, m.duracao, m.titulo, e.idSerie FROM midia as m, episodio as e WHERE m.idMidia = e.idMidia";
+$sql2 = "SELECT m.idMidia, e.temporada, e.episodio, m.duracao, m.titulo, e.idSerie, m.video FROM midia as m, episodio as e WHERE m.idMidia = e.idMidia";
 $midias = PCMidiaEpisodio::__querySQL($sql2, $conn);
 $midia = new Midia(NULL);
 $episodio = new Episodio(NULL);
@@ -180,7 +180,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												<th>N&uacute;mero do Epis&oacute;dio</th>                           
 												<th>Temporada</th>      
 												<th>Nome do Epis&oacute;dio</th>                     
-												<th>Dura&ccedil;&atilde;o</th>      ';
+												<th>Dura&ccedil;&atilde;o</th>                    
+												<th>Link do Trailer</th>      ';
 									}                          
 								?>  
 								
@@ -226,6 +227,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											echo '<td>' . $objeto->getTemporada() . '</td>';
 											echo '<td>' . $objeto->getTitulo() . '</td>';
 											echo '<td>' . $objeto->getDuracao() . '</td>';
+											echo '<td>' . $objeto->getTrailer() . '</td>';
 											
 											echo '</tr>';
 										}

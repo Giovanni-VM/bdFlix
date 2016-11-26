@@ -6,6 +6,7 @@ class PCMidiaEpisodio{
 	private $capa;
 	private $duracao;
 	private $titulo;
+	private $trailer;
 	private $idSerie;
 	
 	public static function __generate(MySQLi_Result $query){
@@ -33,6 +34,7 @@ class PCMidiaEpisodio{
 			$this->duracao = $tuple[3];
 			$this->titulo = $tuple[4];
             $this->idSerie = $tuple[5];
+			$this->trailer = $tuple[6];
         } else {
             $this->idMidia = NULL;
         }
@@ -92,6 +94,14 @@ class PCMidiaEpisodio{
 
 	public function setIdSerie($idSerie){
 		$this->idSerie = $idSerie;
+	}
+	
+	public function getTrailer(){
+		return $this->trailer;
+	}
+
+	public function setTrailer($trailer){
+		$this->trailer = $trailer;
 	}
 	
 };
