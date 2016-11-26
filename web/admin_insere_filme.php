@@ -107,6 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<input name = "duracao" type = "text" placeholder="Dura&ccedil;&atilde;o" value='<?= $midia->getDuracao(); ?>'/>
 							<input name = "faixa" type = "text" placeholder="Faixa et&aacute;ria" value='<?= $filme->getFaixa(); ?>'/>
 							<input name = "trailer" type = "text" placeholder="Link do Trailer" value='<?= $midia->getTrailer(); ?>'/>
+							<input name = "descricao" type = "text" placeholder="Descricao do Filme" value='<?= $filme->getDescricao(); ?>'/>
 							<input name = "capa" type = "text" placeholder="Capa do filme" value='<?= $filme->getCapa(); ?>'/>
 							<input type="submit" value="SEND"/>
 						</div>

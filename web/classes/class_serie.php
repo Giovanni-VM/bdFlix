@@ -6,6 +6,7 @@
 		private $timestamp;
 		private $capa;
 		private $trailer;
+		private $descricao;
 		
         
     public static function __generate(MySQLi_Result $query){
@@ -34,6 +35,7 @@
 			$this->timestamp = $tuple[4];
 			$this->capa = $tuple[5];
 			$this->trailer = $tuple[6];
+			$this->descricao = $tuple[7];
         } else {
             $this->idSerie = NULL;
         }
@@ -41,11 +43,11 @@
 	
 	public function save($con){
         if($this->idSerie == NULL){
-            $sql = "INSERT INTO serie(faixa, nome,capa,trailer) VALUES ($this->faixa,'$this->nome','$this->capa','$this->trailer');";
+            $sql = "INSERT INTO serie(faixa, nome,capa,trailer,descricao) VALUES ($this->faixa,'$this->nome','$this->capa','$this->trailer','$this->descricao');";
             
 			$con->query($sql);
         } else {
-            $sql = "UPDATE serie SET faixa= $this->faixa, nome='$this->nome', capa = '$this->capa', trailer = '$this->trailer' WHERE idSerie = $this->idSerie";
+            $sql = "UPDATE serie SET faixa= $this->faixa, nome='$this->nome', capa = '$this->capa', trailer = '$this->trailer', descricao='$this->descricao' WHERE idSerie = $this->idSerie";
             
 			$con->query($sql);
         }
@@ -113,6 +115,14 @@
 
 	public function setTrailer($trailer){
 		$this->trailer = $trailer;
+	}
+	
+	public function getDescricao(){
+		return $this->descricao;
+	}
+
+	public function setDescricao($descricao){
+		$this->descricao = $descricao;
 	}
 	
 };
