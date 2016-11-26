@@ -17,6 +17,7 @@
     }
 
     public static function __querySQL($sql, $con){
+		
         if($query = $con->query($sql)){
             $p = Filme::__generate($query);
 			$query->close();
@@ -56,12 +57,14 @@
 	public function save($con){
         $sql = "INSERT INTO filme(idMidia, faixa, trailer, pesquisas, capa) ";
 		$sql .= "VALUES ($this->idMidia,$this->faixa,'$this->trailer',$this->pesquisas,'$this->capa')";
+		
 		$con->query($sql);
     }
 	
 	public function edit($con){
         $sql = "UPDATE filme SET faixa=$this->faixa,trailer='$this->trailer', capa='$this->capa' WHERE  idMidia=$this->idMidia";
-        $con->query($sql);
+        
+		$con->query($sql);
     }
 
 	public function remove($con){

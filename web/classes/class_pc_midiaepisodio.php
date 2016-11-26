@@ -17,6 +17,7 @@ class PCMidiaEpisodio{
     }
 
     public static function __querySQL($sql,  $con){
+		
         if($query = $con->query($sql)){
             return PCMidiaEpisodio::__generate($query);
         } else {

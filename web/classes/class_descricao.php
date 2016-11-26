@@ -12,6 +12,7 @@
     }
 
     public static function __querySQL(string $sql, mysqli $con){
+        
         if($query = $mysqli->query($sql)){
             return Descricao::__generate($query);
         } else {

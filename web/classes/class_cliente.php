@@ -25,6 +25,7 @@
     }
 
     public static function __querySQL($sql, $con){
+		
         if($query = $mysqli->query($sql)){
             $p = Cliente::__generate($query);
             $query->close();
@@ -62,7 +63,7 @@
             $sql = "INSERT INTO cliente VALUES (NULL, '$this->user', '$this->nome', $this->cpf, '$this->email', '$this->senha', '$this->nCartao',";
             $sql .= "$this->codCartao, '$this->valCartao', '$this->estado', '$this->cidade', '$this->bairro', '$this->rua', $this->numero,";
             $sql .= "'$this->complemento', $this->idPlano)";
-			echo $sql;
+			
             if($result = $con->query($sql)){
 				$this->setIdCliente($con->insert_id);
 				return TRUE;
@@ -73,7 +74,8 @@
             $sql = "UPDATE cliente SET nome = '$this->nome', cpf = $this->cpf, email = '$this->email', senha = '$this->senha', nCartao = '$this->nCartao',";
             $sql .= " codCartao = $this->codCartao, valCartao = '$this->valCartao', estado = '$this->estado', cidade = '$this->cidade', bairro = '$this->bairro', rua = '$this->rua', numero = $this->numero,";
             $sql .= "complemento = '$this->complemento', idPlano = $this->idPlano WHERE idCliente = $this->idCliente WHERE idCliente = $this->idCliente";
-            if($result = $con->query($sql)){
+            
+			if($result = $con->query($sql)){
 				return TRUE;
 			} else {
 				return FALSE;

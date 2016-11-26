@@ -17,6 +17,7 @@ class MovieList{
     }
 
     public static function __querySQL($sql, $con){
+		
         if($query = $con->query($sql)){
             return MovieList::__generate($query);
         } else {
@@ -40,7 +41,8 @@ class MovieList{
     public function save($con){
         if($this->idList == NULL){
             $sql = "INSERT INTO movielist VALUES (NULL, $this->idCriador, '$this->nome', '$this->descricao', $this->public, $this->seguidores)";
-            if($result = $con->query($sql)){
+           
+		   if($result = $con->query($sql)){
 				$this->setIdList($con->insert_id);
 				return TRUE;
 			} else {
@@ -48,7 +50,8 @@ class MovieList{
 			}
         } else {
             $sql = "UPDATE movielist SET nome = '$this->nome', descricao = '$this->descricao', publica = $this->public, seguidores = $this->seguidores WHERE idList = $this->idList";
-            if($result = $con->query($sql)){
+            
+			if($result = $con->query($sql)){
 				return TRUE;
 			} else {
 				return FALSE;

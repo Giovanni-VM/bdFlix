@@ -27,6 +27,7 @@ if($pesquisa == ""){
 $sql = "SELECT * FROM midia WHERE idMidia IN (SELECT idMidia FROM midia WHERE titulo LIKE '%$pesquisa%' AND idMidia NOT IN(
         SELECT id FROM midiaslist WHERE idList = $lista))";
 
+
 $midias = Midia::__querySQL($sql, $conn);
 
 $_SESSION["search_result"] = $midias;

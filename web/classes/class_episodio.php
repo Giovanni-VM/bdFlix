@@ -14,6 +14,7 @@
     }
 
     public static function __querySQL($sql,$con){
+		
         if($query = $con->query($sql)){
             return Episodios::__generate($query);
         } else {
@@ -35,12 +36,14 @@
 
 	public function save($con){
         $sql = "INSERT INTO episodio(idSerie, idMidia, temporada, episodio) VALUES ($this->idSerie,$this->idMidia,$this->temporada,$this->episodio)";
+		
 		$con->query($sql);
     }
 	
 	public function edit($con){
         $sql = "UPDATE episodio SET temporada=$this->temporada,`episodio` = $this->episodio WHERE idMidia = $this->idMidia";
-        $con->query($sql);
+        
+		$con->query($sql);
     }
 
 	public function remove($con){

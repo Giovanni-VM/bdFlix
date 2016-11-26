@@ -20,6 +20,7 @@ class Fatura{
     }
 
     public static function __querySQL($sql, $con){
+		
         if($query = $con->query($sql)){
             $p = Fatura::__generate($query);
             $query->close();
@@ -58,7 +59,8 @@ class Fatura{
     public function save($con){
         if($this->nFat == NULL){
             $sql = "INSERT INTO fatura VALUES (NULL, '$this->dataIni', '$this->dataFim', '$this->paga', $this->valor, $this->idCliente)";
-            if($result = $con->query($sql)){
+            
+			if($result = $con->query($sql)){
 				$this->nFat($con->insert_id);
 				return TRUE;
 			} else {
@@ -66,7 +68,8 @@ class Fatura{
 			}
         } else {
             $sql = "UPDATE fatura SET dataIni = '$this->dataIni', dataFim = '$this->dataFim', paga = '$this->paga', valor = $this->valor, idCliente = $this->idCliente WHERE nFat = $this->nFat";
-            if($result = $con->query($sql)){
+            
+			if($result = $con->query($sql)){
 				return TRUE;
 			} else {
 				return FALSE;

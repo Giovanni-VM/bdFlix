@@ -16,6 +16,7 @@
     }
 
     public static function __querySQL($sql, $con){
+		
         if($query = $con->query($sql)){
             return Midia::__generate($query);
         } else {
@@ -37,10 +38,11 @@
 	public function save($con){
         if($this->idMidia == NULL){
             $sql = "INSERT INTO midia VALUES (NULL,$this->duracao,'$this->titulo',$this->tipo)";
+			
             $con->query($sql);
         } else {
             $sql = "UPDATE midia SET duracao=$this->duracao,titulo='$this->titulo' WHERE idMidia=$this->idMidia";
-			echo $sql;
+			
             $con->query($sql);
         }
     }

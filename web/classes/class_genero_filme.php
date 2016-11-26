@@ -12,6 +12,7 @@
     }
 
     public static function __querySQL($sql,$con){
+        
         if($query = $con->query($sql)){
             return GeneroFilme::__generate($query);
         } else {
@@ -31,6 +32,7 @@
 	
 	public function save($con){
         $sql = "INSERT INTO generofilme VALUES($this->idGenero, $this->idMidia)";
+        
 		echo $sql;
 		$con->query($sql);
     }

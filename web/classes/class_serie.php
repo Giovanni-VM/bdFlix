@@ -17,6 +17,7 @@
     }
 
     public static function __querySQL($sql,$con){
+		
         if($query = $con->query($sql)){
             return Serie::__generate($query);
         } else {
@@ -41,10 +42,12 @@
 	public function save($con){
         if($this->idSerie == NULL){
             $sql = "INSERT INTO serie(faixa, nome,capa,trailer) VALUES ($this->faixa,'$this->nome','$this->capa','$this->trailer');";
-            $con->query($sql);
+            
+			$con->query($sql);
         } else {
             $sql = "UPDATE serie SET faixa= $this->faixa, nome='$this->nome', capa = '$this->capa', trailer = '$this->trailer' WHERE idSerie = $this->idSerie";
-            $con->query($sql);
+            
+			$con->query($sql);
         }
     }
 

@@ -12,6 +12,7 @@
     }
 
     public static function __querySQL($sql,$con){
+        
         if($query = $con->query($sql)){
             return GeneroSerie::__generate($query);
         } else {
@@ -31,6 +32,7 @@
 	
 	public function save($con){
         $sql = "INSERT INTO generoserie VALUES($this->idGenero, $this->idSerie)";
+        
 		echo $sql;
 		$con->query($sql);
     }

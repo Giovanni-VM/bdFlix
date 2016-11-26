@@ -39,7 +39,7 @@ class Perfil{
     public function save($con){
         if($this->idPerfil == NULL){
             $sql = "INSERT INTO perfil VALUES (NULL, '$this->idCliente', '$this->nome', '$this->senha', '$this->ftPerfil', $this->idade)";
-            echo $sql;
+            
             if($result = $con->query($sql)){
 				$this->setIdCliente($con->insert_id);
 				return TRUE;
@@ -48,6 +48,7 @@ class Perfil{
 			}
         } else {
             $sql = "UPDATE perfil SET senha = '$this->senha', ftPerfil = '$this->ftPerfil', idade = $this->idade WHERE idPerfil = $this->idPerfil";
+            
             if($result = $con->query($sql)){
 				return TRUE;
 			} else {

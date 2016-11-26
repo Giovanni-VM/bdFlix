@@ -14,6 +14,7 @@
     }
 
     public static function __querySQL($sql, $con){
+        
         if($query = $con->query($sql)){
             $p = Plano::__generate($query);
             $query->close();
@@ -37,12 +38,15 @@
     public function save($con){
         if($this->idPlano == NULL){
             $sql = "INSERT INTO Plano VALUES (NULL, '$this->nomePlano', $this->qtdPerfis, $this->valor)";
-            $con->query($sql);
-			$q = $con->query("SELECT FROM Plano WHERE user = '$this->user'");
-			$temp = $q->fetch_row();
-			$this->setIdPlano($temp[0]);
+            
+            if($con->query($sql)){
+                return TRUE;
+            } else {
+                return FALSE;
+            }
         } else {
             $sql = "UPDATE Plano SET nomePlano = '$this->nomePlano', qtdPerfis = $this->qydPerfis, valor = $this->valor WHERE idPlano = $this->idPlano";
+            
             $con->query($sql);
         }
     }

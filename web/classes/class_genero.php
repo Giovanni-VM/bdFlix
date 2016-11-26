@@ -11,6 +11,7 @@
     }
 
     public static function __querySQL($sql, $con){
+        
         if($query = $con->query($sql)){
             return Genero::__generate($query);
         } else {
@@ -30,9 +31,11 @@
 	public function save($con){
         if($this->idGenero == NULL){
             $sql = "INSERT INTO genero VALUES (NULL, '$this->nome');";
+            
             $con->query($sql);
         } else {
             $sql = "UPDATE genero SET nome = '$this->nome' WHERE idGenero = $this->idGenero";
+            
             $con->query($sql);
         }
     }
