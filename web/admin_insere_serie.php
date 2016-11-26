@@ -116,6 +116,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<input name = "capa" type = "text" placeholder="Capa da S&eacute;rie" value='<?= $serie->getCapa(); ?>'/>
 							<input name = "faixa" type = "text" placeholder="Faixa et&aacute;ria" value='<?= $serie->getFaixa(); ?>'/>
 							<input name = "trailer" type = "text" placeholder="Link do Trailer" value='<?= $serie->getTrailer(); ?>'/>
+							<input name = "descricao" type = "text" placeholder="Descricao da S&eacute;rie" value='<?= $serie->getTrailer(); ?>'/>
 							<input type="submit" value="SEND"/>
 						</div>
 						<div class="col-md-6 contact-right">

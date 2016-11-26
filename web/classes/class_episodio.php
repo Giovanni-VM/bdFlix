@@ -16,7 +16,7 @@
     public static function __querySQL($sql,$con){
 		
         if($query = $con->query($sql)){
-            return Episodios::__generate($query);
+            return Episodio::__generate($query);
         } else {
             return NULL;
         }
@@ -51,6 +51,7 @@
 			return ;
 		}
 		$sql = "DELETE FROM episodio WHERE idMidia = $this->idMidia";
+		echo $sql;
 		$con->query($sql);
 	}
 	

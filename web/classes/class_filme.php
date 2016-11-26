@@ -5,6 +5,7 @@
 		private $pesquisas;
 		private $timestamp;
 		private $capa;
+		private $descricao;
 		public static $nAtr = 6;
 		
         
@@ -47,6 +48,7 @@
 			$this->pesquisas = $tuple[2];
 			$this->timestamp = $tuple[3];
 			$this->capa = $tuple[4];
+			$this->descricao = $tuple[5];
         } else {
             $this->idMidia = NULL;
         }
@@ -54,14 +56,14 @@
 	
 	
 	public function save($con){
-        $sql = "INSERT INTO filme(idMidia, faixa, pesquisas, capa) ";
-		$sql .= "VALUES ($this->idMidia,$this->faixa,$this->pesquisas,'$this->capa')";
+        $sql = "INSERT INTO filme(idMidia, faixa, pesquisas, capa,descricao) ";
+		$sql .= "VALUES ($this->idMidia,$this->faixa,$this->pesquisas,'$this->capa','$this->descricao')";
 		
 		$con->query($sql);
     }
 	
 	public function edit($con){
-        $sql = "UPDATE filme SET faixa=$this->faixa,capa='$this->capa' WHERE  idMidia=$this->idMidia";
+        $sql = "UPDATE filme SET faixa=$this->faixa,capa='$this->capa',descricao='$this->descricao' WHERE  idMidia=$this->idMidia";
         
 		$con->query($sql);
     }
@@ -114,6 +116,15 @@
 	public function setCapa($capa){
 		$this->capa = $capa;
 	}
+	
+	public function getDescricao(){
+		return $this->descricao;
+	}
+
+	public function setDescricao($descricao){
+		$this->descricao = $descricao;
+	}
+	
 };
 
 ?>

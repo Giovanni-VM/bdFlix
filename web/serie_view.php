@@ -15,6 +15,7 @@ if ($acao == "inserir") {
 		$serie->setCapa($_POST["capa"]);
 		$serie->setFaixa($_POST["faixa"]);
 		$serie->setTrailer($_POST["trailer"]);
+		$serie->setDescricao($_POST["descricao"]);
 		$serie->save($conn);
 		$serie->setIdSerie($conn->insert_id);
 		$sqlG = "SELECT * FROM genero ORDER BY nome";
@@ -39,6 +40,7 @@ if ($acao == "inserir") {
 		$serie->setCapa($_POST["capa"]);
 		$serie->setFaixa($_POST["faixa"]);
 		$serie->setTrailer($_POST["trailer"]);
+		$serie->setDescricao($_POST["descricao"]);
 		$serie->save($conn);
 		$sqlG = "SELECT * FROM genero ORDER BY nome";
 		$generos = Genero::__querySQL($sqlG, $conn);
@@ -67,6 +69,12 @@ if ($acao == "inserir") {
 		if ($_POST["". $objeto->getIdGenero() .""] != 'on') {
 			$gf->remove($conn);
 		}
+	}	
+	$aux = $serie->getIdSerie();
+	$sqlE = "SELECT * FROM episodio WHERE idSerie=$aux";
+	$episodios = Episodio::__querySQL($sqlE, $conn);
+	foreach($episodios as $objeto) {
+		$objeto->remove($conn);
 	}
 	$serie->remove($conn);
 	$conn->close();

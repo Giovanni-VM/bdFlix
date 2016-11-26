@@ -21,6 +21,7 @@ if ($acao == "inserir") {
 		$filme->setIdMidia($midia->getIdMidia());
 		$filme->setFaixa($_POST["faixa"]);
 		$filme->setCapa($_POST["capa"]);
+		$filme->setDescricao($_POST["descricao"]);
 		$filme->setPesquisas(0);
 		$filme->save($conn);
 		$sqlG = "SELECT * FROM genero ORDER BY nome";
@@ -48,6 +49,7 @@ if ($acao == "inserir") {
 		$filme->setFaixa($_POST["faixa"]);
 		$midia->setTrailer($_POST["trailer"]);
 		$filme->setCapa($_POST["capa"]);
+		$filme->setDescricao($_POST["descricao"]);
 		$midia->save($conn);
 		$filme->edit($conn);
 		$sqlG = "SELECT * FROM genero ORDER BY nome";
