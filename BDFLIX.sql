@@ -16,7 +16,7 @@ nome VARCHAR(50),
 timestamp TIMESTAMP,
 capa VARCHAR(255),
 trailer VARCHAR(255),
-descricao VARCHAR(200)
+descricao VARCHAR(350)
 );
 
 CREATE TABLE Preferencia (
@@ -39,7 +39,8 @@ idMidia INT PRIMARY KEY,
 faixa INT,
 pesquisas INT,
 timestamp TIMESTAMP,
-capa VARCHAR(255)
+capa VARCHAR(255),
+descricao VARCHAR(350)
 );
 
 CREATE TABLE GeneroFilme (
@@ -69,7 +70,7 @@ idPerfil INT,
 idMidia INT,
 contador INT,
 PRIMARY KEY(idPerfil,idMidia),
-FOREIGN KEY(idMidia) REFERENCES Midia (idMidia) 
+FOREIGN KEY(idMidia) REFERENCES Midia (idMidia)
 );
 
 CREATE TABLE Perfil (
@@ -133,14 +134,6 @@ descricao VARCHAR(100),
 publica BOOL,
 seguidores INT,
 FOREIGN KEY(idCriador) REFERENCES Perfil (idPerfil) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-CREATE TABLE Descricao (
-id INT,
-idIdioma INT,
-descricao VARCHAR(200),
-PRIMARY KEY(id,idIdioma),
-FOREIGN KEY(id) REFERENCES Midia (idMidia)
 );
 
 CREATE TABLE Episodio (
