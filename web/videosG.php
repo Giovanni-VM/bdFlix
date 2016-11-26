@@ -154,17 +154,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								if($cont%4 != 0){
 									echo "
 									<div class=\"content-grid\">
-										<a href=\"filmes.php?".$filme["idMidia"]."\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\" /></a>
+										<a href=\"filme.php?idMidia=".$filme["idMidia"]."\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\" /></a>
 										<h3>".$filme["titulo"]."</h3>
-										<a class=\"button\" href=\"filmes.php?".$filme["idMidia"]."\">Assistir</a>
+										<a class=\"button\" href=\"filme.php?idMidia".$filme["idMidia"]."\">Assistir</a>
 									</div>
 									";
 								} else { // to cansado
 									echo "
 									<div class=\"content-grid last-grid\">
-										<a href=\"filmes.php?".$filme["idMidia"]."\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\"/></a>
+										<a href=\"filme.php?idMidia=".$filme["idMidia"]."\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\"/></a>
 										<h3>".$filme["titulo"]."</h3>
-										<a class=\"button\" href=\"filmes.php?".$filme["idMidia"]."\">Assistir</a>
+										<a class=\"button\" href=\"filme.php?idMidia=".$filme["idMidia"]."\">Assistir</a>
 									</div>
 									";
 								}
@@ -185,17 +185,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								if($cont%4 != 0){
 									echo "
 									<div class=\"content-grid\">
-										<a href=\"series.php?nomeSerie=".$serie["nome"]."\"><img src=\"".$serie["capa"]."\" title=\"allbum-name\" /></a>
+										<a href=\"serie.php?nomeSerie=".$serie["nome"]."\"><img src=\"".$serie["capa"]."\" title=\"allbum-name\" /></a>
 										<h3>".$serie["nome"]."</h3>
-										<a class=\"button\" href=\"series.php?nomeSerie=".$serie["nome"]."\">Assistir</a>
+										<a class=\"button\" href=\"serie.php?nomeSerie=".$serie["nome"]."\">Assistir</a>
 									</div>
 									";
 								} else { // to cansado
 									echo "
 									<div class=\"content-grid last-grid\">
-										<a href=\"series.php?nomeSerie=".$serie["nome"]."\"><img src=\"".$serie["capa"]."\" title=\"allbum-name\" /></a>
+										<a href=\"serie.php?nomeSerie=".$serie["nome"]."\"><img src=\"".$serie["capa"]."\" title=\"allbum-name\" /></a>
 										<h3>".$serie["nome"]."</h3>
-										<a class=\"button\" ref=\"series.php?nomeSerie=".$serie["nome"]."\">Assistir</a>
+										<a class=\"button\" ref=\"serie.php?nomeSerie=".$serie["nome"]."\">Assistir</a>
 									</div>
 									";
 								}
@@ -210,8 +210,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="pagenation">
 						<ul>
 							<?php
-								$numPags = 5;
-								//$numPags = ($numFilmes/12 > intval($numFilmes/12)) ? intval($numFilmes/12)+1 : intval($numFilmes/12);
+								//$numPags = 5;
+								$numPags = ($numFilmes/12 > intval($numFilmes/12)) ? intval($numFilmes/12)+1 : intval($numFilmes/12);
 								for($i = 1; $i <= $numPags; $i++){
 									if($i == $pagAtual)
 										echo "<li><a href=\"?pagAtual=$i\" style = \"color:#FF8C00;\">$i</a></li>";
