@@ -14,12 +14,12 @@ if ($acao == "inserir") {
 		$gf = new GeneroFilme(NULL);
 		$midia->setTitulo($_POST["titulo"]);
 		$midia->setDuracao($_POST["duracao"]);
+		$midia->setTrailer($_POST["trailer"]);
 		$midia->setTipo(0);
 		$midia->save($conn);
 		$midia->setIdMidia($conn->insert_id);
 		$filme->setIdMidia($midia->getIdMidia());
 		$filme->setFaixa($_POST["faixa"]);
-		$midia->setTrailer($_POST["trailer"]);
 		$filme->setCapa($_POST["capa"]);
 		$filme->setPesquisas(0);
 		$filme->save($conn);
