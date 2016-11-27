@@ -55,6 +55,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--webfont-->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+<script>
+function atualizaView(idPerfil, idMidia){
+	$.ajax({
+				url: "atualizaView.php",
+				type: "POST",
+				data: {idPerfil: idPerfil, idMidia: idMidia}
+		});
+}
+</script>
+
 </head>
 <body>
 	<!-- header-section-starts -->
@@ -111,7 +122,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="clearfix"></div>
 								<div class="yrw">
 									<div class="wt text-center">
-										<a class = "button play-icon popup-with-zoom-anim" href="#small-dialog">ASSISTIR</a>
+										<a onclick ="atualizaView(<?php echo $idPerfil.", ".$idMidia ?>)" class = "button play-icon popup-with-zoom-anim" href="#small-dialog">ASSISTIR</a>
 									</div>
 									<div id="small-dialog" class="mfp-hide">
 										<iframe  src="<?php echo $filme["video"];?>" frameborder="0" allowfullscreen></iframe>
