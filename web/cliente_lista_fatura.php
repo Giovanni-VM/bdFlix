@@ -19,6 +19,7 @@ $cli = $_SESSION['cliente'];
 include "bd.php";
 include "classes/class_cliente.php";
 include "classes/class_plano.php";
+include "classes/class_fatura.php";
 $conn = new mysqli($host, $username, $password, $dbname);
 
 $sql = "SELECT * FROM cliente WHERE user = '$cli'";
@@ -29,11 +30,13 @@ $p = Cliente::__generate($res);
 
 $cliente = $p[0];
 
+$idCli = $cliente->getIdCliente();
+
 $res->close();
 
-$sql = "SELECT * FROM plano";
+$sql = "SELECT * FROM fatura WHERE idCliente = $idCli ORDER BY dataIni";
 
-$planos = Plano::__querySQL($sql, $conn);
+$faturas = Fatura::__querySQL($sql, $conn);
 
 $conn->close();
 
@@ -51,6 +54,7 @@ $conn->close();
 <!-- Custom Theme files -->
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/cliente.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/table.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <script src="js/jquery.min.js"></script>
 <!-- Custom Theme files -->
@@ -93,55 +97,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		</div>
 		<div class = "body-cli">
-		<?php 
-			if(isset($_SESSION["error_form_cli"])){
-				echo "<h2>". $_SESSION["err_cli"] . "</h2>";
-				$_SESSION["error_form_cli"] = FALSE;
-				$_SESSION["err_cli"] = "";
-			}
-		?>
-		<br>
-		<div class = "form-cli">
-			<form action = "cliente_view.php" method = "POST">
-				<p>Nome:</p> <input type = "text" name = "nome" value = '<?=$cliente->getNome()?>' required>
-				<p>CPF: </p><br><input type = "text" name = "cpf" value = '<?=$cliente->getCpf()?>' required>
-				<p>Email:</p> <input type = "text" name = "email" value = '<?=$cliente->getEmail()?>' required>
-				<p>Senha:</p> <input type = "password" name = "senha" value = '' required>
-				<p>Confirme a Senha: </p><input type = "password" name = "senha2" value = '' required>
-				<p>Num Cartao:</p> <input type = "text" name = "numCartao" value = '<?=$cliente->getNCartao()?>' required>
-				<p>Cod Cartao: </p><input type = "text" name = "codCartao" value = '<?=$cliente->getCodCartao()?>' required>
-				<p>Val. Cartao:</p> <input type = "date" name = "valCartao" value = '<?=$cliente->getValCartao()?>' required>
-				<p>Estado: </p><input type = "text" name = "estado" value = '<?=$cliente->getEstado()?>' required>
-				<p>Cidade:</p> <input type = "text" name = "cidade" value = '<?=$cliente->getCidade()?>' required>
-				<p>Bairro: </p><input type = "text" name = "bairro" value = '<?=$cliente->getBairro()?>' required>
-				<p>Rua:</p> <input type = "text" name = "rua" value = '<?=$cliente->getRua()?>' required>
-				<p>Numero:<p> <input type = "text" name = "numero" value = '<?=$cliente->getNumero()?>' required>
-				<p>Complemento:</p> <input type = "text" name = 'complemento' value = '<?=$cliente->getComplemento()?>' required>
-				<p>Plano: </p>
-				<div class = "containerMax">
-				<ul>
-				<?php
-					foreach($planos as $key=>$value){
-						echo "<li><input type = 'radio' name = 'idPlano' id = 'plano".$value->getIdPlano()."' value = '" . $value->getIdPlano() . "'";
-						if($value->getIdPlano() == $cliente->getIdPlano()){
-							echo "checked";
-						}
-						echo ">";
-						echo " <label for = 'plano".$value->getIdPlano()."'> Plano " . $value->getNomePlano() . "<br>";
-						echo "Quantidade Perfil: " . $value->getQtdPerfis() . "<br>";
-						echo "Valor: R$" . number_format($value->getValor(), 2, ',', '.')  . "<br>";
-						echo "</label><div class = 'check'><div class = 'inside'></div></div></li>";
-					}
-
-				?>
-				</ul>
-				</div>
-				<div class = "clearfix"></div>
-				<div class = "sep">
-				<input type = 'submit' value = 'Enviar'>
-				</div>
-			</form>
-		</div>
+		    <div>
+                <center>
+                    <h2>Faturas</h2>
+                    <table cellpadding = '0'  cellspacing = '100' class = 'display' id='tabelaCliente'>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Vencimento</th>                             
+                                <th>Valor</th>                                                          
+                                <th>Situação</th>  
+                                <th></th>                                                             
+                            </tr>
+                        </thead>
+                        <tbody>
+                    <?php
+                        foreach ($faturas as $objeto) {
+                            echo '<tr>';
+                            echo '<td>' . $objeto->getNFat() . '</td>';
+                            echo '<td>' . $objeto->getDataIni() . '</td>';
+                            echo '<td>' . $objeto->getValor() . '</td>';
+                            if($objeto->getPaga() == 0){
+                                echo '<td> Não Paga </td>';
+                            } else {
+                                echo '<td> Paga </td>';
+                            }
+                            if($objeto->getPaga() == 0){
+                                echo '<td> <a href= "cliente_quitar_fatura.php?nFat='.$objeto->getNFat().'" title="Pagar Fatura"><img src="images/novo.png" /></a></td>';
+                            }else{
+                                echo '<td></td>';
+                            }
+                            echo '</tr>';
+                        }                            
+                    
+                    ?>
+                    </tbody>
+                    </table>
+                </center>
+            </div>
 		</div>
 
 		<script type="text/javascript" src="js/jquery.flexisel.js"></script>

@@ -26,7 +26,7 @@
 
     public static function __querySQL($sql, $con){
 		
-        if($query = $mysqli->query($sql)){
+        if($query = $con->query($sql)){
             $p = Cliente::__generate($query);
             $query->close();
             return $p;
@@ -73,8 +73,8 @@
         } else {
             $sql = "UPDATE cliente SET nome = '$this->nome', cpf = $this->cpf, email = '$this->email', senha = '$this->senha', nCartao = '$this->nCartao',";
             $sql .= " codCartao = $this->codCartao, valCartao = '$this->valCartao', estado = '$this->estado', cidade = '$this->cidade', bairro = '$this->bairro', rua = '$this->rua', numero = $this->numero,";
-            $sql .= "complemento = '$this->complemento', idPlano = $this->idPlano WHERE idCliente = $this->idCliente WHERE idCliente = $this->idCliente";
-            
+            $sql .= "complemento = '$this->complemento', idPlano = $this->idPlano WHERE idCliente = $this->idCliente";
+            echo $sql;
 			if($result = $con->query($sql)){
 				return TRUE;
 			} else {

@@ -138,13 +138,23 @@ font-size: 1.35em;
 	color:#000;
 }
 
-.containerMax{
+.sep{
   display: block;
   position: relative;
-  margin: auto;
+  margin: 50px 50px 50px 50px;
   height: 100%;
   width: 100%;
   bottom: 0; left:0; right: 0; top:0;
+  padding: 0;
+}
+
+.containerMax{
+  display: block;
+  position: relative;
+  margin: 10px 10px 10px 10px;
+  height: 100%;
+  width: 100%;
+  bottom: 200px; left:0; right: 0; top:0;
   padding: 0;
 }
 

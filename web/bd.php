@@ -2,7 +2,7 @@
 
 $host = 'localhost';
 $username = 'root';
-$password = 'int$mySql';
+$password = 'Thyratos2Aslarot';
 $dbname = 'bdflix';
 
 ?>

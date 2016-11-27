@@ -36,8 +36,8 @@ class Fatura{
 			"Data Inicio" => $this->dataIni,
 			"Data Fim" => $this->dataFim,
 			"Paga" => $this->paga,
-			"Valor" => $this-> valor,
-			"Id Cliente" => $this-> idCliente
+			"Valor" => $this->valor,
+			"Id Cliente" => $this->idCliente
 		];
 		
 		return $array;
@@ -58,17 +58,14 @@ class Fatura{
 
     public function save($con){
         if($this->nFat == NULL){
-            $sql = "INSERT INTO fatura VALUES (NULL, '$this->dataIni', '$this->dataFim', '$this->paga', $this->valor, $this->idCliente)";
-            
+            $sql = "INSERT INTO fatura VALUES (NULL, '$this->dataIni', '$this->dataFim', '$this->paga', $this->valor, $this->idCliente)"; 
 			if($result = $con->query($sql)){
-				$this->nFat($con->insert_id);
 				return TRUE;
 			} else {
 				return FALSE;
 			}
         } else {
             $sql = "UPDATE fatura SET dataIni = '$this->dataIni', dataFim = '$this->dataFim', paga = '$this->paga', valor = $this->valor, idCliente = $this->idCliente WHERE nFat = $this->nFat";
-            
 			if($result = $con->query($sql)){
 				return TRUE;
 			} else {

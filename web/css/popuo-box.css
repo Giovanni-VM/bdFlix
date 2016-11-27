@@ -1,5 +1,14 @@
 /* Styles for dialog window */
-#small-dialog,#small-dialog2,#small-dialog3,#small-dialog4{
+#small-dialog,#small-dialog0,#small-dialog1,#small-dialog2,#small-dialog3,#small-dialog4{
+	background: #FFF;
+	padding:20px;
+	text-align: left;
+	max-width: 700px;
+	margin: 40px auto;
+	position: relative;
+	text-align:center;
+}
+.pop_up_play{
 	background: #FFF;
 	padding:20px;
 	text-align: left;
