@@ -68,22 +68,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</form>
 		 		</div>
 				<div class="clearfix"></div>
-			</div>					
-			<div class="right-content-heading-left">
-				<h3 class="head">&Uacute;ltimos filmes assistidos</h3>
 			</div>
-			<div class="more-reviews">
-				<ul id="flexiselDemo2">
-					<?php
-						$cont = 0;
-						foreach($filmes as $filme){
-							if($cont < 10){
-								echo "<li><img src = '" . $filme->getCapa() . "' alt = ''/></li>";
-								$cont = $cont + 1;
-							}
-						}
-					?>
-				</ul>
+			
+			<!-- LISTA ÚLTIMOS FILMES VISTOS -->
+			<?php
+				if(count($filmes) > 0){
+					echo "<div class='right-content-heading-left'>
+						<h3 class='head'>&Uacute;ltimos filmes assistidos</h3>
+					</div>
+					<div class='more-reviews'>
+						<ul id='flexiselDemo2'>";
+								$cont = 0;
+								foreach($filmes as $filme){
+									if($cont < 10){
+										echo "<li><img src = '" . $filme->getCapa() . "' alt = ''/></li>";
+										$cont = $cont + 1;
+									}
+								}
+							
+						echo "</ul>" ;
+				}
+			?>
 				<script type="text/javascript">
 					$(window).load(function() {
 
@@ -112,24 +117,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					});
 				</script>
 				<script type="text/javascript" src="js/jquery.flexisel.js"></script>
-			</div>
+			<?php
+				if(count($filmes) > 0){
+					echo "</div>";
+				}
+			?>
 			
-			
-			<div class="right-content-heading-left">
-				<h3 class="head">&Uacute;ltimas S&eacute;ries assistidas</h3>
-			</div>
-			<div class="more-reviews">
-				<ul id="flexiselDemo3">
-					<?php
-						$cont = 0;
-						foreach($filmes as $filme){
-							if($cont < 10){
-								echo "<li><img src = '" . $filme->getCapa() . "' alt = ''/></li>";
-								$cont = $cont + 1;
-							}
+			<!-- LISTA ÚLTIMOS SÉRIES VISTOS -->
+			<?php
+				if(count($series) > 0){
+					echo "<div class='right-content-heading-left'>
+						<h3 class='head'>&Uacute;ltimas S&eacute;ries assistidas</h3>
+					</div>
+					<div class='more-reviews'>
+					<ul id='flexiselDemo3'>";
+					$cont = 0;
+					foreach($series as $serie){
+						if($cont < 10){
+							echo "<li><img src = '" . $serie->getCapa() . "' alt = ''/></li>";
+							$cont = $cont + 1;
 						}
-					?>
-				</ul>
+					}
+				}
+			
+				echo "</ul>";
+			?>
 				<script type="text/javascript">
 					$(window).load(function() {
 
@@ -158,7 +170,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					});
 				</script>
 				<script type="text/javascript" src="js/jquery.flexisel.js"></script>
-			</div>
+			
+				<?php
+					if(count($series) > 0){
+						echo "</div>";
+					}
+				?>
 			
 			<div class="right-content-heading-left">
 				<h3 class="head">&Uacute;ltimos lancamentos</h3>
@@ -174,35 +191,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="video">
 			<iframe  src="https://www.youtube.com/embed/2LqzF5WauAw" frameborder="0" allowfullscreen></iframe>
 		</div>
-		<div class="news">
-			<div class="col-md-6 news-left-grid">
-				<h3>Don’t be late,</h3>
-				<h2>Book your ticket now!</h2>
-				<h4>Easy, simple & fast.</h4>
-				<a href="#"><i class="book"></i>BOOK TICKET</a>
-				<p>Get Discount up to <strong>10%</strong> if you are a member!</p>
-			</div>
-			<div class="col-md-6 news-right-grid">
-				<h3>News</h3>
-				<div class="news-grid">
-					<h5>Lorem Ipsum Dolor Sit Amet</h5>
-					<label>Nov 11 2014</label>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-				</div>
-				<div class="news-grid">
-					<h5>Lorem Ipsum Dolor Sit Amet</h5>
-					<label>Nov 11 2014</label>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-				</div>
-				<a class="more" href="#">MORE</a>
-			</div>
-			<div class="clearfix"></div>
-		</div>
+		
 		
 	<div class="footer">
-		<h6>Disclaimer : </h6>
-		<p class="claim">This is a freebies and not an official website, I have no intention of disclose any movie, brand, news.My goal here is to train or excercise my skill and share this freebies.</p>
-		<a href="example@mail.com">example@mail.com</a>
+		<h6 class="claim">Desemvolvido por:</h6>
+		<ul>
+			<p class="claim">Giovanni Moreira - 85284</p>
+			<p class="claim">Gustavo Uliana - 85248</p>
+			<p class="claim">Fábio Martins - 85282</p>
+			<p class="claim">Igor Cardoso - 85265</p>
+		</ul>
 		<div class="copyright">
 			<p> Template by  <a href="http://w3layouts.com">  W3layouts</a></p>
 		</div>
