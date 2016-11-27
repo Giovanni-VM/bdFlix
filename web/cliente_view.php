@@ -32,6 +32,24 @@ if($_POST["senha"] != $_POST["senha2"]){
     header("Location: home_cliente.php");
     exit();
 }
+$idCli = $cliente->getIdCliente();
+$sql = "SELECT COUNT(*) FROM perfil WHERE idCliente = $idCli";
+$res = $conn->query($sql);
+$aux = $res->fetch_row();
+$qtdAtual = $aux[0];
+
+$sql = "SELECT * FROM plano WHERE idPLano = ".$_POST["idPlano"]."";
+$pp = Plano::__querySQL($sql, $conn);
+$plano = $pp[0];
+
+if($qtdAtual > $plano->getQtdPerfis()){
+    $dif = $qtdAtual - $plano->getQtdPerfis();
+    $_SESSION["error_form_cli"] = true;
+    $_SESSION["err_cli"] = "Você possui mais perfis do que o plano selecionado permite. Por favor, delete $dif perfis antes de reduzir seu plano.";
+    $conn->close();
+    header("Location: home_cliente.php");
+    exit();
+}
 
 $cliente->setNome($_POST["nome"]);
 $cliente->setCpf($_POST["cpf"]);

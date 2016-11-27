@@ -92,7 +92,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <li><input type = 'radio' name = 'tipo' id = 'privada' value = 0><label for = 'privada'> Privada </label><div class = 'check'><div class = 'inside'></div></div></li>
                                 </ul>
                             </div>
+							<div class = "clearfix"></div>
+							<div class = "sep">
 							<input type="submit" value="Criar"/>
+							</div>
 						</div>
 						
 						<div class="clearfix"></div>

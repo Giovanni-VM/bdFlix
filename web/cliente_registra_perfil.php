@@ -47,6 +47,16 @@ if($cadastrados >= $plano->getQtdPerfis()){
 	exit();
 }
 
+$sql = "SELECT * FROM perfil WHERE nome = ".$_POST["nome"]."";
+$verNome = Perfil::__querySQL($sql, $conn);
+if(count($verNome >= 1)){
+    $_SESSION["error_form_cli"] = true;
+    $_SESSION["err_cli"] = "Username já Cadastrado";
+    $conn->close();
+    header("Location: cliente_novo_perfil.php");
+    exit();
+}
+
 if($_POST["senha"] != $_POST["senha2"]){
     $_SESSION["error_form_cli"] = true;
     $_SESSION["err_cli"] = "Senhas não conferem";

@@ -47,11 +47,13 @@ foreach($midias as $md){
         $filmes = Filme::__querySQL($sql, $conn);
         $fil = $filmes[0];
         $md->setUrl($fil->getCapa());
+		$md->setFaixa($fil->getFaixa());
     } else {
         $sql = "SELECT * FROM serie WHERE idSerie IN(SELECT idSerie FROM episodio WHERE idMidia = ".$md->getIdMidia().")";
         $series = Serie::__querySQL($sql, $conn);
         $ser = $series[0];
         $md->setUrl($ser->getCapa());
+		$md->setFaixa($ser->getFaixa());
     }
 }
 
@@ -66,6 +68,24 @@ $conn->close();
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <script src="js/jquery.min.js"></script>
+
+<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+<script>
+	$(document).ready(function() {
+	$('.popup-with-zoom-anim').magnificPopup({
+		type: 'inline',
+		fixedContentPos: false,
+		fixedBgPos: true,
+		overflowY: 'auto',
+		closeBtnInside: true,
+		preloader: false,
+		midClick: true,
+		removalDelay: 300,
+		mainClass: 'my-mfp-zoom-in'
+	});
+	});
+</script>
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -92,35 +112,61 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="logo">
 					<p><?php echo "Usuario: ".$_SESSION["user"]; ?> </p>
 				</div>
-				<div class="search">
-					<form>
-						<input type="text" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}"/>
-						<input type="submit" value="">
-					</form>
-		 		</div>
 				<div class="clearfix"></div>
-			</div>					
+			</div>
+			<?php
+			$cont = 0;
+			foreach($midias as $mid){
+				if($mid->getFaixa() <= $perfil->getIdade()){
+					echo "
+					<div id='small-dialog$cont' class='pop_up_play mfp-hide'>
+						<iframe id = 'midia_player_list' src='".$mid->getTrailer()."' frameborder='0' allowfullscreen></iframe>
+					</div>";
+					$cont++;
+				}
+			}
+			?>					
 			<div class="right-content-heading-left">
-				<h3 class="head">MovieList <?=$lista->getNome()?></h3>
+				<h3 class = "font-basic-big">MovieList <?=$lista->getNome()?></h3>
 			</div>
             <br>
             <div class="right-content-heading-left">
-				<p>Criada Por <?=$criador?></h3>
+				<h3 class = "font-basic-medium">Criada Por <?=$criador?></h3>
 			</div>
             <br>
             <div class="right-content-heading-left">
-				<p>Descrição: <?=$lista->getDescricao()?></h3>
+				<h3 class = "font-basic-small">Descrição: <?=$lista->getDescricao()?></h3>
 			</div>
-			<div class="more-reviews">
+			<!--<div class="more-reviews">
 				<ul id="flexiselDemo2">
+					<?php
+						/**$cont = 0;
+						foreach($midias as $mid){
+								echo "<li><h2>".$mid->getTitulo()."</h2><a class = 'play-icon popup-with-zoom-anim' href='#small-dialog$cont' id = 'play$cont'><img src = '" . $mid->getUrl() . "' alt = ''/></a></li>";
+                                $cont++;
+						}**/
+					?>
+				</ul>
+
+				-->
+
+				<div class = "content-grids">
 					<?php
 						$cont = 0;
 						foreach($midias as $mid){
-								echo "<li><a href = 'assistir.php' id = 'play$cont'><img src = '" . $mid->getUrl() . "' alt = ''/></a></li>";
+							if($mid->getFaixa() <= $perfil->getIdade()){
+								echo "<div class = 'content-grid'><a class = 'play-icon popup-with-zoom-anim' href='#small-dialog$cont' id = 'play$cont'><img src = '" . $mid->getUrl() . "' alt = ''/></a><h3>".$mid->getTitulo()."</h3></div>";
                                 $cont++;
+							}
 						}
 					?>
-				</ul>
+
+				</div>
+				
+				
+				
+				
+				
 				<script type="text/javascript">
 					$(window).load(function() {
 

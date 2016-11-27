@@ -7,11 +7,31 @@ include "bd.php";
 include "classes/class_cliente.php";
 $conn = new mysqli($host, $username, $password, $dbname);
 
+$sql = "SELECT email FROM cliente WHERE email = '".$_POST["email"]."'";
+$cadastrados = Cliente::__querySQL($sql, $conn);
+if(count($cadastrados) >= 1){
+    $_SESSION["error_form_cli"] = true;
+    $_SESSION["err_cli"] = "E-mail já cadastrado.";
+    $conn->close();
+    header("Location: registrar.php");
+    exit();   
+}
+
+$sql = "SELECT email FROM cliente WHERE user = '".$_POST["user"]."'";
+$cadastrados = Cliente::__querySQL($sql, $conn);
+if(count($cadastrados) >= 1){
+    $_SESSION["error_form_cli"] = true;
+    $_SESSION["err_cli"] = "Username já em uso.";
+    $conn->close();
+    header("Location: registrar.php");
+    exit();   
+}
+
 if($_POST["senha"] != $_POST["senha2"]){
     $_SESSION["error_form_cli"] = true;
     $_SESSION["err_cli"] = "Senhas não conferem";
     $conn->close();
-    header("Location: registra.php");
+    header("Location: registrar.php");
     exit();
 }
 

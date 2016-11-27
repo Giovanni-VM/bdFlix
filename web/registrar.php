@@ -71,7 +71,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class = "form-cli">
 			<form action = "cliente_registra_cliente.php" method = "POST">
 				<p>Nome:</p> <input type = "text" name = "nome" placeholder = "Nome Cartao Credito" required>
-        <p>Username:</p> <input type = "text" name = "user" placeholder = "Username" required>
+       	 		<p>Username:</p> <input type = "text" name = "user" placeholder = "Username" required>
 				<p>CPF: </p><br><input type = "text" name = "cpf" placeholder = "CPF" required>
 				<p>Email:</p> <input type = "text" name = "email" placeholder = "E-mail" required>
 				<p>Senha:</p> <input type = "password" name = "senha" placeholder = 'Senha' required>
@@ -102,9 +102,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					}
 
 				?>
+				<br>
 				</ul>
 				</div>
-				<input type = 'submit' value = 'Enviar'>
+				<div class = "clearfix"></div>
+				<div class = "sep">
+					<input type = 'submit' value = 'Enviar'>
+				</div>
 			</form>
 		</div>
 		</div>

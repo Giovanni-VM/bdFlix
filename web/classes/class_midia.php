@@ -5,6 +5,7 @@
 		private $tipo;
 		private $trailer;
 		private $url; //SÓ ESTA AQUI PARA SER USADA NA PARTE DE MOVIELIST, IGNOREM
+		private $faixa; //SÓ ESTA AQUI PARA SER USADA NA PARTE DE MOVIELIST, IGNOREM
 		
         
     public static function __generate(MySQLi_Result $query){
@@ -102,6 +103,14 @@
 
 	public function setUrl($url){
 		$this->url = $url;
+	}
+
+	public function getFaixa(){
+		return $this->faixa;
+	}
+
+	public function setFaixa($faixa){
+		$this->faixa = $faixa;
 	}
 };
 

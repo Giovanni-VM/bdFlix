@@ -573,6 +573,37 @@ p.claim {
 	line-height: 1.5em;
 	font-size: 0.875em;
 }
+.fonte-basic-big{
+	color: #888;
+	text-transform: uppercase;
+	padding: 1em;
+	display: block;
+	line-height: 1.5em;
+	font-size: 10px;
+	overflow: hidden;
+	margin-bottom:0.5em;	
+}
+
+.fonte-basic-medium{
+	color: #888;
+	text-transform: uppercase;
+	padding: 1em;
+	display: block;
+	line-height: 1.5em;
+	font-size: 5px;
+	overflow: hidden;
+	margin-bottom:0.5em;	
+}
+.fonte-basic-small{
+	color: #888;
+	text-transform: uppercase;
+	padding: 1em;
+	display: block;
+	line-height: 1.5em;
+	font-size: 2px;
+	overflow: hidden;
+	margin-bottom:0.5em;	
+}
 .content-grid ul li{
 	display:inline-block;
 }
