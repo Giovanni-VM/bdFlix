@@ -94,7 +94,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<form id="formCliente" action="search_att.php" method="post">
 						<div class="col-md-6 contact-left">
                             <input name = "idList" type = "hidden" value = "<?=$_GET['idList']?>">
-							<input name = "titulo" type = "text" placeholder="T&iacute;tulo do Filme" value = ""/>
+							<input name = "titulo" type = "text" placeholder="Título Filme/Série/Episódio/Palavra Chave" value = ""/>
 							<input type="submit" value="Search"/>
 						</div>
 

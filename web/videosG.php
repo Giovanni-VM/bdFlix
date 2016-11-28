@@ -176,7 +176,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						} else {
 							$sql = "SELECT DISTINCT s.nome, s.capa, s.timestamp FROM Serie s, GeneroSerie gs WHERE s.idSerie = gs.idSerie";
 							if($genero != "qualquer")
-							 	$sql = $sql." AND s.idGenero = '$genero'";
+							 	$sql = $sql." AND gs.idGenero = '$genero'";
 							$sql = $sql." ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";
 							$offsetSQL = ($pagAtual-1)*12;
 							$sql = $sql.$offsetSQL;
