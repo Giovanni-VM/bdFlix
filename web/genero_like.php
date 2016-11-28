@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "classes/class_movieList.php";
+include "classes/class_preferencia.php";
 include "classes/class_perfil.php";
 include "bd.php";
 
@@ -14,18 +14,23 @@ $perfil = $p[0];
 
 $idPerf = $perfil->getIdPerfil();
 
-$lista = new MovieList(NULL);
+if(!isset($_GET["idGenero"])){
+    $conn->close();
+    header("Location: genero.php");
+    exit();
+}
 
-$lista->setIdCriador($idPerf);
-$lista->setNome($_POST["nome"]);
-$lista->setDescricao($_POST["descricao"]);
-$lista->setPublic($_POST["tipo"]);
-$lista->setSeguidores(0);
-$lista->save($conn);
+$genero = $_GET["idGenero"];
+
+$pref = new Preferencia(NULL);
+
+$pref->setIdPerfil($idPerf);
+$pref->setIdGenero($genero);
+
+$pref->save($conn);
 
 $conn->close();
-header("Location: list_main.php");
+header("Location: genero.php");
 exit();
 
-
-?>
+ ?>
