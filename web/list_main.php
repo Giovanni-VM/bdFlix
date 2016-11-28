@@ -79,11 +79,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="clearfix"></div>
 			</div>
 			<div class="main-contact">
-				<p>Editar Playlist </p>
+				<p>Editar MovieList </p>
 				<div class="contact-form">
 					<form id="formCliente" action="search_list_att.php" method="post">
 						<div class="col-md-6 contact-left">
-							<input name = "nome" type = "text" placeholder="T&iacute;tulo do Filme" value = ""/>
+							<input name = "nome" type = "text" placeholder="Busca por MovieList" value = ""/>
 							<input type="submit" value="Search"/>
 						</div>
 

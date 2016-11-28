@@ -86,6 +86,18 @@ $conn->close();
 	});
 	});
 </script>
+
+<script>
+function atualizaView(idPerfil, idMidia){
+	$.ajax({
+				url: "atualizaView.php",
+				type: "POST",
+				data: {idPerfil: idPerfil, idMidia: idMidia}
+		});
+}
+</script>
+
+
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -100,7 +112,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="menu">
 				<ul>
 					<li><a href="home.php"><div class="hm"><i class="home1"></i><i class="home2"></i></div></a></li>
-					<li><a href="videos.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
+					<li><a href="videosG.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
 					<li><a href="genero.php"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
 					<li><a class = "active" href="list_main.php"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
 					<li><a href="contact.php"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
@@ -128,34 +140,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			?>					
 			<div class="right-content-heading-left">
 				<h3 class = "font-basic-big">MovieList <?=$lista->getNome()?></h3>
+				<p><i>By: <?=$criador?></i></p>
+				<br>
+				<p><i> Descrição: <?=$lista->getDescricao()?></i></p>
 			</div>
-            <br>
-            <div class="right-content-heading-left">
-				<h3 class = "font-basic-medium">Criada Por <?=$criador?></h3>
-			</div>
-            <br>
-            <div class="right-content-heading-left">
-				<h3 class = "font-basic-small">Descrição: <?=$lista->getDescricao()?></h3>
-			</div>
-			<!--<div class="more-reviews">
-				<ul id="flexiselDemo2">
-					<?php
-						/**$cont = 0;
-						foreach($midias as $mid){
-								echo "<li><h2>".$mid->getTitulo()."</h2><a class = 'play-icon popup-with-zoom-anim' href='#small-dialog$cont' id = 'play$cont'><img src = '" . $mid->getUrl() . "' alt = ''/></a></li>";
-                                $cont++;
-						}**/
-					?>
-				</ul>
+			<div = "clearfix"></div>
 
-				-->
 
 				<div class = "content-grids">
 					<?php
 						$cont = 0;
 						foreach($midias as $mid){
 							if($mid->getFaixa() <= $perfil->getIdade()){
-								echo "<div class = 'content-grid'><a class = 'play-icon popup-with-zoom-anim' href='#small-dialog$cont' id = 'play$cont'><img src = '" . $mid->getUrl() . "' alt = ''/></a><h3>".$mid->getTitulo()."</h3></div>";
+								echo "<div class = 'content-grid'><a onclick =\"atualizaView($perfId,".$mid->getIdMidia().")\" class = 'play-icon popup-with-zoom-anim' href='#small-dialog$cont' id = 'play$cont'><img src = '" . $mid->getUrl() . "' alt = ''/></a><h3>".$mid->getTitulo()."</h3></div>";
                                 $cont++;
 							}
 						}
