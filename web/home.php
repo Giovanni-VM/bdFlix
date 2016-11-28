@@ -92,12 +92,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			<div class="more-reviews">
 			
-					<div class="content-grid">
+					<div class = "content-grids">
 						<?php
 							$cont = 0;
 							foreach($ultimos_filmes as $ult_filme){
 								if($cont < 2){
-									echo "<div class = 'content-grid'><a class='play-icon' href = \"filme.php?idMidia=".$ult_filme->getIdMidia()."\"><img src = '" . $ult_filme->getCapa() . "' alt = ''/></a></div>";
+									echo "<div class = 'content-grid'><a class = 'play-icon' href = \"filme.php?idMidia=".$ult_filme->getIdMidia()."\"><img src = '" . $ult_filme->getCapa() . "' alt = ''/></a></div>";
 									$cont = $cont + 1;
 								}
 							}
@@ -118,7 +118,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			<div class="more-reviews">
 			
-					<div class="content-grid">
+					<div class = "content-grids">
 						<?php
 							$cont = 0;
 							foreach($series as $serie){
@@ -139,7 +139,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			
 			<div class="more-reviews">
-					<div class="content-grid">
+					<div class="content-grids">
 						<?php
 							$cont = 0;
 							foreach($filmes_mais_vistos as $filme_mv){
@@ -161,7 +161,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			<div class="more-reviews">
 			
-					<div class="content-grid">
+					<div class="content-grids">
 						<?php
 							$cont = 0;
 							foreach($series_mais_vistas as $serie_mv){
