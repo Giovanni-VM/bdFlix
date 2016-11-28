@@ -36,10 +36,6 @@ $perfis = Perfil::__querySQL($sql, $conn);
 
 $perfil = $perfis[0];
 
-$sql = "SELECT * FROM perfil WHERE idCliente = ". $cliente->getIdCliente(). "";
-
-$perfis = Perfil::__querySQL($sql, $conn);
-
 $cadastrados = count($perfis);
 
 if($cadastrados >= $plano->getQtdPerfis()){
@@ -47,9 +43,11 @@ if($cadastrados >= $plano->getQtdPerfis()){
 	exit();
 }
 
-$sql = "SELECT * FROM perfil WHERE nome = ".$_POST["nome"]."";
+$sql = "SELECT * FROM perfil WHERE nome = '".$_POST["nome"]."'";
+
 $verNome = Perfil::__querySQL($sql, $conn);
-if(count($verNome >= 1)){
+
+if(count($verNome) >= 1){
     $_SESSION["error_form_cli"] = true;
     $_SESSION["err_cli"] = "Username já Cadastrado";
     $conn->close();

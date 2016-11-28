@@ -114,7 +114,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <tbody>';
 	                                foreach ($result as $objeto) {
                                         echo '<tr>';
-                                        echo '<td> <a href= "list_follow.php?idList='.$objeto->getIdList().'" title="Seguir"><img src="images/novo.png" /></a></td>';
+                                        echo '<td> <a href= "list_follow.php?idList='.$objeto->getIdList().'" title="Seguir"><img src="images/novo.png" /></a>';
+                                        echo '<a href= "list_play.php?idList='.$objeto->getIdList().'" title="Assistir"><img src="images/views.png" /></a></td>';
                                         echo '<td>' . $objeto->getIdList() . '</td>';
                                         echo '<td>' . $objeto->getNome() . '</td>';
                                         echo '<td>' . $objeto->getDescricao() . '</td>';
@@ -156,7 +157,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 foreach ($listas as $objeto) {
                                     echo '<tr>';
                                     echo '<td> <a href= "list_lista_perfil.php?idList='.$objeto->getIdList().'" title="Editar"><img src="images/editar.png" /></a>';
-                                    echo ' <a href= "list_excluir.php?idList='.$objeto->getIdList().'" title="Excluir"><img src="images/excluir.png" /></a></td>';
+                                    echo ' <a href= "list_excluir.php?idList='.$objeto->getIdList().'" title="Excluir"><img src="images/excluir.png" /></a>';
+                                    echo '<a href= "list_play.php?idList='.$objeto->getIdList().'" title="Assistir"><img src="images/views.png" /></a></td>';
 
                                     echo '<td>' . $objeto->getIdList() . '</td>';
                                     echo '<td>' . $objeto->getNome() . '</td>';
