@@ -6,7 +6,7 @@ include "classes/class_midia.php";
 include "classes/class_pc_midiafilme.php";
 include "classes/class_movieList.php";
 
-session_start(); 
+session_start();
 
 if(!isset($_SESSION["perf_logado"]) or !$_SESSION["perf_logado"]){
 	header("Location: index.php");
@@ -74,7 +74,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="menu">
 				<ul>
 					<li><a href="home.php"><div class="hm"><i class="home1"></i><i class="home2"></i></div></a></li>
-					<li><a href="videos.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
+					<li><a href="videosG.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
 					<li><a href="genero.php"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
 					<li><a class = "active" href="list_main.php"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
 					<li><a href="contact.php"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
@@ -97,11 +97,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<input name = "titulo" type = "text" placeholder="T&iacute;tulo do Filme" value = ""/>
 							<input type="submit" value="Search"/>
 						</div>
-						
+
 						<div class="clearfix"></div>
 					</form>
 				</div>
-		 
+
 			</div>
             <?php
                 if(isset($_SESSION["search_result"])){
@@ -116,9 +116,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <tr>
                                         <th></th>
                                         <th>Id</th>
-                                        <th>T&iacute;tulo</th>                             
-                                        <th>Dura&ccedil;&atilde;o</th>                                                          
-                                        <th>Tipo</th>                                                               
+                                        <th>T&iacute;tulo</th>
+                                        <th>Dura&ccedil;&atilde;o</th>
+                                        <th>Tipo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -126,7 +126,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 foreach ($midias as $objeto) {
                                     echo '<tr>';
                                     echo '<td> <a href= "list_insert_midia.php?idMidia='.$objeto->getIdMidia().'" title="Editar"><img src="images/novo.png" /></a></td>';
-                                    
+
                                     echo '<td>' . $objeto->getIdMidia() . '</td>';
                                     echo '<td>' . $objeto->getTitulo() . '</td>';
                                     echo '<td>' . $objeto->getDuracao() . '</td>';
@@ -136,8 +136,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         echo '<td> Serie </td>';
                                     }
                                     echo '</tr>';
-                                }                            
-                            
+                                }
+
                             echo "</tbody>
                             </table>
                         </center>
@@ -161,16 +161,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             <tr>
 								<th></th>
                                 <th>Id</th>
-                                <th>T&iacute;tulo</th>                             
-                                <th>Dura&ccedil;&atilde;o</th>                                                          
-                                <th>Tipo</th>                                                               
+                                <th>T&iacute;tulo</th>
+                                <th>Dura&ccedil;&atilde;o</th>
+                                <th>Tipo</th>
                             </tr>
                         </thead>
                         <tbody>';
 									foreach ($naLista as $objeto) {
 										echo '<tr>';
 										echo '<td>&nbsp;&nbsp;<a href="list_remove_midia.php?idMidia=' . $objeto->getIdMidia() . '" title="Excluir"><img src="images/excluir.png" /></a></td>';
-										 
+
 										echo '<td>' . $objeto->getIdMidia() . '</td>';
 										echo '<td>' . $objeto->getTitulo() . '</td>';
 										echo '<td>' . $objeto->getDuracao() . '</td>';
@@ -183,15 +183,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									}
                                 } else {
                                     echo "<h2> MovieList Vazia </h2>";
-                                }                         
-                            ?>   
+                                }
+                            ?>
                         </tbody>
                     </table>
 				</center>
 			</div>
 		</div>
-		
-		
+
+
 	</div>
 	</div>
 	<div class="clearfix"></div>
