@@ -180,84 +180,57 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						echo "</div>";
 					}
 				?>
-<<<<<<< HEAD
-			
+				
 			<!-- LISTA ÚLTIMOS FILMES CADASTRADOS -->
 			
 			<div class="right-content-heading-left">
 				<h3 class="head">&Uacute;ltimos lancamentos de filmes</h3>
 			</div>
 			
-					<div class="more-reviews">
-						<ul>
-							<?php
-								$cont = 0;
-								foreach($ultimos_filmes as $ult_filme){
-									if($cont < 10){
-										echo "<li><a href = \"filme.php?idMidia=".$ult_filme->getIdMidia()."\"><img src = '" . $ult_filme->getCapa() . "' alt = ''/></a></li>";
-										$cont = $cont + 1;
-									}
+			<div class="more-reviews">
+			
+					<div class="content-grid">
+						<?php
+							$cont = 0;
+							foreach($ultimos_filmes as $ult_filme){
+								if($cont < 2){
+									echo "<div class = 'content-grid'><a class='play-icon' href = \"filme.php?idMidia=".$ult_filme->getIdMidia()."\"><img src = '" . $ult_filme->getCapa() . "' alt = ''/></a></div>";
+									$cont = $cont + 1;
 								}
-							?>
-					
-						</ul>
+							}
+						?>
 					</div>
+			</div>
+			<div class = "clearfix"></div>
+			
+			
 				
 			
 			<!-- LISTA ÚLTIMOS SERIES CADASTRADOS -->
 			
-=======
 
->>>>>>> 8a373530d17937c3ea6fa98c85e08bd64c328210
 			<div class="right-content-heading-left">
 				<h3 class="head">&Uacute;ltimos lancamentos de series</h3>
 			</div>
 			
-					<div class="more-reviews">
-						<ul id="flexiselDemo4">";
-							<?php
-								$cont = 0;
-								foreach($ultimos_filmes as $ult_filme){
-									if($cont < 10){
-										echo "<li><img src = '" . $ult_filme->getCapa() . "' alt = ''/></li>";
-										$cont = $cont + 1;
-									}
+			<div class="more-reviews">
+			
+					<div class="content-grid">
+						<?php
+							$cont = 0;
+							foreach($series as $serie){
+								if($cont < 2){
+									echo "<div class = 'content-grid'><a class='play-icon' href = \"serie.php?nomeSerie=".$serie->getNome()."\"><img src = '" . $serie->getCapa() . "' alt = ''/></a></div>";
+									$cont = $cont + 1;
 								}
-							?>
-					
-						</ul>
-			
-						<script type="text/javascript">
-							$(window).load(function() {
-
-								$("#flexiselDemo4").flexisel({
-									visibleItems: 4,
-									animationSpeed: 1000,
-									autoPlay: true,
-									autoPlaySpeed: 3000,
-									pauseOnHover: false,
-									enableResponsiveBreakpoints: true,
-									responsiveBreakpoints: {
-										portrait: {
-											changePoint:480,
-											visibleItems: 2
-										},
-										landscape: {
-											changePoint:640,
-											visibleItems: 3
-										},
-										tablet: {
-											changePoint:768,
-											visibleItems: 3
-										}
-									}
-								});
-							});
-						</script>
-						<script type="text/javascript" src="js/jquery.flexisel.js"></script>
-			
+							}
+						?>
 					</div>
+			</div>
+			<div class = "clearfix"></div>
 			
+			
+					
 			<div class="right-content-heading-left">
 				<h3 class="head">Filmes mais assistidos</h3>
 			</div>

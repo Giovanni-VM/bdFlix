@@ -1541,9 +1541,14 @@ font-weight: 700;
 		width: 94%;
 		margin: 0 3%;
 	}
+	.more-reviews ul li{
+		display: inline;
+		
+	}
 	.more-reviews {
 		padding: 2em 0;
 	}
+
 	.top-header {
 		padding: 0.45em 2em 0.5em 1em;
 	}
