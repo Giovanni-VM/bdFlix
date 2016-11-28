@@ -13,14 +13,21 @@ $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
 
 //$sql = "SELECT * FROM filme ORDER BY timestamp";
-$sql = "SELECT F.idMidia, F.faixa, F.trailer, F.pesquisas, F.timestamp, F.capa FROM filme AS F, historico AS H WHERE H.idMidia = F.idMidia ORDER BY H.timestamps";
+$sql = "SELECT F.idMidia, F.faixa, F.trailer, F.pesquisas, F.timestamp, F.capa, F.descricao FROM filme AS F, historico AS H WHERE H.idMidia = F.idMidia ORDER BY H.timestamps";
 $filmes = Filme::__querySQL($sql, $conn);
 
+//ULTIMAS SÉRIES ADICIONADAS
 $sql = "SELECT * FROM serie ORDER BY timestamp";
 $series = Serie::__querySQL($sql, $conn);
 
+//ULTIMOS FILMES ADICIONADOS
 $sql = "SELECT F.idMidia, F.faixa, M.video, F.capa, M.duracao, M.titulo FROM filme AS F, midia AS M WHERE F.idMidia = M.idMidia && M.tipo = 0 ORDER BY F.timestamp";
 $ultimos_filmes = PCMidiaFilme::__querySQL($sql, $conn);
+
+//FILMES MAIS VISTOS
+$sql = "SELECT F.idMidia, F.faixa, F.pesquisas, F.timestamp, F.capa, F.descricao FROM filme AS F, historico AS H WHERE F.idMidia = H.idMidia ORDER BY H.contador";
+$filmes_mais_vistos = Filme::__querySQL($sql, $conn);
+
 
 ?>
 <!--
@@ -234,6 +241,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="right-content-heading-left">
 				<h3 class="head">Filmes mais assistidos</h3>
 			</div>
+			
+			<div class="more-reviews">
+					<div class="content-grid">
+						<?php
+							$cont = 0;
+							foreach($filmes_mais_vistos as $filme_mv){
+								if($cont < 2){
+									echo "<div class = 'content-grid'><a class='play-icon' href = \"filme.php?idMidia=".$filme_mv->getIdMidia()."\"><img src = '" . $filme_mv->getCapa() . "' alt = ''/></a></div>";
+									$cont = $cont + 1;
+								}
+							}
+						?>
+					</div>
+			</div>
+			<div class = "clearfix"></div>
+
+			
+			
 			<div class="right-content-heading-left">
 				<h3 class="head">Filmes mais procurados nos seus g&ecirc;neros favoritos</h3>
 			</div>
