@@ -6,7 +6,7 @@ include "classes/class_midia.php";
 include "classes/class_pc_midiafilme.php";
 include "classes/class_movieList.php";
 
-session_start(); 
+session_start();
 
 if(!isset($_SESSION["perf_logado"]) or !$_SESSION["perf_logado"]){
 	header("Location: index.php");
@@ -64,7 +64,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="menu">
 				<ul>
 					<li><a href="home.php"><div class="hm"><i class="home1"></i><i class="home2"></i></div></a></li>
-					<li><a  href="videos.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
+					<li><a  href="videosG.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
 					<li><a href="genero.php"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
 					<li><a class = "active" href="list_main.php"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
 					<li><a href="contact.php"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
@@ -86,11 +86,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<input name = "nome" type = "text" placeholder="T&iacute;tulo do Filme" value = ""/>
 							<input type="submit" value="Search"/>
 						</div>
-						
+
 						<div class="clearfix"></div>
 					</form>
 				</div>
-		 
+
 			</div>
 
 			<br><br>
@@ -105,10 +105,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <tr>
                                         <th></th>
                                         <th>Id</th>
-                                        <th>Nome</th>                             
-                                        <th>Descri&ccedil;&atilde;o</th>                                                          
-                                        <th>Tipo</th> 
-                                        <th>Seguidores</th>                                                              
+                                        <th>Nome</th>
+                                        <th>Descri&ccedil;&atilde;o</th>
+                                        <th>Tipo</th>
+                                        <th>Seguidores</th>
                                     </tr>
                                 </thead>
                                 <tbody>';
@@ -125,12 +125,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                         }
                                         echo '<td>' . $objeto->getSeguidores() . '</td>';
                                         echo '</tr>';
-                                    }      
+                                    }
                                 echo '</tbody>
-                                    </table>'; 
+                                    </table>';
                                 } else {
                                     echo "<h2> Pesquisa sem Resultados </h2>";
-                                }                            
+                                }
 
                         }
                 ?>
@@ -145,10 +145,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <tr>
                                         <th></th>
                                         <th>Id</th>
-                                        <th>Nome</th>                             
-                                        <th>Descri&ccedil;&atilde;o</th>                                                          
-                                        <th>Tipo</th> 
-                                        <th>Seguidores</th>                                                              
+                                        <th>Nome</th>
+                                        <th>Descri&ccedil;&atilde;o</th>
+                                        <th>Tipo</th>
+                                        <th>Seguidores</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -168,8 +168,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     }
                                     echo '<td>' . $objeto->getSeguidores() . '</td>';
                                     echo '</tr>';
-                                }                            
-                            
+                                }
+
                             ?>
                                 <tr><td> <a href= "list_criar.php" title="Criar Nova MovieList"><img src="images/novo.png" /></a></td>
                                 <td></td>
@@ -196,10 +196,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <tr>
                                         <th></th>
                                         <th>Id</th>
-                                        <th>Nome</th>                             
-                                        <th>Descri&ccedil;&atilde;o</th>                                                          
-                                        <th>Tipo</th> 
-                                        <th>Seguidores</th>                                                              
+                                        <th>Nome</th>
+                                        <th>Descri&ccedil;&atilde;o</th>
+                                        <th>Tipo</th>
+                                        <th>Seguidores</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -218,8 +218,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     }
                                     echo '<td>' . $objeto->getSeguidores() . '</td>';
                                     echo '</tr>';
-                                }                            
-                            
+                                }
+
                             echo "</tbody>
                             </table>
                         </center>
@@ -229,8 +229,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             ?>
 		</div>
-		
-		
+
+
 	</div>
 	</div>
 	<div class="clearfix"></div>
