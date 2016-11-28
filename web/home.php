@@ -28,6 +28,9 @@ $ultimos_filmes = PCMidiaFilme::__querySQL($sql, $conn);
 $sql = "SELECT F.idMidia, F.faixa, F.pesquisas, F.timestamp, F.capa, F.descricao FROM filme AS F, historico AS H WHERE F.idMidia = H.idMidia ORDER BY H.contador";
 $filmes_mais_vistos = Filme::__querySQL($sql, $conn);
 
+//SERIES MAIS VISTAS
+$sql = "SELECT * FROM serie WHERE idSerie IN( SELECT E.idSerie FROM episodio AS E, historico AS H WHERE E.idMidia = H.idMidia ORDER BY H.contador)";
+$series_mais_vistas = Serie::__querySQL($sql, $conn);
 
 ?>
 <!--
@@ -81,113 +84,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="clearfix"></div>
 			</div>
 
-			<!-- LISTA ÚLTIMOS FILMES VISTOS -->
-			<?php
-				if(count($filmes) > 0){
-					echo "<div class='right-content-heading-left'>
-						<h3 class='head'>&Uacute;ltimos filmes assistidos</h3>
-					</div>
-					<div class='more-reviews'>
-						<ul id='flexiselDemo2'>";
-								$cont = 0;
-								foreach($filmes as $filme){
-									if($cont < 10){
-										echo "<li><img src = '" . $filme->getCapa() . "' alt = ''/></li>";
-										$cont = $cont + 1;
-									}
-								}
-
-						echo "</ul>" ;
-				}
-			?>
-				<script type="text/javascript">
-					$(window).load(function() {
-
-						$("#flexiselDemo2").flexisel({
-							visibleItems: 4,
-							animationSpeed: 1000,
-							autoPlay: true,
-							autoPlaySpeed: 3000,
-							pauseOnHover: false,
-							enableResponsiveBreakpoints: true,
-							responsiveBreakpoints: {
-								portrait: {
-									changePoint:480,
-									visibleItems: 2
-								},
-								landscape: {
-									changePoint:640,
-									visibleItems: 3
-								},
-								tablet: {
-									changePoint:768,
-									visibleItems: 3
-								}
-							}
-						});
-					});
-				</script>
-				<script type="text/javascript" src="js/jquery.flexisel.js"></script>
-			<?php
-				if(count($filmes) > 0){
-					echo "</div>";
-				}
-			?>
-
-			<!-- LISTA ÚLTIMOS SÉRIES VISTOS -->
-			<?php
-				if(count($series) > 0){
-					echo "<div class='right-content-heading-left'>
-						<h3 class='head'>&Uacute;ltimas S&eacute;ries assistidas</h3>
-					</div>
-					<div class='more-reviews'>
-					<ul id='flexiselDemo3'>";
-					$cont = 0;
-					foreach($series as $serie){
-						if($cont < 10){
-							echo "<li><img src = '" . $serie->getCapa() . "' alt = ''/></li>";
-							$cont = $cont + 1;
-						}
-					}
-				}
-
-				echo "</ul>";
-			?>
-				<script type="text/javascript">
-					$(window).load(function() {
-
-						$("#flexiselDemo3").flexisel({
-							visibleItems: 4,
-							animationSpeed: 1000,
-							autoPlay: true,
-							autoPlaySpeed: 3000,
-							pauseOnHover: false,
-							enableResponsiveBreakpoints: true,
-							responsiveBreakpoints: {
-								portrait: {
-									changePoint:480,
-									visibleItems: 2
-								},
-								landscape: {
-									changePoint:640,
-									visibleItems: 3
-								},
-								tablet: {
-									changePoint:768,
-									visibleItems: 3
-								}
-							}
-						});
-					});
-				</script>
-				<script type="text/javascript" src="js/jquery.flexisel.js"></script>
-
-				<?php
-					if(count($series) > 0){
-						echo "</div>";
-					}
-				?>
-				
 			<!-- LISTA ÚLTIMOS FILMES CADASTRADOS -->
 			
 			<div class="right-content-heading-left">
@@ -260,13 +156,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			
 			<div class="right-content-heading-left">
+				<h3 class="head">Series mais assistidas</h3>
+			</div>
+			
+			<div class="more-reviews">
+			
+					<div class="content-grid">
+						<?php
+							$cont = 0;
+							foreach($series_mais_vistas as $serie_mv){
+								if($cont < 2){
+									echo "<div class = 'content-grid'><a class='play-icon' href = \"serie.php?nomeSerie=".$serie_mv->getNome()."\"><img src = '" . $serie_mv->getCapa() . "' alt = ''/></a></div>";
+									$cont = $cont + 1;
+								}
+							}
+						?>
+					</div>
+			</div>
+			<div class = "clearfix"></div>
+			
+			<div class="right-content-heading-left">
 				<h3 class="head">Filmes mais procurados nos seus g&ecirc;neros favoritos</h3>
 			</div>
 		</div>
 
-		<div class="video">
+		<!-- <div class="video">
 			<iframe  src="https://www.youtube.com/embed/2LqzF5WauAw" frameborder="0" allowfullscreen></iframe>
-		</div>
+		</div> -->
 
 
 	<div class="footer">
