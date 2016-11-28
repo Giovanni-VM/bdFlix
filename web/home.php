@@ -1,4 +1,4 @@
-<?php session_start(); 
+<?php session_start();
 include "classes/class_perfil.php";
 include "classes/class_filme.php";
 include "classes/class_serie.php";
@@ -53,7 +53,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="menu">
 				<ul>
 					<li><a class="active" href="home.php"><i class="home"></i></a></li>
-					<li><a href="videos.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
+					<li><a href="videosG.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
 					<li><a href="genero.php"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
 					<li><a href="list_main.php"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
 					<li><a href="contact.php"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
@@ -73,7 +73,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		 		</div>
 				<div class="clearfix"></div>
 			</div>
-			
+
 			<!-- LISTA ÚLTIMOS FILMES VISTOS -->
 			<?php
 				if(count($filmes) > 0){
@@ -89,7 +89,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										$cont = $cont + 1;
 									}
 								}
-							
+
 						echo "</ul>" ;
 				}
 			?>
@@ -126,7 +126,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					echo "</div>";
 				}
 			?>
-			
+
 			<!-- LISTA ÚLTIMOS SÉRIES VISTOS -->
 			<?php
 				if(count($series) > 0){
@@ -143,7 +143,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						}
 					}
 				}
-			
+
 				echo "</ul>";
 			?>
 				<script type="text/javascript">
@@ -174,12 +174,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					});
 				</script>
 				<script type="text/javascript" src="js/jquery.flexisel.js"></script>
-			
+
 				<?php
 					if(count($series) > 0){
 						echo "</div>";
 					}
 				?>
+<<<<<<< HEAD
 			
 			<!-- LISTA ÚLTIMOS FILMES CADASTRADOS -->
 			
@@ -205,6 +206,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 			<!-- LISTA ÚLTIMOS SERIES CADASTRADOS -->
 			
+=======
+
+>>>>>>> 8a373530d17937c3ea6fa98c85e08bd64c328210
 			<div class="right-content-heading-left">
 				<h3 class="head">&Uacute;ltimos lancamentos de series</h3>
 			</div>
@@ -261,12 +265,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<h3 class="head">Filmes mais procurados nos seus g&ecirc;neros favoritos</h3>
 			</div>
 		</div>
-		
+
 		<div class="video">
 			<iframe  src="https://www.youtube.com/embed/2LqzF5WauAw" frameborder="0" allowfullscreen></iframe>
 		</div>
-		
-		
+
+
 	<div class="footer">
 		<h6 class="claim">Desemvolvido por:</h6>
 		<ul>

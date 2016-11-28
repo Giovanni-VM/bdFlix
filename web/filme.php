@@ -55,6 +55,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--webfont-->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+<script>
+function atualizaView(idPerfil, idMidia){
+	$.ajax({
+				url: "atualizaView.php",
+				type: "POST",
+				data: {idPerfil: idPerfil, idMidia: idMidia}
+		});
+}
+</script>
+
 </head>
 <body>
 	<!-- header-section-starts -->
@@ -62,9 +73,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="menu">
 				<ul>
 					<li><a href="index.html"><div class="hm"><i class="home1"></i><i class="home2"></i></div></a></li>
-					<li><a href="videos.html"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
+					<li><a href="videosG.html"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
 					<li><a class="active" href="reviews.html"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
-					<li><a href="404.html"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
+					<li><a href="list_main.html"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
 					<li><a href="contact.html"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
 				</ul>
 			</div>
@@ -111,7 +122,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="clearfix"></div>
 								<div class="yrw">
 									<div class="wt text-center">
-										<a class = "button play-icon popup-with-zoom-anim" href="#small-dialog">ASSISTIR</a>
+										<a onclick ="atualizaView(<?php echo $idPerfil.", ".$idMidia ?>)" class = "button play-icon popup-with-zoom-anim" href="#small-dialog">ASSISTIR</a>
 									</div>
 									<div id="small-dialog" class="mfp-hide">
 										<iframe  src="<?php echo $filme["video"];?>" frameborder="0" allowfullscreen></iframe>
