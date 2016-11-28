@@ -70,6 +70,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<ul>
 					<li><a href="admin_insere_filme.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
 					<li><a href="contact.php"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
+					<li><a href="admin_logout.php" > Sair.</a></li>
 				</ul>
 			</div>
 		<div class="main">

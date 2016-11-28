@@ -2,6 +2,7 @@
 include "classes/class_perfil.php";
 include "classes/class_filme.php";
 include "classes/class_serie.php";
+include "classes/class_pc_midiafilme.php";
 include "bd.php";
 
 
@@ -17,6 +18,9 @@ $filmes = Filme::__querySQL($sql, $conn);
 
 $sql = "SELECT * FROM serie ORDER BY timestamp";
 $series = Serie::__querySQL($sql, $conn);
+
+$sql = "SELECT F.idMidia, F.faixa, M.video, F.capa, M.duracao, M.titulo FROM filme AS F, midia AS M WHERE F.idMidia = M.idMidia && M.tipo = 0 ORDER BY F.timestamp";
+$ultimos_filmes = PCMidiaFilme::__querySQL($sql, $conn);
 
 ?>
 <!--
@@ -177,9 +181,79 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					}
 				?>
 			
+			<!-- LISTA ÚLTIMOS FILMES CADASTRADOS -->
+			
 			<div class="right-content-heading-left">
-				<h3 class="head">&Uacute;ltimos lancamentos</h3>
+				<h3 class="head">&Uacute;ltimos lancamentos de filmes</h3>
 			</div>
+			
+					<div class="more-reviews">
+						<ul>
+							<?php
+								$cont = 0;
+								foreach($ultimos_filmes as $ult_filme){
+									if($cont < 10){
+										echo "<li><a href = \"filme.php?idMidia=".$ult_filme->getIdMidia()."\"><img src = '" . $ult_filme->getCapa() . "' alt = ''/></a></li>";
+										$cont = $cont + 1;
+									}
+								}
+							?>
+					
+						</ul>
+					</div>
+				
+			
+			<!-- LISTA ÚLTIMOS SERIES CADASTRADOS -->
+			
+			<div class="right-content-heading-left">
+				<h3 class="head">&Uacute;ltimos lancamentos de series</h3>
+			</div>
+			
+					<div class="more-reviews">
+						<ul id="flexiselDemo4">";
+							<?php
+								$cont = 0;
+								foreach($ultimos_filmes as $ult_filme){
+									if($cont < 10){
+										echo "<li><img src = '" . $ult_filme->getCapa() . "' alt = ''/></li>";
+										$cont = $cont + 1;
+									}
+								}
+							?>
+					
+						</ul>
+			
+						<script type="text/javascript">
+							$(window).load(function() {
+
+								$("#flexiselDemo4").flexisel({
+									visibleItems: 4,
+									animationSpeed: 1000,
+									autoPlay: true,
+									autoPlaySpeed: 3000,
+									pauseOnHover: false,
+									enableResponsiveBreakpoints: true,
+									responsiveBreakpoints: {
+										portrait: {
+											changePoint:480,
+											visibleItems: 2
+										},
+										landscape: {
+											changePoint:640,
+											visibleItems: 3
+										},
+										tablet: {
+											changePoint:768,
+											visibleItems: 3
+										}
+									}
+								});
+							});
+						</script>
+						<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+			
+					</div>
+			
 			<div class="right-content-heading-left">
 				<h3 class="head">Filmes mais assistidos</h3>
 			</div>
