@@ -13,7 +13,7 @@ if(!isset($_GET['idMidia'])){
 $idMidia = $_GET["idMidia"];
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];

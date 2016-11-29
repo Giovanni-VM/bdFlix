@@ -4,7 +4,7 @@ session_start();
 include "bd.php";
 include "classes/class_perfil.php";
 include "classes/class_movieList.php";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $idUnfollow = $_GET["idList"];
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";

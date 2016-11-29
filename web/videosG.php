@@ -12,10 +12,11 @@ if(!isset($_GET['genero'])) $genero = "qualquer";
 else $genero = $_GET['genero'];
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
+$idade = $perfil->getIdade();
 ?>
 <!--
 Author: W3layouts
@@ -143,7 +144,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 						$pagAtual = isset($_GET['pagAtual']) ? $_GET['pagAtual'] : 1;
 						if($tpVid == "filme"){
-							$sql = "SELECT DISTINCT f.capa, f.idMidia, f.timestamp, m.titulo, f.contador FROM Filme f, GeneroFilme gf, Midia m WHERE f.idMidia = gf.idFilme";
+							$sql = "SELECT DISTINCT f.capa, f.idMidia, f.timestamp, m.titulo, f.contador FROM Filme f, GeneroFilme gf, Midia m WHERE f.idMidia = gf.idFilme AND f.faixa <= $idade";
 							if($genero != "qualquer")
 							 	$sql = $sql." AND idGenero = '$genero'";
 							$sql = $sql." AND m.idMidia = f.idMidia ORDER BY contador DESC LIMIT 12 OFFSET ";
@@ -174,7 +175,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								}
 							}
 						} else {
-							$sql = "SELECT DISTINCT s.nome, s.capa, s.timestamp FROM Serie s, GeneroSerie gs WHERE s.idSerie = gs.idSerie";
+							$sql = "SELECT DISTINCT s.nome, s.capa, s.timestamp FROM Serie s, GeneroSerie gs WHERE s.idSerie = gs.idSerie AND s.faixa <= $idade";
 							if($genero != "qualquer")
 							 	$sql = $sql." AND gs.idGenero = '$genero'";
 							$sql = $sql." ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";

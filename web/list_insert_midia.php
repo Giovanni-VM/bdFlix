@@ -6,7 +6,7 @@ include "bd.php";
 $idInserido = $_GET["idMidia"];
 $lista = $_SESSION["lista_atual"];
 
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $conn->query("INSERT INTO midiaslist VALUES ($idInserido, $lista)");
 header("Location: search_midia_name.php");

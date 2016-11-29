@@ -6,7 +6,7 @@ include "bd.php";
 $idRemovido = $_GET["idMidia"];
 $lista = $_SESSION["lista_atual"];
 
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $conn->query("DELETE FROM midiaslist WHERE id = $idRemovido AND idList = $lista");
 header("Location: search_midia_name.php");

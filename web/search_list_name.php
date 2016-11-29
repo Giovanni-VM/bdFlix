@@ -7,7 +7,7 @@ include "classes/class_movieList.php";
 include "classes/class_perfil.php";
 include "bd.php";
 
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
 

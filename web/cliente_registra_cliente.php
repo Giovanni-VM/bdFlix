@@ -5,7 +5,7 @@ $_SESSION["err_cli"] = "";
 
 include "bd.php";
 include "classes/class_cliente.php";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $sql = "SELECT email FROM cliente WHERE email = '".$_POST["email"]."'";
 $cadastrados = Cliente::__querySQL($sql, $conn);

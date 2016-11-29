@@ -14,7 +14,7 @@ if(!isset($_GET['nomeSerie'])){
 $nomeSerie = $_GET["nomeSerie"];
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
@@ -149,13 +149,13 @@ function atualizaView(idPerfil, idMidia){
 								if($cont%4 != 0){
 									echo "
 									<div class=\"content-grid\">
-										<a onclick = \"atualizaView(".$idPerfil.", ".$idMid.")\" class=\"play-icon popup-with-zoom-anim\" href=\"#small-dialog\"><img src=\"".$ep["capa"]."\" title=\"allbum-name\" /></a>
+										<a onclick = \"atualizaView(".$idPerfil.", ".$idMid.")\" class=\"play-icon popup-with-zoom-anim\" href=\"#small-dialog".$idMid."\"><img src=\"".$ep["capa"]."\" title=\"allbum-name\" /></a>
 										<h3>".$ep["titulo"]."</h3>
 										<h4> (TEMP: ".$ep["temporada"]." - Ep: ".$ep["episodio"].")</h3>
 										<h5> Assistido: ".$viu."</h5>
-										<a onclick = \"atualizaView(".$idPerfil.", ".$idMid.")\" class=\"button play-icon popup-with-zoom-anim\" href=\"#small-dialog\">Assistir</a>
+										<a onclick = \"atualizaView(".$idPerfil.", ".$idMid.")\" class=\"button play-icon popup-with-zoom-anim\" href=\"#small-dialog".$idMid."\">Assistir</a>
 									</div>
-									<div id=\"small-dialog\" class=\"mfp-hide\">
+									<div id=\"small-dialog$idMid\" class=\"pop_up_play mfp-hide\">
 										<iframe  src=\" ".$ep["video"]."\" frameborder=\"0\" allowfullscreen></iframe>
 									</div>
 									";

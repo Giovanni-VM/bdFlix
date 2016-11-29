@@ -13,7 +13,7 @@ $cli = $_SESSION['cliente'];
 include "bd.php";
 include "classes/class_cliente.php";
 include "classes/class_plano.php";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $sql = "SELECT * FROM cliente WHERE user = '$cli'";
 

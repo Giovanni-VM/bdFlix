@@ -49,8 +49,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="full">
 			<div class="menu">
 				<ul>
-					<li><a href="admin_insere_filme.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
-					<li><a href="contact.php"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
+					<li><a href="admin_cadastros.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
+					<li><a href="admin_gera_relatorio.php"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
 					<li><a href="admin_gera_faturas.php">Faturas</a></li>
 					<li><a href="admin_logout.php" > Sair.</a></li>
 				</ul>
@@ -60,7 +60,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="header">
 			<div class="top-header">
 				<div class="logo">
-					<p><?php echo "Usuario: ".$_SESSION["user"]; ?> </p>
+					<p><?php echo "Usuario: ".$_SESSION["admin"]; ?> </p>
 				</div>
 				<div class="clearfix"></div>
 			</div>

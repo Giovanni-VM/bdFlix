@@ -44,12 +44,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 		<div class="main"> 
 			<ul>
-				<li><a href="admin_insere_filme.php">Cadastrar Filme</a>
-				
-				<li><a href="admin_insere_serie.php">Cadastrar Serie</a>
-				<li><a href="admin_insere_episodio.php">Cadastrar Episodio</a>
-				<li><a href="admin_insere_filme.php">Cadastrar Filme</a>
-				<li><a href="admin_insere_genero.php">Cadastrar Genero</a>
+				<li><a href="admin_insere_serie.php">Editar Séries</a>
+				<li><a href="admin_insere_filme.php">Editar Filmes</a>
+				<li><a href="admin_insere_genero.php">Editar Generos</a>
 			</ul>
 			
 			

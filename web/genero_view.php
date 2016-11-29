@@ -2,7 +2,7 @@
 session_start();
 include "bd.php";
 include "classes/class_genero.php";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 $acao = $_GET["acao"];
 if ($acao == "inserir") {
 	if ($_POST["idGenero"] == NULL) {

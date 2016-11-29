@@ -1,6 +1,6 @@
 <?php
   include "bd.php";
-  $conn = new mysqli($host, $username, $password, $dbname);
+  $conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
   $idPerfil = intval($_POST["idPerfil"]);
   $idMidia = intval($_POST["idMidia"]);

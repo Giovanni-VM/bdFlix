@@ -6,7 +6,7 @@ include "classes/class_midia.php";
 include "classes/class_movieList.php";
 include "bd.php";
 
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $pesquisa = $_SESSION["search_titulo"];
 

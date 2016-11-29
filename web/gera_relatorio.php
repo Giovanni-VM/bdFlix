@@ -3,7 +3,7 @@
 include "classes/class_fatura.php";
 include "bd.php";
 
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 if($_POST["tipo"] == 1){
 	$sql = "SELECT * FROM fatura WHERE dataIni >= '".$_POST["dtInicio"]."' AND dataIni <= '".$_POST["dtFim"]."' AND paga = 1";
@@ -24,7 +24,7 @@ include "classes/class_genero.php";
 
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $conn->close();
 ?>

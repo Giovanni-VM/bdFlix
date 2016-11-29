@@ -13,7 +13,7 @@ include "classes/class_genero_filme.php";
 include "classes/class_midia.php";
 include "classes/class_pc_midiafilme.php";
 
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 
 $sqlG = "SELECT * FROM genero ORDER BY nome";
@@ -87,7 +87,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="header">
 			<div class="top-header">
 				<div class="logo">
-					<p><?php echo "Usuario: ".$_SESSION["user"]; ?> </p>
+					<p><?php echo "Usuario: ".$_SESSION["admin"]; ?> </p>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -152,7 +152,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 		 
 			</div>
-			<div>
+			<div class = "clearfix"></div>
+			<br><br>
+			<div style="overflow: auto; max-height:350px; max-width:1200px">
 				<center>
 					<table cellpadding = "0"  cellspacing = "100" class = "display" id="tabelaCliente">
                         <thead>

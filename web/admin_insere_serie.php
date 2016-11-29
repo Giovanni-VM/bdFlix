@@ -9,7 +9,7 @@ include "classes/class_episodio.php";
 include "classes/class_pc_midiaepisodio.php";
 
 
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 
 if(!isset($_SESSION["adm_logado"]) or !$_SESSION["adm_logado"]){
@@ -96,7 +96,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="header">
 			<div class="top-header">
 				<div class="logo">
-					<p><?php echo "Usuario: ".$_SESSION["user"]; ?> </p>
+					<p><?php echo "Usuario: ".$_SESSION["admin"]; ?> </p>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -159,6 +159,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</form>
 				</div>
 			</div>
+			<div class = "clearfix"></div>
+			<br><br>
 			<div>
 				<center>					 
 					

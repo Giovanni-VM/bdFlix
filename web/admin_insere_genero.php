@@ -9,7 +9,7 @@ if(!isset($_SESSION["adm_logado"]) or !$_SESSION["adm_logado"]){
 	exit();
 }
 
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 $sql2 = "SELECT * FROM genero";
 $generos = Genero::__querySQL($sql2, $conn);
 $genero = new Genero(NULL);
@@ -67,7 +67,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="header">
 			<div class="top-header">
 				<div class="logo">
-					<p><?php echo "Usuario: ".$_SESSION["user"]; ?> </p>
+					<p><?php echo "Usuario: ".$_SESSION["admin"]; ?> </p>
 				</div>
 				<div class="clearfix"></div>
 			</div>

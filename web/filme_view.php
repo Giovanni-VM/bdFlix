@@ -5,7 +5,7 @@ include "classes/class_midia.php";
 include "classes/class_filme.php";
 include "classes/class_genero.php";
 include "classes/class_genero_filme.php";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 $acao = $_GET["acao"];
 if ($acao == "inserir") {
 	if ($_POST["idMidia"] == NULL) {

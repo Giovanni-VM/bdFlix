@@ -11,8 +11,8 @@ include "classes/class_episodio.php";
 include "classes/class_midia.php";
 include "classes/class_pc_midiaepisodio.php";
 
-$sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
-$conn = new mysqli($host, $username, $password, $dbname);
+$sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["admin"]."'";
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 
 $idSerie = $_GET["idSerie"];
@@ -79,7 +79,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="header">
 			<div class="top-header">
 				<div class="logo">
-					<p><?php echo "Usuario: ".$_SESSION["user"]; ?> </p>
+					<p><?php echo "Usuario: ".$_SESSION["admin"]; ?> </p>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -111,6 +111,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 		 
 			</div>
+			<div class ="blank-line"></div>
 			<div>
 				<center>
 					<table cellpadding = "0"  cellspacing = "100" class = "display" id="tabelaCliente">

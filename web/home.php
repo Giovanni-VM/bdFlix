@@ -8,12 +8,14 @@ include "classes/class_preferencia.php";
 include "bd.php";
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
 
 $idPerf = $perfil->getIdPerfil();
+
+$idade = $perfil->getIdade();
 
 if(!isset($_GET['tpVid']))  $tpVid  = "recomendados";
 else $tpVid  = $_GET['tpVid'];
@@ -51,6 +53,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<li><a href="genero.php"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
 					<li><a href="list_main.php"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
 					<li><a href="contact.php"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
+					<li><a href="perfil_logout.php">SAIR</a></li>
 				</ul>
 			</div>
 		<div class="main">
@@ -121,7 +124,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 						$pagAtual = isset($_GET['pagAtual']) ? $_GET['pagAtual'] : 1;
 						if($tpVid == "recomendados"){
-							$sql = "SELECT DISTINCT f.capa, f.idMidia, f.timestamp, m.titulo FROM Filme f, GeneroFilme gf, Midia m WHERE f.idMidia = gf.idFilme";
+							$sql = "SELECT DISTINCT f.capa, f.idMidia, f.timestamp, m.titulo FROM Filme f, GeneroFilme gf, Midia m WHERE f.idMidia = gf.idFilme AND f.faixa <= $idade";
 							$sql = $sql." AND gf.idGenero IN (SELECT idGenero FROM preferencia WHERE idPerfil = $idPerf)";
 							$sql = $sql." AND m.idMidia = f.idMidia ";
                             $sql = $sql." AND m.idMidia NOT IN (SELECT idMidia FROM historico WHERE idPerfil = $idPerf) ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";

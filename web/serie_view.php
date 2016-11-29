@@ -5,7 +5,7 @@ include "classes/class_serie.php";
 include "classes/class_episodio.php";
 include "classes/class_genero.php";
 include "classes/class_genero_serie.php";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 $acao = $_GET["acao"];
 if ($acao == "inserir") {
 	if ($_POST["idSerie"] == NULL) {

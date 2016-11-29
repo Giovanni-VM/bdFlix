@@ -15,7 +15,7 @@ if(!isset($_SESSION["perf_logado"]) or !$_SESSION["perf_logado"]){
 
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];

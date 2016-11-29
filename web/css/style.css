@@ -604,6 +604,11 @@ p.claim {
 	overflow: hidden;
 	margin-bottom:0.5em;	
 }
+.blank-line{
+	width: 100%;
+	height: 50px;
+	margin: 5px 5px 5px 5px;
+}
 .content-grid ul li{
 	display:inline-block;
 }

@@ -13,7 +13,7 @@ $user = $_POST["user"];
 $pass = $_POST["passwd"];
 
 if(valida_login($user) and valida_senha($pass)){
-    $conn = new mysqli($host, $username, $password, $dbname);
+    $conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
     $passwd = md5($pass);
 

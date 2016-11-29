@@ -14,7 +14,7 @@ $idPerf = $_POST['idPerfil'];
 include "bd.php";
 include "classes/class_perfil.php";
 include "valida_campos.php";
-$conn = new mysqli($host, $username, $password, $dbname);
+$conn = new mysqli($host, $username, $password, $dbname); $conn->set_charset("utf8");
 
 $sql = "SELECT * FROM perfil WHERE idPerfil = '$idPerf'";
 
