@@ -65,7 +65,7 @@ function atualizaView(idPerfil, idMidia){
 			<div class="menu">
 				<ul>
 					<li><a href="home.php"><div class="hm"><i class="home1"></i><i class="home2"></i></div></a></li>
-					<li><a href="videosG.html"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
+					<li><a href="videosG.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
 					<li><a class="active" href="reviews.html"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
 					<li><a href="list_main.php"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
 					<li><a href="contact.php"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>

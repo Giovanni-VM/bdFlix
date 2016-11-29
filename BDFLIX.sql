@@ -40,7 +40,8 @@ faixa INT,
 pesquisas INT,
 timestamp TIMESTAMP,
 capa VARCHAR(255),
-descricao VARCHAR(350)
+descricao VARCHAR(350),
+contador INT
 );
 
 CREATE TABLE GeneroFilme (

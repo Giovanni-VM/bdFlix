@@ -143,10 +143,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 						$pagAtual = isset($_GET['pagAtual']) ? $_GET['pagAtual'] : 1;
 						if($tpVid == "filme"){
-							$sql = "SELECT DISTINCT f.capa, f.idMidia, f.timestamp, m.titulo FROM Filme f, GeneroFilme gf, Midia m WHERE f.idMidia = gf.idFilme";
+							$sql = "SELECT DISTINCT f.capa, f.idMidia, f.timestamp, m.titulo, f.contador FROM Filme f, GeneroFilme gf, Midia m WHERE f.idMidia = gf.idFilme";
 							if($genero != "qualquer")
 							 	$sql = $sql." AND idGenero = '$genero'";
-							$sql = $sql." AND m.idMidia = f.idMidia ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";
+							$sql = $sql." AND m.idMidia = f.idMidia ORDER BY contador DESC LIMIT 12 OFFSET ";
 							$offsetSQL = ($pagAtual-1)*12;
 							$sql = $sql.$offsetSQL;
 
