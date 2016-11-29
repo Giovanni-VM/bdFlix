@@ -63,6 +63,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="main-contact">
 		 <div class="contact_info">
 			 <h3>Encontre-nos aqui</h3>
+			 <p><i>CENTRAL: XXX-XXXX</i></p>
+			 <p><i>Suporte: email@provedor.hue <i></p>
 			 <div class="map">
 				<iframe width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="color:#000;text-align:left;font-size:12px">View Larger Map</a></small>
 			</div>
