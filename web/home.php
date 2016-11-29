@@ -1,10 +1,11 @@
 <?php session_start();
+if(!isset($_SESSION["perf_logado"]) || !$_SESSION["perf_logado"]){
+	header('Location: index.php');
+	exit();
+}
 include "classes/class_perfil.php";
-include "classes/class_filme.php";
-include "classes/class_serie.php";
-include "classes/class_pc_midiafilme.php";
+include "classes/class_preferencia.php";
 include "bd.php";
-
 
 $sql = "SELECT * FROM perfil WHERE nome = '". $_SESSION["user"]."'";
 $conn = new mysqli($host, $username, $password, $dbname);
@@ -12,25 +13,10 @@ $conn = new mysqli($host, $username, $password, $dbname);
 $p = Perfil::__querySQL($sql,$conn);
 $perfil = $p[0];
 
-//$sql = "SELECT * FROM filme ORDER BY timestamp";
-$sql = "SELECT F.idMidia, F.faixa, F.trailer, F.pesquisas, F.timestamp, F.capa, F.descricao FROM filme AS F, historico AS H WHERE H.idMidia = F.idMidia ORDER BY H.timestamps";
-$filmes = Filme::__querySQL($sql, $conn);
+$idPerf = $perfil->getIdPerfil();
 
-//ULTIMAS SÉRIES ADICIONADAS
-$sql = "SELECT * FROM serie ORDER BY timestamp";
-$series = Serie::__querySQL($sql, $conn);
-
-//ULTIMOS FILMES ADICIONADOS
-$sql = "SELECT F.idMidia, F.faixa, M.video, F.capa, M.duracao, M.titulo FROM filme AS F, midia AS M WHERE F.idMidia = M.idMidia && M.tipo = 0 ORDER BY F.timestamp";
-$ultimos_filmes = PCMidiaFilme::__querySQL($sql, $conn);
-
-//FILMES MAIS VISTOS
-$sql = "SELECT F.idMidia, F.faixa, F.pesquisas, F.timestamp, F.capa, F.descricao FROM filme AS F, historico AS H WHERE F.idMidia = H.idMidia ORDER BY H.contador";
-$filmes_mais_vistos = Filme::__querySQL($sql, $conn);
-
-//SERIES MAIS VISTAS
-$sql = "SELECT * FROM serie WHERE idSerie IN( SELECT E.idSerie FROM episodio AS E, historico AS H WHERE E.idMidia = H.idMidia ORDER BY H.contador)";
-$series_mais_vistas = Serie::__querySQL($sql, $conn);
+if(!isset($_GET['tpVid']))  $tpVid  = "recomendados";
+else $tpVid  = $_GET['tpVid'];
 
 ?>
 <!--
@@ -42,7 +28,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-<title>BdFlix</title>
+<title>Cinema em casa | Videos</title>
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 <!-- Custom Theme files -->
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -51,154 +37,189 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Cinema Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--webfont-->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 </head>
-<body background= >
+<body>
 	<!-- header-section-starts -->
 	<div class="full">
 			<div class="menu">
 				<ul>
-					<li><a class="active" href="home.php"><i class="home"></i></a></li>
-					<li><a href="videosG.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
+					<li><a href="home.php"><div class="hm"><i class="home1"></i><i class="home2"></i></div></a></li>
+					<li><a class="active" href="videosG.php"><div class="video"><i class="videos"></i><i class="videos1"></i></div></a></li>
 					<li><a href="genero.php"><div class="cat"><i class="watching"></i><i class="watching1"></i></div></a></li>
 					<li><a href="list_main.php"><div class="bk"><i class="booking"></i><i class="booking1"></i></div></a></li>
 					<li><a href="contact.php"><div class="cnt"><i class="contact"></i><i class="contact1"></i></div></a></li>
 				</ul>
 			</div>
 		<div class="main">
-		<div class="header">
-			<div class="top-header">
+		<div class="video-content">
+			<div class="top-header span_top">
 				<div class="logo">
 					<p><?php echo "Usuario: ".$_SESSION["user"]; ?> </p>
 				</div>
-				<div class="search">
+				<div class="search v-search">
 					<form>
-						<input type="text" value="Search.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search..';}"/>
+						<input type="text" value="Pesquise.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Pesquise..';}"/>
 						<input type="submit" value="">
 					</form>
-		 		</div>
+				</div>
 				<div class="clearfix"></div>
 			</div>
+			<div class="right-content">
+				<div class="right-content-heading">
+					<div class="right-content-heading-left">
+						<!-- <h3 class="head">Latest Colletcion of videos</h3> -->
+					</div>
+				</div>
+				<!-- pop-up-box -->
+		<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+		<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+		 <script>
+				$(document).ready(function() {
+				$('.popup-with-zoom-anim').magnificPopup({
+					type: 'inline',
+					fixedContentPos: false,
+					fixedBgPos: true,
+					overflowY: 'auto',
+					closeBtnInside: true,
+					preloader: false,
+					midClick: true,
+					removalDelay: 300,
+					mainClass: 'my-mfp-zoom-in'
+				});
+				});
+		</script>
 
-			<!-- LISTA ÚLTIMOS FILMES CADASTRADOS -->
-			
-			<div class="right-content-heading-left">
-				<h3 class="head">&Uacute;ltimos lancamentos de filmes</h3>
-			</div>
-			
-			<div class="more-reviews">
-			
-					<div class = "content-grids">
-						<?php
+		<!--//pop-up-box -->
+
+				<div class="content-grids">
+
+					<form method = "GET" action = "" style = "margin-bottom: 50px;">
+						<div class="form-group">
+	  					<label for="tpVid">O Que Deseja Ver</label>
+	  					<select class="form-control" id="tpVid" name = "tpVid">
+	    					<option value = "recomendados"<?php if($tpVid == "recomendado") echo " selected"; ?>>Recomendados para Você</option>
+	    					<option value = "assistidos"<?php if($tpVid == "assistidos") echo " selected"; ?>>Assistidos por Você</option>
+	  					</select>
+						</div>
+						<div class = "form-group">
+							<input type = "submit" value = "Aplicar">
+						</div>
+					</form>
+
+					<?php
+						$numFilmes = 0;
+
+						if($tpVid == "recomendados"){
+							$r1 = mysqli_query($conn, "SELECT COUNT(*) FROM GeneroFilme WHERE idGenero IN (SELECT idGenero FROM preferencia WHERE idPerfil = $idPerf)");
+						} else {
+							$r1 = mysqli_query($conn, "SELECT COUNT(*) FROM historico H, midia M WHERE H.idPerfil = $idPerf AND H.idMidia = M.idMidia AND M.tipo = 0");
+						}
+						$numFilmes = mysqli_fetch_row($r1)[0];
+
+						$pagAtual = isset($_GET['pagAtual']) ? $_GET['pagAtual'] : 1;
+						if($tpVid == "recomendados"){
+							$sql = "SELECT DISTINCT f.capa, f.idMidia, f.timestamp, m.titulo FROM Filme f, GeneroFilme gf, Midia m WHERE f.idMidia = gf.idFilme";
+							$sql = $sql." AND gf.idGenero IN (SELECT idGenero FROM preferencia WHERE idPerfil = $idPerf)";
+							$sql = $sql." AND m.idMidia = f.idMidia ";
+                            $sql = $sql." AND m.idMidia NOT IN (SELECT idMidia FROM historico WHERE idPerfil = $idPerf) ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";
+							$offsetSQL = ($pagAtual-1)*12;
+							$sql = $sql.$offsetSQL;
+
+							$r = mysqli_query($conn, $sql);
 							$cont = 0;
-							foreach($ultimos_filmes as $ult_filme){
-								if($cont < 2){
-									echo "<div class = 'content-grid'><a class = 'play-icon' href = \"filme.php?idMidia=".$ult_filme->getIdMidia()."\"><img src = '" . $ult_filme->getCapa() . "' alt = ''/></a></div>";
-									$cont = $cont + 1;
+
+							while ($filme = mysqli_fetch_assoc($r)) {
+								$cont++;
+								if($cont%4 != 0){
+									echo "
+									<div class=\"content-grid\">
+										<a href=\"filme.php?idMidia=".$filme["idMidia"]."\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\" /></a>
+										<h3>".$filme["titulo"]."</h3>
+										<a class=\"button\" href=\"filme.php?idMidia".$filme["idMidia"]."\">Assistir</a>
+									</div>
+									";
+								} else { // to cansado
+									echo "
+									<div class=\"content-grid last-grid\">
+										<a href=\"filme.php?idMidia=".$filme["idMidia"]."\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\"/></a>
+										<h3>".$filme["titulo"]."</h3>
+										<a class=\"button\" href=\"filme.php?idMidia=".$filme["idMidia"]."\">Assistir</a>
+									</div>
+									";
 								}
 							}
-						?>
-					</div>
-			</div>
-			<div class = "clearfix"></div>
-			
-			
-				
-			
-			<!-- LISTA ÚLTIMOS SERIES CADASTRADOS -->
-			
+						} else {
+							$sql = "SELECT DISTINCT f.capa, f.idMidia, f.timestamp, m.titulo FROM Filme f, Midia m WHERE m.idMidia = f.idMidia";
+                            $sql = $sql." AND m.idMidia IN (SELECT idMidia FROM historico WHERE idPerfil = $idPerf) ORDER BY `timestamp` DESC LIMIT 12 OFFSET ";
+							$offsetSQL = ($pagAtual-1)*12;
+							$sql = $sql.$offsetSQL;
 
-			<div class="right-content-heading-left">
-				<h3 class="head">&Uacute;ltimos lancamentos de series</h3>
-			</div>
-			
-			<div class="more-reviews">
-			
-					<div class = "content-grids">
-						<?php
+
+							$r = mysqli_query($conn, $sql);
 							$cont = 0;
-							foreach($series as $serie){
-								if($cont < 2){
-									echo "<div class = 'content-grid'><a class='play-icon' href = \"serie.php?nomeSerie=".$serie->getNome()."\"><img src = '" . $serie->getCapa() . "' alt = ''/></a></div>";
-									$cont = $cont + 1;
+
+							while ($filme = mysqli_fetch_assoc($r)) {
+								$cont++;
+								if($cont%4 != 0){
+									echo "
+									<div class=\"content-grid\">
+										<a href=\"filme.php?idMidia=".$filme["idMidia"]."\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\" /></a>
+										<h3>".$filme["titulo"]."</h3>
+										<a class=\"button\" href=\"filme.php?idMidia".$filme["idMidia"]."\">Assistir</a>
+									</div>
+									";
+								} else { // to cansado
+									echo "
+									<div class=\"content-grid last-grid\">
+										<a href=\"filme.php?idMidia=".$filme["idMidia"]."\"><img src=\"".$filme["capa"]."\" title=\"allbum-name\"/></a>
+										<h3>".$filme["titulo"]."</h3>
+										<a class=\"button\" href=\"filme.php?idMidia=".$filme["idMidia"]."\">Assistir</a>
+									</div>
+									";
 								}
 							}
-						?>
-					</div>
-			</div>
-			<div class = "clearfix"></div>
-			
-			
-					
-			<div class="right-content-heading-left">
-				<h3 class="head">Filmes mais assistidos</h3>
-			</div>
-			
-			<div class="more-reviews">
-					<div class="content-grids">
-						<?php
-							$cont = 0;
-							foreach($filmes_mais_vistos as $filme_mv){
-								if($cont < 2){
-									echo "<div class = 'content-grid'><a class='play-icon' href = \"filme.php?idMidia=".$filme_mv->getIdMidia()."\"><img src = '" . $filme_mv->getCapa() . "' alt = ''/></a></div>";
-									$cont = $cont + 1;
+						}
+
+					?>
+
+
+					<div class="clearfix"> </div>
+					<!---start-pagenation----->
+					<div class="pagenation">
+						<ul>
+							<?php
+								//$numPags = 5;
+								$numPags = ($numFilmes/12 > intval($numFilmes/12)) ? intval($numFilmes/12)+1 : intval($numFilmes/12);
+								for($i = 1; $i <= $numPags; $i++){
+									if($i == $pagAtual)
+										echo "<li><a href=\"?pagAtual=$i\" style = \"color:#FF8C00;\">$i</a></li>";
+									else
+										echo "<li><a href=\"?pagAtual=$i\">$i</a></li>";
 								}
-							}
-						?>
+								$proximaPag = $pagAtual+1;
+								echo "<li><a href=\"?pagAtual=$proximaPag\">Proxima</a></li>";
+							?>
+						</ul>
 					</div>
+					<div class="clearfix"> </div>
+					<!---End-pagenation----->
+				</div>
 			</div>
-			<div class = "clearfix"></div>
-
-			
-			
-			<div class="right-content-heading-left">
-				<h3 class="head">Series mais assistidas</h3>
+			<div class="clearfix"> </div>
 			</div>
-			
-			<div class="more-reviews">
-			
-					<div class="content-grids">
-						<?php
-							$cont = 0;
-							foreach($series_mais_vistas as $serie_mv){
-								if($cont < 2){
-									echo "<div class = 'content-grid'><a class='play-icon' href = \"serie.php?nomeSerie=".$serie_mv->getNome()."\"><img src = '" . $serie_mv->getCapa() . "' alt = ''/></a></div>";
-									$cont = $cont + 1;
-								}
-							}
-						?>
-					</div>
-			</div>
-			<div class = "clearfix"></div>
-			
-			<div class="right-content-heading-left">
-				<h3 class="head">Filmes mais procurados nos seus g&ecirc;neros favoritos</h3>
-			</div>
-		</div>
-
-		<!-- <div class="video">
-			<iframe  src="https://www.youtube.com/embed/2LqzF5WauAw" frameborder="0" allowfullscreen></iframe>
-		</div> -->
-
-
-	<div class="footer">
-		<h6 class="claim">Desemvolvido por:</h6>
-		<ul>
-			<p class="claim">Giovanni Moreira - 85284</p>
-			<p class="claim">Gustavo Uliana - 85248</p>
-			<p class="claim">Fábio Martins - 85282</p>
-			<p class="claim">Igor Cardoso - 85265</p>
-		</ul>
+	<!-- <div class="footer">
+		<h6>Disclaimer : </h6>
+		<p class="claim">This is a freebies and not an official website, I have no intention of disclose any movie, brand, news.My goal here is to train or excercise my skill and share this freebies.</p>
+		<a href="example@mail.com">example@mail.com</a>
 		<div class="copyright">
 			<p> Template by  <a href="http://w3layouts.com">  W3layouts</a></p>
 		</div>
-	</div>
-	</div>
+	</div> -->
 	</div>
 	<div class="clearfix"></div>
+	</div>
 </body>
 </html>

@@ -34,7 +34,7 @@ $idCli = $cliente->getIdCliente();
 
 $res->close();
 
-$sql = "SELECT * FROM fatura WHERE idCliente = $idCli ORDER BY dataIni DESC LIMIT 20";
+$sql = "SELECT * FROM fatura WHERE idCliente = $idCli ORDER BY dataIni DESC";
 
 $faturas = Fatura::__querySQL($sql, $conn);
 
